@@ -1,0 +1,26 @@
+{
+  "entities": {
+    "PortfolioMain": {
+      "title": "PortfolioMain",
+      "description": "Main portfolio settings",
+      "type": "object",
+      "properties": {
+        "hero": { "type": "object" },
+        "metrics": { "type": "array" },
+        "nodes": { "type": "array" },
+        "specs": { "type": "array" },
+        "experiences": { "type": "array" },
+        "capabilities": { "type": "array" },
+        "resumeUrl": { "type": "string" },
+        "navLabels": { "type": "object" },
+        "dashboardLabels": { "type": "object" }
+      }
+    }
+  },
+  "firestore": {
+    "/portfolio/{docId}": {
+      "schema": "PortfolioMain",
+      "description": "Portfolio data"
+    }
+  }
+}

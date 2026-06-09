@@ -1,0 +1,2663 @@
+{
+  "navLabels": {
+    "log": "LOG",
+    "ping": "PING",
+    "media": "MEDIA",
+    "admin": "ADMIN",
+    "dash": "DASH"
+  },
+  "specs": [
+    {
+      "value": 92,
+      "id": "s1",
+      "label": "Product Strategy"
+    },
+    {
+      "label": "Ops Design",
+      "value": 88,
+      "id": "s2"
+    },
+    {
+      "value": 75,
+      "id": "s3",
+      "label": "Marketplace Systems"
+    },
+    {
+      "label": "Data Analytics",
+      "id": "s4",
+      "value": 80
+    }
+  ],
+  "metrics": [
+    {
+      "label": "EFFICIENCY_GAIN",
+      "value": "+45%",
+      "id": "m1"
+    },
+    {
+      "value": "1.2M",
+      "id": "m2",
+      "label": "TX_VOLUME"
+    },
+    {
+      "label": "UPTIME",
+      "value": "99.99%",
+      "id": "m3"
+    },
+    {
+      "label": "LATENCY",
+      "value": "12ms",
+      "id": "m4"
+    }
+  ],
+  "nodes": [
+    {
+      "content": {
+        "assetsProve": "The platform's live dashboards prove real-time matching accuracy by overlaying ELD geofence logs directly with carrier invoice lines, instantly highlighting and blocking duplicate line-item claims.",
+        "productBucket": "AI-Native Logistics Decision Intelligence & Agentic TMS",
+        "headerId": "Payment_PROTOCOL_V1.0",
+        "section2": "[02_SOLUTION]",
+        "solutions": "AI agents validate trip evidence, apply finance guardrails and decide whether to auto-approve, hold, partially approve or escalate payment.",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "solutionCode": "const evaluateFreightBill = async (indent, invoice, telemetry) => { const poMatch = await ERP.validatePO(indent.id, invoice.total); const epodValid = await OCR.verifySignature(invoice.epodUrl); const transitMatch = telemetry.gateOutTime - telemetry.gateInTime <= indent.slaMaxDuration; if (poMatch && epodValid && transitMatch) { return { status: 'AUTO_APPROVED', routingKey: 'ACH_IMMEDIATE' }; } return { status: 'HOLD_FOR_AUDIT', code: 'SLA_VIOLATION' }; };",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "section1": "[01_PROBLEM]",
+        "sectionProve": "What this asset proves",
+        "buckets": [
+          {
+            "label": "Autonomous Audits",
+            "id": "b1",
+            "primary": true
+          },
+          {
+            "id": "b2",
+            "primary": false,
+            "label": "Fintech Infrastructure"
+          },
+          {
+            "id": "b3",
+            "primary": false,
+            "label": "Telemetry Ledger"
+          },
+          {
+            "label": "AI-Agents",
+            "id": "b4",
+            "primary": true
+          }
+        ],
+        "audiences": [
+          {
+            "need": "Wants to eliminate overpayments, stop recurring billing errors, and automate tedious freight reconciliation tasks securely.",
+            "id": "aud1",
+            "pri": "Primary",
+            "who": "Director of Logistics Finance"
+          },
+          {
+            "need": "Seeks end-to-end working capital optimization, absolute budget transparency, and stronger, more integrated carrier network alliances.",
+            "id": "aud2",
+            "who": "Global Supply Chain VP",
+            "pri": "Secondary"
+          },
+          {
+            "pri": "Tertiary",
+            "who": "Corporate Controller",
+            "id": "aud3",
+            "need": "Requires robust internal controls, continuous audit trail documentation, and direct, secure ledger ERP integration."
+          }
+        ],
+        "sectionBucket": "Category / product bucket",
+        "figName": "FIG_01: NEW",
+        "solutionTitle": "Autonomous, explainable logistics Payment decision agents",
+        "sectionKpi": "[KPIs]",
+        "impact": "",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "problem": "Transport indents, vendor checks, invoices and payment approvals still move through calls, Excel and manual finance review. This creates payment delay, fraud risk, duplicate claims and weak audit visibility.",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "stat2Lbl": "Fraud Detection Rate",
+        "systemFlowContent": "The framework ingests telemetry events from the TMS, extracts unstructured invoice data using multi-modal models, validates findings against financial policy rails, and triggers direct bank APIs for execution.",
+        "targetAudience": "",
+        "impactTiles": [
+          {
+            "id": "tile1",
+            "value": "-85%",
+            "s": "Slashes administrative invoice settlement cycles from days to under three minutes total.",
+            "k": "CYCLE TIME REDUCTION"
+          },
+          {
+            "k": "PAYMENT MATCH ACCURACY",
+            "value": "99.8%",
+            "id": "tile2",
+            "s": "Saves thousands monthly by systematically validating accessory and demurrage charges before payments occur."
+          },
+          {
+            "id": "tile3",
+            "value": "-30%",
+            "s": "Eliminates manual verification efforts, letting auditors focus strictly on high-risk outlier anomalies.",
+            "k": "FREIGHT AUDITING OVERHEAD"
+          },
+          {
+            "k": "CARRIER RETENTION RATE",
+            "id": "tile4",
+            "s": "Improves partner carrier sentiment by accelerating driver payouts via automated bank settlement.",
+            "value": "+14%"
+          }
+        ],
+        "stat1Val": "70%",
+        "solutionFlow": [
+          {
+            "t": "Telemetry Ingestion & Matching",
+            "d": "The system automatically pulls active vehicle geofencing records and matches physical gate-in times against the original TMS freight indent.",
+            "n": "1",
+            "id": "sf1"
+          },
+          {
+            "id": "sf2",
+            "n": "2",
+            "d": "The agent extracts unstructured invoice data and proof of delivery receipts, classifying accessorial fees like detention, demurrage, or fuel adjustments.",
+            "t": "Multi-Modal Document Extraction"
+          },
+          {
+            "id": "sf3",
+            "n": "3",
+            "d": "An embedded rules processor cross-references calculated transit metrics against active carrier contracts to flags overcharges.",
+            "t": "Contractual SLA Guardrails Check"
+          },
+          {
+            "t": "Ledger Post & Direct Bank Run",
+            "d": "Upon successful validation, the agent records the transaction in SAP/Oracle ERP and triggers an immediate ACH bank transfer.",
+            "n": "4",
+            "id": "sf4"
+          }
+        ],
+        "proofs": [
+          {
+            "id": "p1",
+            "nm": "Telemetry Reconciliation UI",
+            "ds": "Demonstrates real-time correlation of geographical geofencing arrivals side-by-side with carrier accessorial invoices."
+          },
+          {
+            "id": "p2",
+            "nm": "Dispute Resolution Workspace",
+            "ds": "Shows how anomalous line items are flagged, isolated, and automatically routed with contextual recommendations."
+          },
+          {
+            "ds": "Displays the exact double-entry accounting records written seamlessly to platforms like SAP S/4HANA.",
+            "nm": "Direct ERP Writeback Logs",
+            "id": "p3"
+          },
+          {
+            "id": "p4",
+            "nm": "SLA Threshold Workspace",
+            "ds": "Illustrates the drag-and-drop rule configuration interface used by finance to define acceptable payment tolerances."
+          }
+        ],
+        "stat2Val": "95%",
+        "gtms": [
+          {
+            "nm": "Historical Leakage Audits",
+            "ds": "Execute zero-risk trial audits on prospective client's historical freight records to identify and prove immediate ROI potential.",
+            "id": "g1"
+          },
+          {
+            "ds": "List pre-integrated platform connectors on core logistics systems to streamline client integration and onboard fast.",
+            "nm": "TMS App Store Placement",
+            "id": "g2"
+          },
+          {
+            "id": "g3",
+            "ds": "Partner with supply chain finance banks to offer quick payment discounts using our reliable verification ledger.",
+            "nm": "Financial Banking Alliances"
+          },
+          {
+            "id": "g4",
+            "ds": "Distribute whitepapers showcasing how automating payment loops actively drives carrier performance and pricing power.",
+            "nm": "SLA Performance Reports"
+          }
+        ],
+        "scope": "Decision Intelligence · Payments · TMS",
+        "sectionSystemFlow": "System flow · how data moves",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "sectionGtm": "Use in GTM / launch",
+        "systemFlow": [
+          {
+            "layer": "Data Inflow Layer",
+            "what": "Ingests high-throughput telemetry updates, ELD ping feeds, and transactional webhook updates from global TMS platforms.",
+            "id": "sys1",
+            "name": "Kafka Event Pipeline"
+          },
+          {
+            "what": "Applies cognitive optical character recognition (OCR) and financial logic rules to parse bills of lading and assess dispute risks.",
+            "id": "sys2",
+            "name": "AI Decision Agent Node",
+            "layer": "Orchestration & Validation Layer"
+          },
+          {
+            "name": "ERP Ledger Sync Hub",
+            "id": "sys3",
+            "what": "Executes double-entry bookkeeping writes and coordinates secure REST calls to corporate clearinghouse bank APIs.",
+            "layer": "Settlement & Ledger Layer"
+          }
+        ],
+        "stat1Lbl": "Autonomous Approval Rate",
+        "useGtm": "We are executing a multi-pronged GTM strategy by launching pre-built connectors on the Salesforce MuleSoft and SAP App Store networks, alongside co-selling initiatives targeting logistics leaders at enterprise freight organizations. We support this with a sandbox environment allowing pilot accounts to upload historic carrier invoices to demonstrate instant leakage detection.",
+        "role": "Product_Disbursal",
+        "section3": "[03_IMPACT]",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "status": "DEMO_READY",
+        "section4": "Target audience"
+      },
+      "assets": {
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778934767999_ChatGPT%20Image%20May%2016%2C%202026%2C%2006_02_03%20PM.png?alt=media&token=fd2fd5a1-28c7-440f-a0b1-490e9fe61c62",
+        "deckSize": "",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778935024157_AI%20agents%20execute%20logistics%20while%20deterministic%20rules%20ensure%20safety.png?alt=media&token=8cb0af69-7f96-43c8-9593-352e18ff3470",
+        "deckUrl": "",
+        "deckText": "",
+        "videoDuration": "",
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778933351156_Managing%20High%20Volume%20Logistics%20Payments%20in%20a%20TMS.mp4?alt=media&token=bc41c89a-c0c1-43f3-8728-71780562a8e0"
+      },
+      "id": "node-1778932740985",
+      "date": "2026.5",
+      "title": "Payment  manual decision leads  to logistics decision bottleneck",
+      "description": "Enterprise supply chains suffer from fragmented, manual decision-making across transport indents and payment disbursements, leading to high operational latency"
+    },
+    {
+      "title": "Manual Indent Decision Delays",
+      "description": "Transport indents are approved through calls, Excel, WhatsApp, vendor memory, and manual checks. This causes slow approvals, wrong vendor selection, budget leakage, and poor audit visibility.",
+      "content": {
+        "section4": "[04_TARGET_AUDIENCE]",
+        "status": "STATUS",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "section3": "[03_IMPACT]",
+        "role": "Product_indent",
+        "stat1Lbl": "Auto-Approval Rate",
+        "useGtm": "Start with companies handling high daily indent volume. Sell as “reduce manual transport approval time and stop budget leakage.” Launch first as dashboard + rule engine, then add auto-approval and vendor negotiation workflow.",
+        "systemFlow": [
+          {
+            "layer": "Event Ingestion & Hook Layer",
+            "id": "sys1",
+            "what": "Ingests high-velocity shipping requests, normalizes unstructured payload variants, and queues them for low-latency rule valuation.",
+            "name": "Kafka Event Stream & REST Gateways"
+          },
+          {
+            "what": "Processes nested criteria including geofences, weight tiers, tax compliance, insurance limits, and historical supplier SLAs in under 15ms.",
+            "id": "sys2",
+            "name": "Rete-Algorithm Policy Evaluator",
+            "layer": "Rules Engine Core"
+          },
+          {
+            "layer": "Bidirectional Integration Hub",
+            "name": "ERP Writeback & Notification Broker",
+            "id": "sys3",
+            "what": "Transmits confirmed assignments back to core ERP databases, updating freight records and alerting suppliers via API or automated portals."
+          }
+        ],
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "scope": "logistics , protocol",
+        "gtms": [
+          {
+            "id": "g1",
+            "ds": "Offer enterprises a zero-risk 14-day data-ingestion analysis to expose past off-contract spending and identify instant savings.",
+            "nm": "Historical Spot-Rate Leakage Pilot"
+          },
+          {
+            "nm": "Pre-Built Integration Connector Packs",
+            "ds": "Deliver standard API setups for SAP TM, Oracle OTM, and BlueYonder, bringing deployment times down to under 3 weeks.",
+            "id": "g2"
+          },
+          {
+            "id": "g3",
+            "nm": "Value-Share Proof of Concept Pricing",
+            "ds": "Align commercial pricing directly with the freight savings achieved by eliminating manual leaks during the initial 90 days."
+          },
+          {
+            "ds": "Provide dispatch coordinators with custom playbooks to configure fallback parameters, turning administrative tasks into strategic management.",
+            "nm": "Operational Hero Training Program",
+            "id": "g4"
+          }
+        ],
+        "stat2Val": "70%",
+        "solutionFlow": [
+          {
+            "id": "sf1",
+            "t": "Indent Initialization & Ingestion",
+            "d": "The ERP triggers a webhook pushing the freight demand payload including origin, destination, vehicle type, and target budget.",
+            "n": "1"
+          },
+          {
+            "id": "sf2",
+            "n": "2",
+            "t": "Real-time Multi-Constraint Evaluation",
+            "d": "The engine cross-checks the dispatch details against active rate cards, compliance certs, and current transport budget limits."
+          },
+          {
+            "id": "sf3",
+            "n": "3",
+            "d": "The system runs a matching sequence, selecting the best-performing contracted carrier, fallback option, or triggering a spot-bidding flow.",
+            "t": "Algorithmic Carrier Matching"
+          },
+          {
+            "id": "sf4",
+            "d": "The decision is automatically pushed back to update the transport order status, generating an unalterable transaction ledger entry.",
+            "t": "ERP Writeback & Audit Logging",
+            "n": "4"
+          }
+        ],
+        "proofs": [
+          {
+            "nm": "Visual Policy Builder",
+            "ds": "Demonstrates drag-and-drop workflow setups for SLA, cost caps, and compliance rules directly inside the management console.",
+            "id": "p1"
+          },
+          {
+            "nm": "Carrier Performance Matrix",
+            "ds": "Shows dynamic, real-time leaderboard rankings computed from historical arrival latencies and freight rejection rates.",
+            "id": "p2"
+          },
+          {
+            "id": "p3",
+            "ds": "Illustrates how operators can test and dry-run potential routing policy changes on past demand scenarios before deploying live.",
+            "nm": "Simulated Rule Sandbox"
+          },
+          {
+            "id": "p4",
+            "nm": "Immutable Decision Ledger",
+            "ds": "Displays the step-by-step verification breakdown, detailing why specific vendors were chosen or disqualified for any given shipment."
+          }
+        ],
+        "stat1Val": "60%",
+        "impactTiles": [
+          {
+            "value": "94% Reduction",
+            "id": "tile1",
+            "s": "Cuts manual evaluation and messaging back-and-forth from 4 hours down to under 30 seconds per dispatch.",
+            "k": "INDENT CYCLE TIME"
+          },
+          {
+            "k": "FREIGHT BUDGET LEAKAGE",
+            "value": "12.4% Saved",
+            "s": "Stops off-contract carrier selection and unauthorized spot-rate overrides by enforcing absolute cost limits.",
+            "id": "tile2"
+          },
+          {
+            "k": "DECISION TRACEABILITY",
+            "id": "tile3",
+            "value": "100%",
+            "s": "Provides fully structured, auditable histories of every single automated and human-overridden carrier assignment."
+          },
+          {
+            "value": "98.7%",
+            "s": "Prioritizes carriers based on verified, real-time metrics, reducing transit delays and loading-dock waiting time.",
+            "id": "tile4",
+            "k": "SLA COMPLIANCE"
+          }
+        ],
+        "targetAudience": "Transport teams, logistics companies, 3PL/4PL players, enterprise shippers, procurement teams, fleet/vendor management teams.",
+        "stat2Lbl": "Decision Time Reduction",
+        "systemFlowContent": "Indent Request\n→ Input Check\n→ Validate lane, load, SLA, budget, requester\n→ Check rules: compliance, scope, budget, authority\n→ LLM reasoning checks history, gaps, vendor/rate logic\n→ Decision routing\n→ Auto-approve / Escalate / Negotiate / Ask info / Reject\n→ Audit log & learning",
+        "problem": "Transport indents are approved through calls, Excel, WhatsApp, vendor memory, and manual checks. This causes slow approvals, wrong vendor selection, budget leakage, and poor audit visibility.",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "sectionKpi": "[KPIs]",
+        "impact": "Faster indent approval, less manual dependency, better vendor selection, reduced budget leakage, and clear audit trail.",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "figName": "FIG_01: NEW",
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "audiences": [
+          {
+            "need": "Needs absolute visibility into freight spend leaks, contract adherence, and automation levels across regional warehouses.",
+            "id": "aud1",
+            "who": "Head of Supply Chain & Logistics",
+            "pri": "Primary"
+          },
+          {
+            "id": "aud2",
+            "who": "Transport Operations Manager",
+            "pri": "Secondary",
+            "need": "Wants to eliminate daily chaos caused by manual phone calls, WhatsApp chains, and legacy Excel tracking."
+          },
+          {
+            "pri": "Tertiary",
+            "id": "aud3",
+            "who": "Compliance & Finance Controller",
+            "need": "Wants an indisputable digital audit trail of freight billing authorizations to guarantee SOX and internal policy compliance."
+          }
+        ],
+        "solutionTitle": "TMS Indent Decision Agent",
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "buckets": [
+          {
+            "id": "b1",
+            "primary": true,
+            "label": "Autonomous Logistics"
+          },
+          {
+            "id": "b2",
+            "primary": false,
+            "label": "Decision Intelligence"
+          },
+          {
+            "id": "b3",
+            "primary": false,
+            "label": "Freight Fintech"
+          },
+          {
+            "label": "Real-time Auditing",
+            "primary": false,
+            "id": "b4"
+          }
+        ],
+        "section1": "[01_PROBLEM]",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "solutionCode": "1. Capture indent details: lane, load, budget, vendor quote.\n2. Enrich with vendor history, serviceability, rates, SLA, compliance.\n3. Run brain loop: perceive → act → observe.\n4. Apply gates: validate, scope, compliance, budget, authority.\n5. Decide outcome: auto-approve, escalate, negotiate, clarify, or reject.\n6. Maintain live dashboard and event log for audit.",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "section2": "[02_SOLUTION]",
+        "solutions": "A decision layer inside TMS that reads every indent, checks vendor, budget, compliance, authority, and route rules, then gives the right outcome automatically.",
+        "headerId": "Indent_PROTOCOL_V1.0",
+        "productBucket": "TMS Automation / Transport Procurement / Decision Intelligence / Control Tower",
+        "assetsProve": "Live TMS dashboard, KPI cards, indent processing flow, brain/rules/decision logic, rule gates, event log, auto-approval/escalation/rejection examples, and wireframe views."
+      },
+      "assets": {
+        "deckText": "",
+        "deckUrl": "",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778849212826_Decision%20logic%20architectures%20leverage%20LLM%20reasoning%20and%20structured%20guardrails.png?alt=media&token=e28ec8f4-3771-4ab4-ac78-ba6d36cf467d",
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778927190829_ChatGPT%20Image%20May%2016%2C%202026%2C%2003_56_09%20PM.png?alt=media&token=dbe03fce-3d24-4605-a469-0329fab2a007",
+        "deckSize": "",
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778926850554_TMS%20Dashboard%20for%20Finding%20the%20Correct%20Vehicle.mp4?alt=media&token=f1494e3e-749a-4514-bc00-75300c44e3c9",
+        "videoDuration": ""
+      },
+      "id": "node-1778848872217",
+      "date": "2024.Q5"
+    },
+    {
+      "description": "Manual invoice audits are slow, inconsistent, and easy to game.\nOverclaims in fuel, detention, toll, and weight create payment leakage and fraud risk.",
+      "title": "Invoice-payment mismatch and leakage",
+      "date": "2026.05",
+      "id": "node-1779111654161",
+      "content": {
+        "status": "STATUS",
+        "section3": "[03_IMPACT]",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "section4": "[04_TARGET_AUDIENCE]",
+        "useGtm": "Start with 3–5 anchor logistics customers (high invoice volume).\nLaunch as “audit assist” first (human-in-loop), then move to auto-approve thresholds.\nPrice by audited invoice volume + fraud savings proof.\nPublish pilot case studies: cycle-time reduction + leakage prevented.\nIntegrate with existing TMS/ERP first to reduce adoption friction.",
+        "stat1Lbl": "Auto-Audit Approval Rate ",
+        "role": "Pricing_Finance Manager",
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "systemFlow": [
+          {
+            "what": "Ingests carrier billing documents, converting arbitrary formats and EDI 210 formats into a unified transaction JSON schema.",
+            "id": "sys1",
+            "name": "Multi-Channel EDI & Document Parser",
+            "layer": "Data Ingestion Layer"
+          },
+          {
+            "layer": "Evidence Engine",
+            "name": "Telematics & Toll API Aggregator",
+            "what": "Queries GPS history, Samsara geofences, and toll transaction feeds to establish a verifiable timeline for each load.",
+            "id": "sys2"
+          },
+          {
+            "layer": "Decision Intelligence Layer",
+            "name": "LLM Verification & Policy Gate",
+            "id": "sys3",
+            "what": "Evaluates extracted charges against contractual rules and evidence to generate final payment recommendations."
+          }
+        ],
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "gtms": [
+          {
+            "ds": "Deliver a free 14-day historical ledger audit to prospective clients to prove the exact amount of overbilling our product catches.",
+            "nm": "Historical Leakage Discovery Pilot",
+            "id": "g1"
+          },
+          {
+            "nm": "TMS App Store Ecosystem Launch",
+            "ds": "Publish standard integrations in key platforms like OTM and BlueYonder to remove security and onboarding friction.",
+            "id": "g2"
+          },
+          {
+            "nm": "Performance-Driven Savings Tier",
+            "ds": "Align commercial pricing models with proven payment leakage reduction, generating clear and risk-free returns on investment.",
+            "id": "g3"
+          },
+          {
+            "id": "g4",
+            "ds": "Promote carrier adoption by certifying trusted partner carriers who support seamless API-driven auditing pipelines.",
+            "nm": "Global Carrier Certification Program"
+          }
+        ],
+        "stat2Val": "22%",
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "scope": "finance",
+        "proofs": [
+          {
+            "id": "p1",
+            "ds": "Shows a side-by-side comparison of the carrier's detention claim overlayed with precise geofenced GPS records.",
+            "nm": "Multi-Signal Comparison Map"
+          },
+          {
+            "nm": "Discrepancy Heatmap Engine",
+            "ds": "Highlights specific invoice lines showing high variances from pre-negotiated contracts or historical averages.",
+            "id": "p2"
+          },
+          {
+            "id": "p3",
+            "ds": "Provides verifiable step-by-step reasoning explaining automated audit approvals, rejections, or escalations.",
+            "nm": "Audit Trail Log Dashboard"
+          },
+          {
+            "ds": "Demonstrates successful write-back connections to major logistics ledgers, verifying immediate financial ledger updates.",
+            "nm": "Direct ERP Integration Panel",
+            "id": "p4"
+          }
+        ],
+        "solutionFlow": [
+          {
+            "d": "The system automatically ingests incoming carrier invoices via EDI, API, or PDF upload, extracting line items like fuel, detention, tolls, and base rate via AI document parsers.",
+            "t": "Invoice Ingestion & Parsing",
+            "n": "1",
+            "id": "sf1"
+          },
+          {
+            "id": "sf2",
+            "n": "2",
+            "d": "The system automatically matches each ancillary charge against GPS geofences, toll road APIs, and weigh station records to verify physical operations occurred.",
+            "t": "Telemetry Evidence Matching"
+          },
+          {
+            "n": "3",
+            "d": "A centralized dashboard flags line items exceeding contractual limits or telemetry variance, outlining the exact mismatch reasons for quick review.",
+            "t": "Discrepancy Highlight & Analysis",
+            "id": "sf3"
+          },
+          {
+            "id": "sf4",
+            "d": "The auditor clicks to approve the adjusted or fully verified invoice, posting real-time payment approval commands directly back to SAP, Oracle, or NetSuite ERPs.",
+            "t": "One-Click Settlement Posting",
+            "n": "4"
+          }
+        ],
+        "impactTiles": [
+          {
+            "s": "Cuts manual freight invoice processing and reconciliation cycles from over two weeks down to seconds.",
+            "value": "-82%",
+            "id": "tile1",
+            "k": "CYCLE TIME REDUCTION"
+          },
+          {
+            "k": "TOTAL FREIGHT SPEND SAVINGS",
+            "id": "tile2",
+            "value": "4.1%",
+            "s": "Directly halts duplicate billing, fraudulent fuel surcharges, and unearned carrier detention fees."
+          },
+          {
+            "value": "100%",
+            "id": "tile3",
+            "s": "Enables exhaustive validation of every single carrier transaction instead of relying on basic high-value invoice sampling.",
+            "k": "AUDIT COVERAGE"
+          },
+          {
+            "k": "AUDITOR EFFICIENCY",
+            "value": "15x",
+            "id": "tile4",
+            "s": "Empowers single administrative leads to manage massive carrier networks with zero operational strain."
+          }
+        ],
+        "stat1Val": "68%",
+        "systemFlowContent": "Input docs -> Data enrichment -> LLM reasoning + tool checks -> Rule engine -> Decision -> Audit log -> Payment release / escalation",
+        "stat2Lbl": "Payment Leakage Reduction",
+        "targetAudience": "Logistics finance teams\nAudit and reconciliation ops\nRisk/fraud controllers\nTransport payment approvers",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "problem": "Manual invoice audits are slow, inconsistent, and easy to game.\nOverclaims in fuel, detention, toll, and weight create payment leakage and fraud risk.",
+        "impact": "Faster payment cycle time\nLower leakage and fraud payouts\nStandardized, explainable audit decisions",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "sectionKpi": "[KPIs]",
+        "buckets": [
+          {
+            "id": "b1",
+            "primary": true,
+            "label": "Automated Audit Layer"
+          },
+          {
+            "label": "Telematics Verification",
+            "primary": true,
+            "id": "b2"
+          },
+          {
+            "label": "Logistics Fintech",
+            "primary": false,
+            "id": "b3"
+          },
+          {
+            "primary": false,
+            "id": "b4",
+            "label": "ERP Reconciliation"
+          }
+        ],
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "solutionTitle": "AI-driven payment audit control tower",
+        "audiences": [
+          {
+            "need": "Wants to drastically limit payment leakage and eliminate fraudulent accessory charges while ensuring strict audit compliance.",
+            "id": "aud1",
+            "pri": "Primary",
+            "who": "Head of Logistics Finance & Auditing"
+          },
+          {
+            "need": "Needs transparent and fast disputes resolution so they get paid on time without long email chains.",
+            "id": "aud2",
+            "pri": "Secondary",
+            "who": "Carrier Operations Specialist"
+          },
+          {
+            "pri": "Tertiary",
+            "who": "VP of Supply Chain",
+            "id": "aud3",
+            "need": "Requires high-fidelity visibility into operational cost drivers to optimize vendor networks and overall carrier negotiations."
+          }
+        ],
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "figName": "FIG_01: NEW",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "section1": "[01_PROBLEM]",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "solutionCode": "Ingest invoice + indent baseline.\nExtract line items (fuel, detention, toll, weight).\nPull validation evidence (GPS/dwell, toll source, weighbridge, historical trust).\nRun rule checks per line item.\nCompute variance and risk score.\nApply gate thresholds (policy + fraud rules).\nGenerate decision: Auto / Partial / Escalate.\nWrite audit trail + evidence snapshot.\nPush approved amount to payment workflow.\nRoute exceptions to reviewer queue.",
+        "headerId": "PricingAudit_V2.0",
+        "section2": "[02_SOLUTION]",
+        "solutions": "A single-page audit dashboard that reconciles invoice vs indent using evidence signals.\nAn LLM orchestrates checks, applies policy gates, and outputs traceable outcomes: auto-approve, partial, or escalate.",
+        "assetsProve": " this version reflects the live Payment Audit dashboard we built.",
+        "productBucket": "AI Finance Ops / Logistics Payment Audit Platform"
+      },
+      "assets": {
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1779112760690_Auditing%20and%20Automating%20Logistics%20Payments.mp4?alt=media&token=7d208e8c-d269-4731-8367-a867a276f2a9",
+        "videoDuration": "",
+        "deckUrl": "",
+        "deckText": "",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1779111859746_Automated%20logistics%20audit%20converts%20raw%20proofs%20into%20payment%20decisions.png?alt=media&token=870ea9b6-a75c-4a76-b48a-9d6682d4eb2f",
+        "deckSize": "",
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1779112183752_ChatGPT%20Image%20May%2018%2C%202026%2C%2007_19_32%20PM.png?alt=media&token=34b05650-d8ae-4ebb-8d65-1cea63757a69"
+      }
+    },
+    {
+      "assets": {
+        "deckSize": "",
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778846310661_ChatGPT%20Image%20May%2015%2C%202026%2C%2005_28_19%20PM.png?alt=media&token=63a4e807-69b3-4d53-8b4c-89dfaf2b0481",
+        "deckText": "",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778845511091_Transforming%20real-time%20data%20into%20proactive%20waste-reduction%20actions.png?alt=media&token=5fb8dffe-a6e5-4c22-97bc-1d112df35f01",
+        "deckUrl": "",
+        "videoDuration": "",
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778845607344_Solving%20Material%20Wastage%20in%20Retail%20Using%20Data%20(1).mp4?alt=media&token=50c49d6b-a661-4d01-a284-aeac067ad96d"
+      },
+      "content": {
+        "section3": "[03_IMPACT]",
+        "status": "STATUS",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "section4": "[04_TARGET_AUDIENCE]",
+        "stat1Lbl": "Waste Reduction",
+        "useGtm": "Start with one high-waste category like fruits, vegetables, dairy, bakery, or ready-to-eat.\nPilot in 20–50 stores/dark stores and show waste reduction, margin saved, and sell-through improvement.\nExpand to buyer teams and supply planning teams as a daily action dashboard for markdown, transfer, reorder pause, and liquidation.",
+        "role": "Product",
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "systemFlow": [
+          {
+            "what": "Ingests real-time sales transactions, warehouse inventory batch logs, and ambient sensor data via Apache Kafka streams to track precise batch age.",
+            "id": "sys1",
+            "name": "POS, WMS, and IoT Telemetry Pipeline",
+            "layer": "Data Inflow Layer"
+          },
+          {
+            "name": "Predictive Fresh Shelf-Life Engine",
+            "id": "sys2",
+            "what": "Processes historical sales velocities, remaining days of shelf life, and local weather patterns to compute dynamic decay curves and optimal sell-through paths.",
+            "layer": "Intelligence Layer"
+          },
+          {
+            "name": "Bidirectional ERP & ESL Write-Back Gateway",
+            "id": "sys3",
+            "what": "Dispatches price updates to Electronic Shelf Labels and creates automated Stock Transfer Orders inside ERP systems like SAP and Oracle.",
+            "layer": "Execution Layer"
+          }
+        ],
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "gtms": [
+          {
+            "id": "g1",
+            "ds": "Partner with mid-sized, high-density grocery chains to run a 4-week pilot in a single metro cluster, proving waste reduction directly on their historical transaction ledger.",
+            "nm": "Regional Co-Development Pilots"
+          },
+          {
+            "id": "g2",
+            "ds": "List the application as a certified add-on in SAP, Oracle NetSuite, and SES-imagotag partner marketplaces to capture inbound enterprise search.",
+            "nm": "ERP & ESL App Store Placements"
+          },
+          {
+            "nm": "Shrink-to-Savings ROI Assessment Tool",
+            "ds": "Deploy a self-service interactive calculator on our marketing page where prospective COOs can upload basic shrink metrics to instantly see their estimated margin recovery.",
+            "id": "g3"
+          },
+          {
+            "id": "g4",
+            "nm": "Logistics & Cold-Chain Co-Marketing",
+            "ds": "Execute joint webinars and whitepapers with third-party logistics providers specialized in fresh-chain delivery to capture their existing shipper customer base."
+          }
+        ],
+        "stat2Val": "18%",
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "scope": "Big store , retail store",
+        "solutionFlow": [
+          {
+            "id": "sf1",
+            "n": "1",
+            "d": "The regional operations director opens the main dashboard to visualize cluster-level waste forecasts, highlighting stores with high near-expiry stock of high-margin fresh items.",
+            "t": "Analyze City-Wide Spoilage Heatmaps"
+          },
+          {
+            "id": "sf2",
+            "n": "2",
+            "d": "The user reviews automated transfer opportunities where overstocked near-expiry SKUs are matched with nearby high-velocity locations currently facing stockout risks.",
+            "t": "Evaluate Rebalancing Recommendations"
+          },
+          {
+            "n": "3",
+            "t": "Approve Dynamic Markdowns or Transfers",
+            "d": "With one click, the operator approves a bundle of localized markdowns and intra-city routing requests, verifying transit time windows against product viability.",
+            "id": "sf3"
+          },
+          {
+            "n": "4",
+            "d": "The operator observes real-time status updates showing that price adjustments have synchronized with in-store electronic shelf labels and transfer manifests are queued in the TMS.",
+            "t": "Monitor Automated ERP Write-Back",
+            "id": "sf4"
+          }
+        ],
+        "proofs": [
+          {
+            "id": "p1",
+            "nm": "Real-Time Spoilage Risk Heatmap",
+            "ds": "Shows real-time SKU-level remaining shelf life mapped against projected demand across a 40-store metropolitan cluster."
+          },
+          {
+            "ds": "Demonstrates how the system calculates the optimal markdown percentage needed to clear a batch of organic produce before expiry with minimal margin sacrifice.",
+            "nm": "Dynamic Price Elasticity Simulation",
+            "id": "p2"
+          },
+          {
+            "ds": "Displays auto-generated transit routes, courier dispatch times, and cost-benefit calculations for moving high-value fresh meat between stores.",
+            "nm": "Automated Stock Transfer Manifests",
+            "id": "p3"
+          },
+          {
+            "nm": "ESL Synchronization Terminal",
+            "ds": "Proves integration with major Electronic Shelf Label systems, showing price adjustments updated on store shelves within 90 seconds of user approval.",
+            "id": "p4"
+          }
+        ],
+        "impactTiles": [
+          {
+            "k": "FRESH INVENTORY SHRINKAGE",
+            "value": "-28%",
+            "id": "tile1",
+            "s": "Saves perishable stock by routing overstocked near-expiry batches to higher-velocity stores before spoilage."
+          },
+          {
+            "value": "+14%",
+            "s": "Maximizes sell-through via early, algorithmic markdowns rather than last-minute emergency disposal write-offs.",
+            "id": "tile2",
+            "k": "GROSS MARGIN PRESERVATION"
+          },
+          {
+            "s": "Ensures high-demand nodes are constantly replenished from nearby slow-moving overstock pools, eliminating missed sales.",
+            "id": "tile3",
+            "value": "-42%",
+            "k": "INTRA-STORE STOCKOUTS"
+          },
+          {
+            "k": "REPLENISHMENT CYCLE EFFICIENCY",
+            "id": "tile4",
+            "s": "Replaces manual inventory counts and uncoordinated reorders with automated, prediction-backed dispatch triggers.",
+            "value": "3.2x"
+          }
+        ],
+        "stat1Val": "35%",
+        "stat2Lbl": "Margin Protection",
+        "systemFlowContent": "Data Ingestion → Analysis Engine → Core Logic → Action Workbench → Performance Tracking\n\nPOS sales, store inventory, shelf-life, expiry, demand forecast, and supplier lead-time data are captured first.\nThe analysis engine identifies slow-moving SKUs, near-expiry risk, and store-cluster stock imbalance.\nCore logic decides whether stock should be re-routed, marked down, paused, or liquidated.\nAction workbench recommends corrective actions like inter-store transfer, markdown/promo, reorder pause, or liquidation.\nPerformance tracking measures waste saved, margin protected, sell-through improvement, and stockout reduction.",
+        "targetAudience": "Retail chains, supermarkets, grocery platforms, fresh food brands, dark store operators, category managers, buyers, inventory teams, and store operations teams.",
+        "problem": "Fresh inventory decisions are scattered across stores, buyers, demand plans, and expiry data.\nThis creates overstock in some stores, stockout in others, late markdowns, and avoidable material wastage",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "sectionKpi": "[KPIs]",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "impact": "Reduces fresh inventory wastage by predicting expiry and overstock risk early, improving sell-through, protecting margin, and reducing unnecessary replenishment.",
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "buckets": [
+          {
+            "id": "b1",
+            "primary": true,
+            "label": "Dynamic Markdown Engine"
+          },
+          {
+            "label": "Intra-Cluster Rebalancing",
+            "id": "b2",
+            "primary": true
+          },
+          {
+            "label": "Shelf-Life Telemetry",
+            "primary": false,
+            "id": "b3"
+          },
+          {
+            "primary": false,
+            "id": "b4",
+            "label": "ERP Bi-directional Sync"
+          }
+        ],
+        "audiences": [
+          {
+            "need": "Needs an aggregate, actionable view of fresh inventory decay metrics across 50+ stores to hit regional margin targets and minimize waste.",
+            "pri": "Primary",
+            "id": "aud1",
+            "who": "Regional Grocery Operations Director"
+          },
+          {
+            "id": "aud2",
+            "pri": "Secondary",
+            "who": "Fresh Category Buyer & Planner",
+            "need": "Needs data-driven insights on supplier shelf-life performance to adjust future purchase orders and negotiations."
+          },
+          {
+            "need": "Need simple, automated markdown executions and pre-routed transfer orders to minimize manual stock sorting and paperwork.",
+            "pri": "Tertiary",
+            "id": "aud3",
+            "who": "Store & Darkstore Managers"
+          }
+        ],
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "figName": "FIG_01: NEW",
+        "solutionTitle": "Fresh Waste Control Tower",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "section1": "[01_PROBLEM]",
+        "solutionCode": "\n1. Connect POS sales, store inventory, expiry/shelf-life, demand forecast, and supplier data.\n2. Identify slow-moving, overstocked, near-expiry, and high-waste SKUs store-wise.\n3. Group stores into clusters to compare demand and stock imbalance.\n4. Detect where stock should move from excess stores to demand stores.\n5. Trigger actions: markdown, promo, inter-store transfer, reorder pause, or liquidation.\n6. Give buyer/store team a simple action workbench with reason and priority.\n7. Track waste saved, margin protected, sell-through improvement, and stockout reduction.\n",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "headerId": "Bigstore_V1.0",
+        "solutions": "A city-level operations dashboard that tracks SKU, store, cluster, shelf-life, demand, and stock movement in one view.\nIt predicts wastage risk early and recommends actions like transfer, markdown, reorder hold, or buyer intervention.",
+        "section2": "[02_SOLUTION]",
+        "assetsProve": "A retail waste-reduction system flow showing how POS, inventory, shelf-life, expiry, forecast, and supplier data become actions like inter-store transfer, markdown, reorder pause, and liquidation.",
+        "productBucket": "Retail Inventory Intelligence / Fresh Waste Control Tower"
+      },
+      "date": "2024.Q5",
+      "id": "node-1778845314116",
+      "description": "Fresh inventory decisions are scattered across stores, buyers, demand plans, and expiry data.\nThis creates overstock in some stores, stockout in others, late markdowns, and avoidable material wastage",
+      "title": "Store-Level Fresh Waste Leakage"
+    },
+    {
+      "assets": {
+        "deckSize": "",
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778253351740_ChatGPT%20Image%20May%208%2C%202026%2C%2008_22_29%20PM.png?alt=media&token=cc580a6a-4dfd-4567-8058-f55130a4c207",
+        "deckUrl": "",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778253347232_AI%20Trip%20Credit%20Engine%20transforms%20raw%20logistics%20data%20into%20controlled%20disbursals.png?alt=media&token=098f7107-dc9f-4428-9821-ab18a1305aed",
+        "deckText": "",
+        "videoDuration": "",
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778320221783_Trip-Based%20Loan%20Dispersal%20System%20Dashboard%20Demo.mp4?alt=media&token=e4d1e775-3007-4a8f-96b4-fe45dcab3b32"
+      },
+      "content": {
+        "targetAudience": "Fintech lenders, freight brokerages, and commercial fleet operators",
+        "stat2Lbl": "DEFAULT REDUCTION",
+        "systemFlowContent": "Marketplace/TMS → Verification & Fraud → Risk Scoring → Limit Decision → Controlled Disbursal → Repayment Recovery\n\nTrip is created with driver, vehicle, GPS, KYC, RC, PAN, and shipment documents.\nThe system verifies documents, checks fraud risk, and calculates borrower, trip, and lane-level risk score.\nDecision engine checks policy rules, overdue exposure, and credit cap to approve, review, or reject the advance.\nApproved amount is split into controlled wallets like fuel, FASTag, and driver UPI instead of open cash.\nAfter POD acceptance and freight settlement, loan amount and charges are deducted, balance is paid to fleet owner, and credit limit is updated.",
+        "problem": "Fleet operators need working capital during active trips, but lenders still depend on fixed credit limits and manual underwriting.\nBecause shipment, driver, vehicle, POD, and payment signals are not visible in real time, capital gets delayed and risk is poorly assessed.",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "sectionKpi": "[KPIs]",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "impact": "Unlocks immediate, automated liquidity for logistics providers while minimizing lender exposure through continuous, granular risk assessment.",
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "figName": "FIG_01: SYSTEM_OVERVIEW_V1.0",
+        "audiences": [
+          {
+            "need": "Wants to dynamically extend working capital credit lines to freight drivers without manually reviewing physical route details.",
+            "pri": "Primary",
+            "who": "Head of Treasury & Capital Operations",
+            "id": "aud1"
+          },
+          {
+            "need": "Needs to rapidly secure dynamic toll and diesel fuel funds for active drivers mid-route to avoid vehicle downtime.",
+            "pri": "Secondary",
+            "id": "aud2",
+            "who": "Fleet Dispatch Supervisor"
+          },
+          {
+            "need": "Requires structured telemetry audits to prove physical delivery execution and guarantee underlying asset validation.",
+            "who": "Chief Risk Officer at Freight Factor",
+            "pri": "Tertiary",
+            "id": "aud3"
+          }
+        ],
+        "solutionTitle": "Dynamic Trip Credit Engine",
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "buckets": [
+          {
+            "label": "Fintech Infrastructure",
+            "id": "b1",
+            "primary": true
+          },
+          {
+            "primary": false,
+            "id": "b2",
+            "label": "IoT Telematics Integration"
+          },
+          {
+            "label": "Automated Underwriting",
+            "id": "b3",
+            "primary": true
+          },
+          {
+            "id": "b4",
+            "primary": false,
+            "label": "Freight Ledger"
+          }
+        ],
+        "section1": "[01_PROBLEM]",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "solutionCode": "\n1. Capture trip details: load, route, vehicle, driver, broker/fleet owner, freight value, and expected payment.\n2. Verify documents: LR, invoice, POD history, KYC, vehicle papers, and shipper confirmation.\n3. Score trip risk using carrier history, route risk, payment behaviour, delay patterns, and telematics.\n4. Decide eligible advance amount based on trip value and risk score.\n5. Disburse in controlled form: fuel card, FASTag, driver UPI, or milestone payout.\n6. Track live trip execution through GPS, check-ins, and delivery status.\n7. Hold or reduce further payout if delay, deviation, fraud, or document mismatch is detected.\n8. Recover repayment directly from freight settlement after POD or shipper payment.\n",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "section2": "[02_SOLUTION]",
+        "solutions": "A trip-level credit intelligence system that checks live freight movement, vehicle status, carrier history, documents, and repayment signals before disbursal.\nIt enables instant, controlled micro-loans for fuel, FASTag, driver cash, and trip expenses based on real-time execution risk.",
+        "headerId": "Credit_ARCHITECT_V1.0",
+        "productBucket": "Credit Engine",
+        "assetsProve": "The architectural diagrams and dashboard screenshots demonstrate the engine's ability to ingest multi-source logistics data and trigger automated credit decisions with near-zero latency. They visually validate the system's accuracy in assessing trip-level risk and its seamless integration with existing financial ledgers.",
+        "section4": "[04_TARGET_AUDIENCE]",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "section3": "[03_IMPACT]",
+        "status": "DEPLOYED",
+        "role": "PRODUCT_OPS_LEAD",
+        "stat1Lbl": "DISBURSAL SPEED",
+        "useGtm": "This engine serves as a key differentiator in our go-to-market strategy by targeting fleet operators seeking immediate liquidity. We will position it as a dynamic financial tool that aligns working capital directly with operational milestones rather than rigid credit cycles. Sales campaigns will highlight the AI's ability to de-risk lending while accelerating disbursals based on real-time trip data.",
+        "systemFlow": [
+          {
+            "what": "Subscribes to live GPS coordinates and engine diagnostics, converting spatial coordinates into chronological checkpoints.",
+            "id": "sys1",
+            "name": "Samsara & Geotab Webhook Listener",
+            "layer": "Telemetry Ingestion Layer"
+          },
+          {
+            "what": "Monitors active highway toll debits and tracks credit card transactional metadata across commercial networks.",
+            "id": "sys2",
+            "name": "Toll and Card Issuer Aggregator API",
+            "layer": "Logistics Ledger & Fintech Core"
+          },
+          {
+            "layer": "Decision Intelligence Layer",
+            "name": "Dynamic Trip Underwriter Engine",
+            "what": "Evaluates incoming data streams against customized fraud-detection rules to calculate dynamic capital availability thresholds.",
+            "id": "sys3"
+          }
+        ],
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "scope": "Loan, Broker ",
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "gtms": [
+          {
+            "id": "g1",
+            "nm": "TMS App Marketplace Integration",
+            "ds": "Launch native integration packages into the app ecosystems of McLeod, MercuryGate, and Rose Rocket for immediate fleet reach."
+          },
+          {
+            "ds": "Provide a 30-day sandbox and proof-of-concept program to demonstrate high-accuracy default reduction to enterprise 3PLs.",
+            "nm": "Risk-Free Pilot Program",
+            "id": "g2"
+          },
+          {
+            "id": "g3",
+            "nm": "Lender and Factoring Partnerships",
+            "ds": "Co-market with invoice factoring providers as a real-time risk mitigation engine that scales with their active loan volume."
+          },
+          {
+            "ds": "Form deep technical partnerships with Wex and Fleetcor to provide immediate over-the-air card limits via the underlying API platform.",
+            "nm": "Commercial Fuel Card Integration",
+            "id": "g4"
+          }
+        ],
+        "stat2Val": "-38%",
+        "solutionFlow": [
+          {
+            "t": "Initiate Trip and Request Liquidity",
+            "d": "The dispatch manager enters the trip parameters into the TMS, automatically mapping active driver ELD and toll trackers to the trip ID.",
+            "n": "1",
+            "id": "sf1"
+          },
+          {
+            "id": "sf2",
+            "n": "2",
+            "t": "Continuous Dynamic Risk Assessment",
+            "d": "The core intelligence engine tracks live GPS geofencing, vehicle speed, and automated FASTag toll gate clearances to evaluate ongoing execution metrics."
+          },
+          {
+            "id": "sf3",
+            "t": "Instant Document OCR Verification",
+            "d": "The driver uploads the electronic Bill of Lading or load confirmation via the driver app, which is parsed in real time by the document classification system.",
+            "n": "3"
+          },
+          {
+            "id": "sf4",
+            "t": "Automated Capital Disbursement",
+            "d": "Upon verification of milestone progress and risk compliance, the platform instantly increases active fuel and expense card limits.",
+            "n": "4"
+          }
+        ],
+        "proofs": [
+          {
+            "id": "p1",
+            "ds": "Shows active vehicle paths correlated directly with dynamic, visual operational risk circles and credit limits.",
+            "nm": "Geospatial Heatmap Dashboard"
+          },
+          {
+            "ds": "Demonstrates the automated matching process between physical highway toll-booth events and credit limit expansions.",
+            "nm": "Real-time FASTag Reconciliation Log",
+            "id": "p2"
+          },
+          {
+            "id": "p3",
+            "nm": "OCR Freight Document Processing Unit",
+            "ds": "Highlights parsed e-Waybill, rate confirmation, and driver-signature fields matching system database indexes."
+          },
+          {
+            "ds": "Provides technical details of the raw JSON request and response payloads updating physical fuel-card limit states.",
+            "nm": "Dynamic Limit API Audit Interface",
+            "id": "p4"
+          }
+        ],
+        "stat1Val": "< 2s",
+        "impactTiles": [
+          {
+            "s": "Replaces multi-day static credit approvals with instantaneous telemetry-based underwriting decisions.",
+            "value": "15 Mins",
+            "id": "tile1",
+            "k": "CREDIT DECISION CYCLE TIME"
+          },
+          {
+            "k": "DYNAMIC REPAYMENT DEFAULT RATE",
+            "id": "tile2",
+            "s": "Reduces credit leakage by confirming active physical vehicle movement prior to deploying operating capital.",
+            "value": "-42%"
+          },
+          {
+            "k": "FLEET ASSET UTILIZATION",
+            "id": "tile3",
+            "value": "+28%",
+            "s": "Empowers dispatch teams to execute consecutive trips without delayed intermediate bank clearance loops."
+          },
+          {
+            "id": "tile4",
+            "s": "Ensures that metadata extracted from digitized documents instantly correlates with geographic manifest data.",
+            "value": "99.4%",
+            "k": "BILL OF LADING OCR ACCURACY"
+          }
+        ]
+      },
+      "date": "2026-05",
+      "id": "node-1778252752411",
+      "description": "Fleet operators need working capital during active trips, but lenders still depend on fixed credit limits and manual underwriting.",
+      "title": "Static Freight Credit Bottlenecks"
+    },
+    {
+      "id": "shree-maruti",
+      "date": "2026-Jan",
+      "assets": {
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778842412618_ChatGPT%20Image%20May%209%2C%202026%2C%2011_13_51%20PM.png?alt=media&token=4298c582-7735-4a73-893b-b9619b561bfe",
+        "deckSize": "14.2MB",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778838494656_darkstore.png?alt=media&token=cbd42806-6127-437f-8b21-535297a66b9e",
+        "deckUrl": "",
+        "deckText": "",
+        "videoDuration": "04:20",
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1777709970236_VID-20260415-WA0021.mp4?alt=media&token=e18dc9b0-d55e-4b7a-8a45-801663bf287a"
+      },
+      "content": {
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "scope": "Darkstore visibility, rates, enquiries, vehicle assignment and AI nearby search",
+        "stat2Val": "+85%",
+        "gtms": [
+          {
+            "ds": "Partner with 3 major quick-commerce grocery chains to run live dual-pipeline validations over a 30-day trial.",
+            "nm": "Beta Co-Innovation Program",
+            "id": "g1"
+          },
+          {
+            "ds": "Launch native integrations on Salesforce AppExchange and HubSpot App Marketplace to target B2B sales operations directly.",
+            "nm": "CRM App Marketplace Integration",
+            "id": "g2"
+          },
+          {
+            "ds": "Provide public interactive tools where prospective clients can upload historical route logs to see instant simulated savings.",
+            "nm": "SLA Assurance Calculator Tool",
+            "id": "g3"
+          },
+          {
+            "ds": "Offer fully functional developer sandbox environments and mock-data APIs to streamline engineering evaluations.",
+            "nm": "Hyperlocal Developer Sandbox",
+            "id": "g4"
+          }
+        ],
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "stat1Val": "-68%",
+        "impactTiles": [
+          {
+            "k": "SLA DELIVERY COMPLIANCE",
+            "s": "Eliminates false commitments and ensures that committed orders are backed by active dispatch and inventory nodes.",
+            "value": "99.4%",
+            "id": "tile1"
+          },
+          {
+            "k": "CUSTOMER CHURN REDUCTION",
+            "id": "tile2",
+            "s": "Restores brand trust and prevents costly order cancellations by matching expectations with immediate operational capabilities.",
+            "value": "-42%"
+          },
+          {
+            "id": "tile3",
+            "value": "< 150ms",
+            "s": "Guarantees a seamless transaction experience with lightning-fast routing and availability calculations.",
+            "k": "CHECKOUT FEASIBILITY LATENCY"
+          },
+          {
+            "s": "Optimizes driver allocation and prevents deadhead miles by matching actual vehicle capabilities with nearby orders.",
+            "value": "+18%",
+            "id": "tile4",
+            "k": "DRIVER REVENUE EFFICIENCY"
+          }
+        ],
+        "proofs": [
+          {
+            "nm": "Live Dispatch Map Interface",
+            "ds": "Demonstrates active darkstore geofences, real-time driver availability, and pending orders overlaid across metropolitan zones.",
+            "id": "p1"
+          },
+          {
+            "nm": "Feasibility Validation Ledger",
+            "ds": "Proof of high-throughput API audit logs validating that every sales order matches an active, verified resource token.",
+            "id": "p2"
+          },
+          {
+            "ds": "Shows real-time micro-fulfillment SKU counts updated instantaneously to prevent out-of-stock ordering.",
+            "nm": "Inventory Sync Matrix",
+            "id": "p3"
+          },
+          {
+            "id": "p4",
+            "nm": "SLA Performance Analytics",
+            "ds": "Historic timeline charts highlighting the drop in delivery failure rates post-activation of the readiness protocol."
+          }
+        ],
+        "solutionFlow": [
+          {
+            "id": "sf1",
+            "t": "Query Feasibility",
+            "d": "Sales rep triggers instant feasibility evaluation inside their CRM before closing high-priority enterprise customer commitments.",
+            "n": "1"
+          },
+          {
+            "id": "sf2",
+            "n": "2",
+            "d": "The system checks active darkstore shelf stock, localized warehouse staffing levels, and pending fulfillment queue congestion.",
+            "t": "Evaluate Local Capacity"
+          },
+          {
+            "d": "The engine cross-references real-time driver shifts, current vehicle charge or fuel levels, and geofence locations to secure delivery transit.",
+            "t": "Verify Fleet Availability",
+            "n": "3",
+            "id": "sf3"
+          },
+          {
+            "t": "Generate Booking Token",
+            "d": "An immutable reservation token is issued, locking down stock and driver capacity for guaranteed SLA-compliant dispatch.",
+            "n": "4",
+            "id": "sf4"
+          }
+        ],
+        "role": "Product Strategy + Ops Workflow",
+        "useGtm": "Launch in 1 city with top zones. Offer free serviceability audit, then convert to setup fee + monthly platform fee.",
+        "stat1Lbl": "False Promise Reduction:",
+        "section4": "[04_TARGET_AUDIENCE]",
+        "status": "Active Case Study",
+        "section3": "[03_IMPACT]",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "systemFlow": [
+          {
+            "layer": "Data Inflow / Telemetry / ERP",
+            "id": "sys1",
+            "what": "Consumes live GPS coordinate feeds and darkstore inventory updates via Kafka to maintain a real-time availability cache.",
+            "name": "IoT Fleet & Darkstore Ingestion Engine"
+          },
+          {
+            "what": "Runs complex heuristic rules across geofence boundaries, vehicle capacities, and pick-pack SLA projections to flag order feasibility.",
+            "id": "sys2",
+            "name": "Feasibility Decision Engine",
+            "layer": "Business Logic / Rule Verification"
+          },
+          {
+            "id": "sys3",
+            "what": "Generates a secure cryptographic reservation token that locks darkstore and driver resources for up to 10 minutes during checkout.",
+            "name": "Tokenized Dispatch Reservation API",
+            "layer": "Consensus / Output Ledger"
+          }
+        ],
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "solutionCode": "1. Map active darkstores.\n2. Define service radius.\n3. Check pincode/location.\n4. Validate vehicle availability.\n5. Give can serve / cannot serve decision.\n6. Link sales promise with ops readiness.",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "section1": "[01_PROBLEM]",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "productBucket": "Pre-Sales Serviceability Engine",
+        "assetsProve": "This asset proves that sales can check darkstore availability, service radius, delivery zone, vehicle readiness and promise feasibility before committing to a customer.",
+        "solutions": "Checks location, darkstore radius, zone coverage, vehicle availability and delivery feasibility before customer commitment.",
+        "section2": "[02_SOLUTION]",
+        "headerId": "",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "problem": "Sales commits delivery without knowing whether darkstore, zone, vehicle and serviceability are actually ready.",
+        "targetAudience": "Sales team, D2C brands, retail brands, city ops, darkstore operators.",
+        "systemFlowContent": "Customer Location → Darkstore Radius → Zone Check → Vehicle Capacity → Delivery Promise → Quote Approval",
+        "stat2Lbl": "Serviceability Adoption:",
+        "solutionTitle": "Pre-Sales Serviceability Engine",
+        "figName": "FIG_01: SYSTEM_OVERVIEW_V1.0",
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "audiences": [
+          {
+            "need": "Needs to ensure darkstore staff and last-mile vehicles aren't overwhelmed with unserviceable commitments during peak periods.",
+            "pri": "Primary",
+            "who": "Q-Commerce Operations Director",
+            "id": "aud1"
+          },
+          {
+            "id": "aud2",
+            "who": "Enterprise Account Executive",
+            "pri": "Secondary",
+            "need": "Needs instant validation within CRM to offer guaranteed delivery windows to B2B corporate clients confidently."
+          },
+          {
+            "id": "aud3",
+            "who": "Fleet Dispatch Coordinator",
+            "pri": "Tertiary",
+            "need": "Needs visibility on pre-booked capacity to schedule shifts and balance vehicles across metropolitan hubs."
+          }
+        ],
+        "buckets": [
+          {
+            "primary": true,
+            "id": "b1",
+            "label": "Hyperlocal Dispatch"
+          },
+          {
+            "id": "b2",
+            "primary": false,
+            "label": "Real-Time Telematics"
+          },
+          {
+            "label": "Supply Chain Visibility",
+            "id": "b3",
+            "primary": false
+          },
+          {
+            "label": "Resource Allocation AI",
+            "primary": false,
+            "id": "b4"
+          }
+        ],
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "impact": "Reduces false promises, SLA failure and wrong enterprise commitments.",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "sectionKpi": "[KPIs]"
+      },
+      "title": "Darkstore Sales Readiness",
+      "description": "Sales commits delivery without knowing whether darkstore, zone, vehicle and serviceability are actually ready."
+    },
+    {
+      "title": "Manual Fleet Allocation Gaps",
+      "description": "Fleet allocation happens manually without clear zone-wise demand, supply, vehicle type and partner availability.",
+      "content": {
+        "stat1Val": "80%",
+        "impactTiles": [
+          {
+            "id": "tile1",
+            "s": "Minimizes empty backhauls and unallocated miles by programmatically matching drivers to neighboring high-demand zones.",
+            "value": "+28%",
+            "k": "ASSET UTILIZATION INCREASE"
+          },
+          {
+            "s": "Aligns incoming fleet arrivals with real-time dock-door capacity, dramatically decreasing wait times at distribution hubs.",
+            "id": "tile2",
+            "value": "-34%",
+            "k": "IDLE DWELL TIME REDUCTION"
+          },
+          {
+            "s": "Ensures priority routing always flows to contractually compliant partners first, reducing expensive spot-market freight reliance.",
+            "id": "tile3",
+            "value": "99.4%",
+            "k": "SLA COMPLIANCE RATE"
+          },
+          {
+            "value": "< 1.2s",
+            "id": "tile4",
+            "s": "Replaces hours of manual calling, texting, and spreadsheet logistics with near-instantaneous, data-driven dispatch matches.",
+            "k": "DISPATCH DECISION LATENCY"
+          }
+        ],
+        "solutionFlow": [
+          {
+            "id": "sf1",
+            "n": "1",
+            "t": "Define Geofence Boundaries",
+            "d": "The operations manager draws custom polygonal delivery boundaries on the dynamic map interface to match municipal delivery zones with high delivery density."
+          },
+          {
+            "d": "The user configures SLA thresholds, contractual volume minimums, and pre-negotiated rate cards for different local third-party logistics partners.",
+            "t": "Establish Carrier Priority Weights",
+            "n": "2",
+            "id": "sf2"
+          },
+          {
+            "id": "sf3",
+            "d": "The system highlights zones in red where immediate retail order demand exceeds available, unassigned nearby trailers in real-time.",
+            "t": "Observe Supply Mismatch Alerts",
+            "n": "3"
+          },
+          {
+            "id": "sf4",
+            "t": "Trigger Automated Dispatch",
+            "d": "The operator reviews and authorizes the automated matching recommendations, triggering instantaneous dispatch notifications to the partner's carrier systems.",
+            "n": "4"
+          }
+        ],
+        "proofs": [
+          {
+            "nm": "Multi-Carrier Heatmap Screen",
+            "ds": "Illustrates active vehicle positioning inside customized polygonal geofences, signaling live capacity statuses.",
+            "id": "p1"
+          },
+          {
+            "ds": "Demonstrates the user interface where carrier ranks adjust instantly based on contract performance metrics.",
+            "nm": "Partner Allocation Priority Board",
+            "id": "p2"
+          },
+          {
+            "ds": "Presents log records of automated dispatch transactions containing precise GPS verification points and timestamps.",
+            "nm": "Tamper-Proof Dispatch Ledger",
+            "id": "p3"
+          },
+          {
+            "id": "p4",
+            "nm": "Dwell-Time Financial Reconciler",
+            "ds": "Proves the automated invoicing system correctly charges detention fees based on verified spatial geofence entry and exit times."
+          }
+        ],
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "scope": "Fleet owner , logistics player , Brokers",
+        "gtms": [
+          {
+            "id": "g1",
+            "ds": "Deploying the automated system at five selected metropolitan hub facilities to directly benchmark idle-time improvements against historical manual data.",
+            "nm": "Beta Terminal Cohort Launch"
+          },
+          {
+            "nm": "Interactive Scenario Planner",
+            "ds": "Enabling prospects to upload raw spatial GPX logs from previous shipments to visually demonstrate dispatch optimization savings.",
+            "id": "g2"
+          },
+          {
+            "nm": "Marketplace ELD Integrations",
+            "ds": "Releasing native connectors inside popular fleet management and logging software marketplaces to allow rapid API onboarding.",
+            "id": "g3"
+          },
+          {
+            "ds": "Structuring 30-day proof-of-concept projects where the software subscription fee is deferred unless a 15% utilization improvement is achieved.",
+            "nm": "Low-Risk Value Pilot Program",
+            "id": "g4"
+          }
+        ],
+        "stat2Val": "35%",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "systemFlow": [
+          {
+            "layer": "Telemetry & Ingestion",
+            "name": "Kafka Fleet Ingestion Stream",
+            "id": "sys1",
+            "what": "Parses real-time GPS coordinates and route metadata directly from multi-carrier Electronic Logging Devices (ELD) every five seconds."
+          },
+          {
+            "name": "Spatial Geofence Engine",
+            "id": "sys2",
+            "what": "Evaluates vehicle latitude and longitude coordinates against spatial database polygons to detect instant boundary crossings, tracking dwell times.",
+            "layer": "Spatial Processing"
+          },
+          {
+            "layer": "ERP & TMS Ledger",
+            "id": "sys3",
+            "what": "Processes finalized optimal pairings, outputting high-priority dispatch instructions to third-party driver apps and updating billing ledgers.",
+            "name": "TMS Allocation Dispatch Hook"
+          }
+        ],
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "role": "PRODUCT_OPS_LEAD",
+        "stat1Lbl": "Fleet Utilization Improvement",
+        "useGtm": "Pilot in one city zone with 2W/3W/4W partners. Monetize per vehicle, per zone or per partner.",
+        "section4": "[04_TARGET_AUDIENCE]",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "section3": "[03_IMPACT]",
+        "status": "DEPLOYED",
+        "productBucket": "Geofence Fleet Operations Layer",
+        "assetsProve": "The dashboard screenshots clearly validate the system's capability to ingest and unify fragmented payment data from multiple regional gateways into a single centralized view. They also highlight the automated ledger updates, proving the engine's real-time accuracy in handling complex cross-zone financial reconciliation without manual intervention.",
+        "solutions": "Controls vehicles zone-wise using geofence mapping, partner allocation, live availability and utilization visibility.",
+        "section2": "[02_SOLUTION]",
+        "headerId": "Fleet_ARCHITECT_V1.0",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "solutionCode": "1. Create geofence zones.\n2. Map riders, vehicles and partners.\n3. Track busy/idle/available fleet.\n4. Match vehicle type to demand.\n5. Reduce empty movement.\n6. Track partner performance.",
+        "section1": "[01_PROBLEM]",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "audiences": [
+          {
+            "pri": "Primary",
+            "id": "aud1",
+            "who": "Regional Logistics Operations Director",
+            "need": "Needs to drive down cost-per-mile spend and ensure all contracted trucks are operating at optimal capacity daily."
+          },
+          {
+            "who": "3PL Carrier Fleet Coordinator",
+            "pri": "Secondary",
+            "id": "aud2",
+            "need": "Requires rapid, automated load notifications within assigned delivery regions to prevent driver dissatisfaction and idle time."
+          },
+          {
+            "need": "Wants auditable, transparent performance logs to analyze carrier response times and negotiate tighter shipping contracts.",
+            "id": "aud3",
+            "who": "Supply Chain Procurement Analyst",
+            "pri": "Tertiary"
+          }
+        ],
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "figName": "FIG_01: SYSTEM_OVERVIEW_V1.0",
+        "solutionTitle": "Geofence Fleet Operations Layer",
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "buckets": [
+          {
+            "id": "b1",
+            "primary": true,
+            "label": "TMS Decision Layer"
+          },
+          {
+            "id": "b2",
+            "primary": false,
+            "label": "Hyperlocal Dispatch"
+          },
+          {
+            "label": "Geo-Spatial Ledger",
+            "id": "b3",
+            "primary": true
+          },
+          {
+            "label": "Real-time Telemetry",
+            "id": "b4",
+            "primary": false
+          }
+        ],
+        "sectionKpi": "[KPIs]",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "impact": "Improves utilization, reduces idle vehicles and avoids wrong allocation.",
+        "problem": "Fleet allocation happens manually without clear zone-wise demand, supply, vehicle type and partner availability.",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "targetAudience": "Ops managers, fleet partners, dispatch team, hyperlocal ops, city control tower.",
+        "stat2Lbl": "Idle Vehicle Reduction",
+        "systemFlowContent": "Demand Zone → Geofence Mapping → Vehicle Availability → Partner Allocation → Live Tracking → Utilization Report"
+      },
+      "assets": {
+        "deckUrl": "",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778838594620_zonebase%20fleet%20system.png?alt=media&token=35bcb158-1b9b-4bbd-beac-d722a1c89caf",
+        "deckText": "",
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778842457411_ChatGPT%20Image%20May%209%2C%202026%2C%2011_16_21%20PM.png?alt=media&token=a10bded4-7d19-4a12-8002-c0ae822afe3c",
+        "deckSize": "8.5MB",
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778837757693_VID-20260422-WA0000.mp4?alt=media&token=c262fbcf-91c4-43f5-a679-621323b2296a",
+        "videoDuration": "02:30"
+      },
+      "id": "fintech-ledger",
+      "date": "2026-Feb"
+    },
+    {
+      "description": "Sales needs pricing intelligence, not only static rate cards; current pricing misses customer value, future demand and negotiation context.",
+      "title": "Static Pricing, Weak Negotiation",
+      "content": {
+        "impactTiles": [
+          {
+            "value": "+4.2%",
+            "s": "Recovers lost yield on volatile lanes by applying dynamically adjusted accessorial surcharges and custom margin buffers.",
+            "id": "tile1",
+            "k": "NET MARGIN EXPANSION"
+          },
+          {
+            "k": "QUOTE RESPONSE VELOCITY",
+            "id": "tile2",
+            "value": "78%",
+            "s": "Reduces time-to-quote from hours to milliseconds, placing bids first on digital freight brokerages before competitors."
+          },
+          {
+            "s": "Eliminates unauthorized manual sales discounts by enforcing automated, guardrail-bound pricing tolerances.",
+            "value": "-35%",
+            "id": "tile3",
+            "k": "DISCOUNT LEAKAGE"
+          },
+          {
+            "k": "WIN-RATE IMPROVEMENT",
+            "s": "Leverages localized elastic demand curves to structure highly competitive pricing models on under-utilized return lanes.",
+            "value": "14.8%",
+            "id": "tile4"
+          }
+        ],
+        "stat1Val": "15%",
+        "proofs": [
+          {
+            "id": "p1",
+            "ds": "Displays live interactive graphs showing how adjustments in shipper win probability shifts the recommended spot rate boundary in real-time.",
+            "nm": "Dynamic Pricing Scenario Sandbox"
+          },
+          {
+            "id": "p2",
+            "ds": "Shows the explicit breakdown of inputs from the Elasticity, Fuel Surcharge, and Capacity models that collectively formulated the target quotation.",
+            "nm": "Multi-Brain Logic Visualization Panel"
+          },
+          {
+            "id": "p3",
+            "nm": "Automated Approval Escalation Workflow",
+            "ds": "Illustrates the visual path an exception-based quote request travels through when exceeding authorized discount guardrails, complete with instant Slack alerts."
+          },
+          {
+            "id": "p4",
+            "ds": "Reveals real-time margin changes over time, proving the dynamic system successfully defended lane yield during high-volatility market events.",
+            "nm": "Historical Lane Margin Heatmap"
+          }
+        ],
+        "solutionFlow": [
+          {
+            "id": "sf1",
+            "n": "1",
+            "t": "Identify RFQ Demand",
+            "d": "The sales representative receives an inbound spot RFQ in the dynamic workspace, auto-populated with origin/destination zip codes, equipment type, and target delivery windows."
+          },
+          {
+            "n": "2",
+            "t": "Analyze Multi-Brain Recommendations",
+            "d": "The interface displays a comparative pricing pane showing the raw contract rate side-by-side with dynamic margin recommendations, historical win probabilities, and active capacity trends.",
+            "id": "sf2"
+          },
+          {
+            "id": "sf3",
+            "t": "Adjust Negotiation Levers",
+            "d": "The sales rep uses interactive sliders to simulate margin tolerances, observing real-time feedback on win-probability percentages and auto-approval thresholds.",
+            "n": "3"
+          },
+          {
+            "n": "4",
+            "d": "The user locks in the final bid, automatically dispatching the formatted quote to the shipper's TMS portal while logging the negotiation timeline to the core ERP.",
+            "t": "Execute Instant Write-back",
+            "id": "sf4"
+          }
+        ],
+        "stat2Val": "40%",
+        "gtms": [
+          {
+            "nm": "Value Scan Retro Assessment",
+            "ds": "Execute a target pilot analysis of prospects' last 6 months of historical cargo logs to visually highlight exact margin losses and missed pricing opportunities.",
+            "id": "g1"
+          },
+          {
+            "id": "g2",
+            "nm": "TMS App Store Native Launch",
+            "ds": "Publish pre-packaged connector plugins on top-tier TMS marketplaces like Trimble, CargoWise, and Blue Yonder to streamline integration friction."
+          },
+          {
+            "nm": "Margin Guarantee Co-Pilot Program",
+            "ds": "Offer tiered licensing discounts for the first 3 months to early adopters who complete their first 500 fully automated spot quotes through the pipeline.",
+            "id": "g3"
+          },
+          {
+            "id": "g4",
+            "ds": "Target freight forwarders managing high-volatility backhaul corridors with specific, lane-optimized pricing playbooks.",
+            "nm": "High-Yield Corridor Campaign"
+          }
+        ],
+        "scope": "Pricing , negotiation , Copilot, Finance",
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "systemFlow": [
+          {
+            "layer": "Data Inflow & Telemetry",
+            "id": "sys1",
+            "what": "Ingests live spot market indexes, historical win-loss records, and current terminal capacity metrics from third-party APIs.",
+            "name": "Lighthouse API Gateway"
+          },
+          {
+            "layer": "Decision & Rule Orchestration",
+            "id": "sys2",
+            "what": "Coordinates parallel calculations across three isolated ML models evaluating lane elasticity, customer lifetime value, and immediate equipment availability.",
+            "name": "Multi-Brain Scoring Engine"
+          },
+          {
+            "name": "TMS Write-Back Orchestrator",
+            "what": "Ensures real-time pricing updates are dispatched back to the host TMS and logs the negotiation sequence for future model retraining.",
+            "id": "sys3",
+            "layer": "Action & Ledger Sync"
+          }
+        ],
+        "useGtm": "Launch as premium layer above pricing engine. Demo with quote simulation and approval workflow.",
+        "stat1Lbl": "Win-rate Improvement",
+        "role": "PRODUCT_OPS_LEAD",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "section3": "[03_IMPACT]",
+        "status": "DEPLOYED",
+        "section4": "[04_TARGET_AUDIENCE]",
+        "assetsProve": "The interface assets demonstrate the system's ability to aggregate massive, multi-threaded logistical data sets into an intuitive, real-time control UI. They definitively prove the platform can successfully synthesize parcel tracking, fleet capacity, and dispatch readiness into a single actionable pane of glass.",
+        "productBucket": "AI Sales Pricing Copilot",
+        "headerId": "Pricing_ARCHITECT_V1.0",
+        "section2": "[02_SOLUTION]",
+        "solutions": "Uses multiple decision brains to suggest price, discount, surcharge, approval path and sales communication.",
+        "solutionCode": "1. Present execution brain checks live capacity.\n2. Forecast brain checks seasonality.\n3. Customer brain checks reliability.\n4. Margin brain defines safe price.\n5. Governance brain checks contract.\n6. Conversation brain guides sales message.",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "section1": "[01_PROBLEM]",
+        "buckets": [
+          {
+            "label": "Dynamic Yield Optimization",
+            "id": "b1",
+            "primary": true
+          },
+          {
+            "label": "Freight Fintech",
+            "id": "b2",
+            "primary": false
+          },
+          {
+            "label": "Negotiation Intelligence",
+            "id": "b3",
+            "primary": false
+          },
+          {
+            "label": "AI-Powered TMS Layer",
+            "id": "b4",
+            "primary": false
+          }
+        ],
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "solutionTitle": "AI Sales Pricing Copilot",
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "figName": "FIG_01: SYSTEM_OVERVIEW_V1.0",
+        "audiences": [
+          {
+            "who": "Freight Sales Director",
+            "pri": "Primary",
+            "id": "aud1",
+            "need": "Needs an instant, reliable pricing playbook and negotiation safety rails to maximize rep efficiency and meet quarterly yield targets without constant manual approvals."
+          },
+          {
+            "need": "Requires global visibility into pricing elasticity trends, discount leakages, and overall model performance across different branches and lane corridors.",
+            "who": "Chief Yield Officer",
+            "id": "aud2",
+            "pri": "Secondary"
+          },
+          {
+            "pri": "Tertiary",
+            "id": "aud3",
+            "who": "Corporate Logistics RFP Analyst",
+            "need": "Wants to easily load historical quote archives and optimize pricing response templates based on seasonal lane trends and historic client conversion rates."
+          }
+        ],
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "impact": "Protects margin, improves win-rate and helps sales negotiate with confidence.",
+        "sectionKpi": "[KPIs]",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "problem": "Sales needs pricing intelligence, not only static rate cards; current pricing misses customer value, future demand and negotiation context.",
+        "systemFlowContent": "Quote Request → Pricing Brains → Capacity / Contract / Margin Check → Final Decision → Sales Guidance → Approval / Negotiation",
+        "stat2Lbl": "Approval TAT Reduction",
+        "targetAudience": "Sales leaders, business heads, pricing managers, account managers, enterprise logistics teams."
+      },
+      "assets": {
+        "deckSize": "32.1MB",
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778842547082_ChatGPT%20Image%20May%209%2C%202026%2C%2011_27_03%20PM.png?alt=media&token=a97c08f1-4545-483a-b687-660b9514643f",
+        "deckText": "Why Varuna Needs an Agentic Pricing Engine  Varuna's pricing challenge goes far beyond \"what rate to charge.\" The real question is: how do you decide the   right price   across different customer types, operational realities, future demand signals, and long-term strategic account value — all at once, in real time?  Fixed vs Spot  Different customer types demand fundamentally different pricing logic  Dynamic Behaviour  The same customer may behave differently across lanes and seasons  Forward-Looking  Price must reflect not just current capacity, but future operational stress  Strategic Value  Some accounts are low-margin today but strategically critical tomorrow  The core idea: build an   agentic pricing system with multiple decision brains   — not one static rate engine. Pricing should not only quote; it should guide sales conversations and drive account action.\nThe Key Brains in the Pricing System  Rather than a single rate calculator, the engine operates through specialised decision \"brains\" 4 each solving a distinct commercial problem. Together, they create a complete picture before any price is published.  1. Present Execution Brain  Reads live capacity, contracts, lane data, warehouse state, costs, and SLA risk to decide the   safe price right now .  2. Future Forecast Brain  Analyses demand trends, seasonality, and upcoming stress points to decide   future price movement   and advance-booking logic.  3. Customer Nature Brain  Scores reliability, detention behaviour, cancellations, and service burden to determine   customer quality and discipline .  4. Customer Potential Brain  Evaluates growth trajectory, wallet share, and cross-sell opportunity to decide whether to   protect, invest, or reprice   an account.  5. Cost & Margin Brain  Calculates true cost-to-serve 4 diesel, labour, warehouse, route economics 4 to establish the  minimum safe price and margin floor .\nAdditional Brains + The Final Decision Layer  Beyond pricing and cost, the engine must think like a commercial operator — balancing network efficiency, market dynamics, contract compliance, and customer communication into one coordinated output.  Supporting Brains Network Value Brain  Does this load improve lane fill, backhaul efficiency, or warehouse utilisation?  Spot Market Brain  What is the current market doing for variable and spot demand? Is there arbitrage risk?  Contract Governance Brain  Is the contract active, expired, in a grace period, or outside its commitment band?  Conversation Brain  What should sales tell the customer now? Push advance booking? Signal a price increase? Migrate from spot to contract?  Exception / Approval Brain  Should the system auto- approve, escalate to a manager, or block the transaction entirely?  Final Decision Brain — Output  Combines all scores from every brain and publishes a unified, coherent decision:  1   Current price  The safe, margin-protected rate to offer today  2   Future price signal  Forward guidance for the account and sales team  3   Discount or surcharge  Justified adjustment based on customer and market data  4   Account action  Protect, reprice, invest, or flag for review  5   Communication message  Recommended language for the customer-facing conversation\nHow the Agentic Pricing Engine Works  The system does not jump directly to a price. It follows a disciplined sequence — gathering operational context, historical signals, and commercial intelligence before publishing any output. Every step feeds the next.  Run Checks Read Signals Check Operations Fetch Commercials Identify Type  What Goes In  Live capacity, fleet, and warehouse data Contract status and lane commercials Seasonality and demand forecasts Customer behaviour and service burden history Market cost benchmarks and margin floors  What Comes Out  The right price to charge now A forward price signal for the account Whether approval or escalation is needed A recommended customer communication A clear next commercial action  The engine decides not only   what to charge , but also   what to do next   — making it a commercial co-pilot, not just a quoting tool.\nWhat Varuna Should Build First  This is not a big-bang build. Varuna should deliver value in phases — starting with the foundations that protect margin today, then layering in operational intelligence and commercial sophistication over time.  1  PHASE 1  Safe Pricing Core  Present Execution Brain Contract Governance Brain Cost & Margin Brain Final Decision Brain  Protect margin. Quote consistently. Enforce contracts.  2  PHASE 2  Smarter Operational Pricing  Future Forecast Brain Spot Market Brain Network Value Brain  Price forward. Capture spot upside. Optimise the network.  3  PHASE 3  Commercial Intelligence  Customer Nature Brain Customer Potential Brain Conversation Brain Exception / Approval Brain  Manage accounts strategically. Guide conversations. Convert spot to contract.\nThe Commercial Control Tower Vision  Varuna should build a pricing engine that behaves like a   commercial control tower   — not a rate calculator. The expected business value compounds across all three phases.  Better Margin Protection  Cost-to-serve visibility and governance guardrails prevent under- pricing across fixed and spot customers alike.  Early Action on Demand Spikes  Forward signals allow Varuna to move prices and secure capacity before seasonal stress or cost surges arrive.  Smarter Account Management  Distinguish between difficult customers and strategically valuable ones — and act accordingly on each relationship.  Better Customer Conversations  Sales teams receive clear, data-backed talking points — driving advance booking, contract conversion, and pricing discipline. The goal is not smarter quoting. It is a pricing engine that thinks commercially, acts proactively, and helps every conversation move Varuna's business forward.\n",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778838764255_system%20flow%20pricing%20engine.png?alt=media&token=d58762b7-135f-4dcd-bb3f-6f150c5e2e19",
+        "deckUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778838196351_Why-Varuna-Needs-an-Agentic-Pricing-Engine.pdf?alt=media&token=09455b64-9168-475f-9462-1215a6141d99",
+        "videoDuration": "02:30",
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1777709970236_VID-20260415-WA0021.mp4?alt=media&token=e18dc9b0-d55e-4b7a-8a45-801663bf287a"
+      },
+      "date": "2026-April",
+      "id": "marketplace-data"
+    },
+    {
+      "title": "Reactive Tracking, Hidden Delays",
+      "description": "Vehicle tracking shows current location but cannot predict ETA risk, hub dwell, lane bottlenecks or SLA breach early.",
+      "assets": {
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1777709970236_VID-20260415-WA0021.mp4?alt=media&token=e18dc9b0-d55e-4b7a-8a45-801663bf287a",
+        "videoDuration": "02:30",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778838871556_predictive%20network%20intelligence.png?alt=media&token=22222175-0708-4d17-894d-8314d4f1d9a0",
+        "deckUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778838261614_Varuna-Network-Intelligence-Brain-2.pdf?alt=media&token=722d51d5-bee0-41c8-aa7b-458ea257499a",
+        "deckText": "Varuna Network Intelligence Brain  Moving from vehicle tracking to   predictive logistics intelligence   4 protecting SLA, reducing cost, and improving customer confidence before delay becomes escalation.  PRODUCT OVERVIEW\nWhy Network Intelligence Matters  A wrong ETA is never just a tracking issue. It cascades into SLA breaches, detention costs, poor fleet utilisation, and eroded customer trust.  What Varuna May Lose   Without Predictive ETA  Risk Area   Business Loss  Wrong ETA commitment   SLA breach and customer escalation Hub dwell delay   Detention and poor turnaround Poor lane visibility   Repeat delays without root-cause fix Manual control tower   Higher manpower, slower response Wrong FTL / PTL decision   Higher cost or delayed delivery Low vehicle utilisation   Empty returns and idle fleet hours  What Varuna Can Save   With Network Intelligence  Saving Area   Business Benefit  ETA correction   Better commitment, fewer escalations SLA risk alert   Prevent breach before it happens Hub / lane intelligence   Reduce repeat bottlenecks Control-tower automation   Less manual calling and follow-up Dispatch planning   Lower waiting and detention cost Customer auto-updates   Better trust and retention  Every wrong ETA creates hidden cost. Predictive intelligence helps Varuna save cost, protect SLA, and act before delay becomes an escalation.\nThe Solution: Varuna Network Intelligence Brain  Most ETA systems rely on distance, route, and traffic. Real logistics delays come from   hub dwell time, driver halt patterns, loading windows, and lane-level behaviour   4 factors today's systems ignore.  Accurate ETA  Predict real arrival based on all delay factors, not just distance  Delay Probability  Score each trip for delay risk before and during movement  SLA Breach Risk  Alert control tower before the customer is impacted  Hub Bottlenecks  Identify which hubs and lanes cause repeat delays  Best Route / Mode  Recommend FTL, PTL, or carting based on cost and delay risk  Pricing Risk Intelligence  Protect margin on lanes with high dwell or detention exposure\nGraph-Based Network Model  Varuna's intelligence layer models the logistics network as a live graph 4 where every node, edge, and layer carries predictive meaning.  How the Graph Works  Logistics Element   Graph Meaning  Plant / Warehouse / Hub / Customer Node Route / Lane / Corridor   Edge Vehicle / Driver   Capacity layer Customer SLA   Promise layer Trip movement   Live tracking layer Delay reason codes   Learning layer  The system does not just show where the vehicle is. It predicts what may go wrong, why it may go wrong, and what action ops should take.\nHow the System Works  Operationa l ETA Intelligenc e  TMS / ERP & Orders  Order, lane, customer, vehicle  Intelligence Outputs  Updated ETA and alerts  Driver Behaviour  Halts and route discipline  Hub Times & Dwell  In/out and processing delays  GPS / SIM  Live vehicle movement  Traffic & Weather  External delay factors  Input Data Sources  TMS / ERP: Order, lane, customer, vehicle, SLA GPS / SIM: Live vehicle movement Hub in/out times: Dwell and processing delay Driver behaviour: Halt pattern and route discipline Traffic / weather: External delay signals Delay reason codes: Learning from past failures  Output Actions  Updated ETA with confidence score Control-tower SLA risk alert Alternate route or mode suggestion Recommended dispatch time FTL / PTL / carting decision Auto customer update via WhatsApp / SMS\nBusiness Perks 4 Upstream Efficiency  BEFORE DISPATCH  Network intelligence changes decisions   before a trip even starts   4 replacing guesswork with data-driven planning at every stage of the dispatch process.  Order Planning  Choose the best movement plan before making a customer commitment  Dispatch Timing  Avoid known congestion windows and high-dwell hub slots  Vehicle Allocation  Assign vehicles based on SLA priority and route risk score  FTL / PTL Decision  Select movement mode based on cost, delay risk, and customer promise  Realistic Customer Promise  Give an accurate ETA at booking 4 not an optimistic guess  Pricing Risk  Build dwell, detention, and empty-return risk into lane pricing\nBusiness Perks 4 Downstream Efficiency  AFTER TRIP STARTS  Live Intelligence After Dispatch  Control Tower  Prioritise only risky trips 4 stop chasing every vehicle  Hub Operations  Detect bottleneck hubs early and reallocate resources  Customer Updates  Auto-send revised ETA before the customer needs to call  Escalation Management  Act before the customer complains 4 not after\nA Practical Example  Mumbai Plant ³ Delhi Customer  Standard ETA  30 hrs  Based on distance, route, and traffic only  Network Intelligence ETA:   36 Hours  Hub dwell risk:   +3 hours  Friday lane congestion:   +2 hours  Customer unloading delay:   +1 hour  Recommended Actions  Dispatch earlier to absorb known dwell window Use direct FTL 4 avoid intermediate hub stop Alert customer proactively with revised ETA Assign higher-reliability vehicle and driver Include delay risk in lane pricing\nTech Stack  A modern, modular stack 4 built for scale, ML extensibility, and real-time logistics intelligence.  Core Infrastructure  Layer   Technology  Backend API   Node.js / NestJS ML Service   Python FastAPI Transaction DB   PostgreSQL Event / Trip Logs   MongoDB Queue / Streaming   Kafka / RabbitMQ Cache   Redis Graph Database   Neo4j / Amazon Neptune Storage   S3 / MinIO  Intelligence & Frontend  Layer   Technology  ETA ML Models   XGBoost / CatBoost / LightGBM Graph Intelligence   NetworkX / PyTorch Geometric Routing Engine   OSRM / Google Maps / MapmyIndia Geofencing   PostGIS Dashboard   React.js / Next.js Alerts   WhatsApp, SMS, Email, Push Model Tracking   MLflow Workflow Automation   Airflow / Prefect\nMVP Roadmap  A phased build 4 from data foundation to full graph-based predictive intelligence 4 delivering value at each stage.  1 Phase 1 4 Weeks 436  Connect TMS + GPS data. Capture planned vs actual ETA. Build lane-wise delay dashboard. Identify risky hubs. Use OSRM / Google Maps as base ETA engine.   2   Phase 2 4 Weeks 6310  Add ML ETA correction model. Predict SLA breach risk. Add control-tower risk alerts. Trigger customer auto-updates via WhatsApp and SMS. 3 Phase 3 4 Weeks 10316  Build graph intelligence layer. Score hub-node and lane-edge delay risk. Recommend route, vehicle, mode, dispatch time, and pricing risk automatically.  Varuna can move from tracking vehicles to predicting logistics risk 4 improving ETA accuracy, SLA performance, route planning, pricing intelligence, and control-tower productivity at scale.\n",
+        "deckSize": "",
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778842926208_ChatGPT%20Image%20May%209%2C%202026%2C%2011_22_59%20PM.png?alt=media&token=7ab6d3a8-8822-4836-b5ab-5b8a08a76e68"
+      },
+      "content": {
+        "impact": "Reduces wrong ETA, detention cost, SLA breach and customer escalation.",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "sectionKpi": "[KPIs]",
+        "solutionTitle": "Predictive Network Intelligence Brain",
+        "audiences": [
+          {
+            "pri": "Primary",
+            "id": "aud1",
+            "who": "VP of Supply Chain Logistics",
+            "need": "Wants to minimize contract SLA penalties and optimize total carrier detention spending across diverse logistics networks."
+          },
+          {
+            "need": "Needs real-time, actionable notifications indicating which current shipments are trending toward missed delivery windows.",
+            "pri": "Secondary",
+            "who": "Fleet Dispatch Coordinator",
+            "id": "aud2"
+          },
+          {
+            "need": "Requires precise historical carrier and terminal performance analytics to negotiate more favorable freight contracts.",
+            "pri": "Tertiary",
+            "who": "Logistics Sourcing Analyst",
+            "id": "aud3"
+          }
+        ],
+        "figName": "FIG_01: NEW",
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "buckets": [
+          {
+            "label": "Predictive AI Engine",
+            "id": "b1",
+            "primary": true
+          },
+          {
+            "label": "Telematics Overlays",
+            "id": "b2",
+            "primary": false
+          },
+          {
+            "primary": true,
+            "id": "b3",
+            "label": "Contract SLA Protection"
+          },
+          {
+            "primary": false,
+            "id": "b4",
+            "label": "Dwell Auditing"
+          }
+        ],
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "targetAudience": "Enterprise logistics teams, transport heads, 3PL/4PL networks, control tower leaders.",
+        "systemFlowContent": "Trip Data → Hub Dwell Analysis → Lane Risk Score → ETA Prediction → SLA Alert → Ops Intervention",
+        "stat2Lbl": "PREDICTION ACCURACY",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "problem": "Vehicle tracking shows current location but cannot predict ETA risk, hub dwell, lane bottlenecks or SLA breach early.",
+        "section2": "[02_SOLUTION]",
+        "solutions": "Uses trip data, hub dwell, lane history, SLA promise and tracking signals to predict delay before escalation.",
+        "headerId": "Tracking_PROTOCOL_V1.0",
+        "productBucket": "Predictive Delay & SLA Intelligence",
+        "assetsProve": "The interface assets showcase a unified dashboard featuring interactive network heatmaps, predictive escalation alerts, and dynamic SLA risk scoring. This visually proves the system's capability to ingest complex telemetry and accurately forecast localized disruptions before they impact the broader supply chain.",
+        "section1": "[01_PROBLEM]",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "solutionCode": "1. Capture trip, GPS, hub and lane data.\n2. Measure dwell and halt patterns.\n3. Build lane delay probability.\n4. Predict ETA risk.\n5. Alert control tower before SLA breach.\n6. Recommend intervention.",
+        "systemFlow": [
+          {
+            "name": "Multi-Carrier Telematics Stream",
+            "what": "Consolidates live ELD data, GPS feeds, and EDI status messages into a standardized telemetry payload.",
+            "id": "sys1",
+            "layer": "Data Inflow Layer"
+          },
+          {
+            "layer": "Intelligence Layer",
+            "name": "Predictive Route Engine",
+            "id": "sys2",
+            "what": "Applies historic lane bottlenecks and live terminal dwell times to run Monte Carlo ETA simulation paths."
+          },
+          {
+            "name": "ERP Webhook Dispatcher",
+            "what": "Pushes recalculated ETAs and automated risk alerts directly back to customer ERP or warehouse management portals.",
+            "id": "sys3",
+            "layer": "Integration & Write-back"
+          }
+        ],
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "section4": "[04_TARGET_AUDIENCE]",
+        "section3": "[03_IMPACT]",
+        "status": "STATUS",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "role": "Product",
+        "useGtm": "Launch as lane-risk audit. Pilot on 5–10 lanes, then sell as enterprise SaaS + implementation fee.",
+        "stat1Lbl": "SLA BREACHES",
+        "proofs": [
+          {
+            "ds": "Demonstrates live lane-by-lane delay forecast probabilities and carrier transit exceptions.",
+            "nm": "Risk Horizon Matrix Dashboard",
+            "id": "p1"
+          },
+          {
+            "id": "p2",
+            "ds": "Visualizes real-time and historical vehicle idle patterns inside major distribution nodes.",
+            "nm": "Terminal Dwell Heatmap"
+          },
+          {
+            "ds": "Illustrates live dollar penalty projection graphs corresponding to active transit delays.",
+            "nm": "SLA Financial Exposure Panel",
+            "id": "p3"
+          },
+          {
+            "id": "p4",
+            "ds": "Proves fast, standardized onboarding configurations for various ELD systems and APIs.",
+            "nm": "Third-Party Telematics Connector"
+          }
+        ],
+        "solutionFlow": [
+          {
+            "d": "The operations manager views the live map overlay which dynamically correlates current coordinate pings with scheduled appointment thresholds.",
+            "t": "Continuous Telematics Ingestion",
+            "n": "1",
+            "id": "sf1"
+          },
+          {
+            "n": "2",
+            "t": "Anomaly and Dwell Detection",
+            "d": "The system detects that the vehicle has been stationary at a critical port buffer-zone for longer than the rolling median dwell time.",
+            "id": "sf2"
+          },
+          {
+            "n": "3",
+            "d": "The platform calculates potential detention fees and contract breach penalty charges based on live rates in the shipper-carrier agreement.",
+            "t": "Financial Risk Estimation",
+            "id": "sf3"
+          },
+          {
+            "id": "sf4",
+            "d": "The operations team executes a pre-approved digital detour or reassigns spot backup capacity directly within the interface to salvage the SLA.",
+            "t": "Proactive Carrier Re-routing",
+            "n": "4"
+          }
+        ],
+        "stat1Val": "-35%",
+        "impactTiles": [
+          {
+            "k": "DETENTION COST REDUCTION",
+            "value": "-34%",
+            "s": "Empowers teams to proactively redirect trucks prior to entering expensive demurrage time bands.",
+            "id": "tile1"
+          },
+          {
+            "s": "Replaces static distance-to-destination calculations with dynamic terminal bottleneck adjustments.",
+            "value": "96.4%",
+            "id": "tile2",
+            "k": "ETA FORECAST ACCURACY"
+          },
+          {
+            "k": "SLA BREACH INCIDENTS",
+            "value": "-45%",
+            "s": "Flags potential delays up to twelve hours earlier, giving dispatchers plenty of time to orchestrate alternatives.",
+            "id": "tile3"
+          },
+          {
+            "k": "PREVENTATIVE REACTION LEAD TIME",
+            "value": "12.4 Hours",
+            "id": "tile4",
+            "s": "Provides shippers with early warnings long before shipments are officially classified as delayed."
+          }
+        ],
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "scope": "Tracking",
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "gtms": [
+          {
+            "ds": "We analyze a prospective customer's telemetry archive to reveal hidden historical cost leaks and SLA penalties.",
+            "nm": "Historical Lane Audit Pilot",
+            "id": "g1"
+          },
+          {
+            "ds": "Enables immediate deployment through one-click integrations in popular cloud marketplace frameworks.",
+            "nm": "TMS App Store Bundles",
+            "id": "g2"
+          },
+          {
+            "id": "g3",
+            "ds": "Aligns sales incentives by charging a fee based purely on a percentage of verified customer detention cost reductions.",
+            "nm": "Shared Savings Model Program"
+          },
+          {
+            "id": "g4",
+            "ds": "Promotes system efficiency studies to highlight how major brands utilize early warning networks to save millions.",
+            "nm": "Co-Marketing with Major Shippers"
+          }
+        ],
+        "stat2Val": "94%"
+      },
+      "id": "node-1777722077446",
+      "date": "2026-April"
+    },
+    {
+      "content": {
+        "targetAudience": "Sales team, pricing team, finance, business heads, 3PL/4PL companies.",
+        "systemFlowContent": "Customer Requirement → Contract Rate → Vendor Rate → Market Rate → Margin Rule → Price Recommendation → Quote Release",
+        "stat2Lbl": "Quote Accuracy Improvement",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "problem": "Pricing is scattered across Excel, contracts, vendor rates, market rates and manual approvals, causing wrong quotes and margin loss.",
+        "impact": "Reduces margin leakage, wrong quotes and inconsistent commercial decisions.",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "sectionKpi": "[KPIs]",
+        "solutionTitle": "Logistics Pricing Decision Engine",
+        "figName": "FIG_01: NEW",
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "audiences": [
+          {
+            "need": "Requires a single, comprehensive workspace to set global margin rules and adapt spot-market markup strategies in real time.",
+            "pri": "Primary",
+            "who": "Director of Freight Pricing & Yield Management",
+            "id": "aud1"
+          },
+          {
+            "who": "Freight Brokerage Operations Lead",
+            "id": "aud2",
+            "pri": "Secondary",
+            "need": "Needs prompt and accurate spot rate recommendations to clear large customer RFPs before competing bids arrive."
+          },
+          {
+            "need": "Demands comprehensive analytical oversight into quoting inaccuracies, contract leaks, and rogue branch discounting.",
+            "pri": "Tertiary",
+            "who": "Chief Financial Officer",
+            "id": "aud3"
+          }
+        ],
+        "buckets": [
+          {
+            "primary": true,
+            "id": "b1",
+            "label": "Real-time Yield Management"
+          },
+          {
+            "primary": false,
+            "id": "b2",
+            "label": "API Rate Aggregation"
+          },
+          {
+            "label": "Automated Margin Floors",
+            "primary": false,
+            "id": "b3"
+          },
+          {
+            "label": "Fintech Decision Layer",
+            "id": "b4",
+            "primary": true
+          }
+        ],
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "section1": "[01_PROBLEM]",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "solutionCode": "1. Capture customer requirement.\n2. Read contract and vendor rate.\n3. Compare market rate.\n4. Apply margin floor.\n5. Recommend safe quote.\n6. Route approval for risky pricing.\n7. Maintain audit trail.",
+        "solutions": "Uses contract rates, vendor rates, market rates, margin floors and approval rules to recommend the right price.",
+        "section2": "[02_SOLUTION]",
+        "headerId": "Leakage_PROTOCOL_V1.0",
+        "productBucket": "Logistics Pricing Decision Engine",
+        "assetsProve": "The UI dashboards and workflow diagrams prove the system's capability to ingest complex variables like capacity constraints and real-time market rates to output a highly optimized price. They also validate the execution of automated margin floors and dynamic routing for tiered approval guardrails.",
+        "section4": "[04_TARGET_AUDIENCE]",
+        "status": "STATUS",
+        "section3": "[03_IMPACT]",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "role": "Product",
+        "useGtm": "Start with Excel-to-engine migration. Show leakage cases and monetize as setup fee + monthly subscription.",
+        "stat1Lbl": "Margin Leakage Reduction:",
+        "systemFlow": [
+          {
+            "layer": "Data Ingest Layer",
+            "id": "sys1",
+            "what": "Receives structured quote requests from legacy ERPs and queues them into a resilient processing pipeline.",
+            "name": "TMS Rate Request Webhook"
+          },
+          {
+            "name": "Rate Aggregation & Margin Rules Engine",
+            "id": "sys2",
+            "what": "Combines current carrier tariffs with real-time spot indexes, validating values against hard-coded margin floors.",
+            "layer": "Decision Logic Layer"
+          },
+          {
+            "layer": "Write-Back Daemon",
+            "name": "Quote Output Sync Dispatcher",
+            "id": "sys3",
+            "what": "Formulates localized currency bids and writes them back into the host system of record over secure REST interfaces."
+          }
+        ],
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "scope": "Reduce leakage",
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "stat2Val": "40%",
+        "gtms": [
+          {
+            "id": "g1",
+            "nm": "Direct Core Integration Pilot",
+            "ds": "Engage key accounts with a 14-day proof of value, run against historical Excel log rates to demonstrate instant margin improvements."
+          },
+          {
+            "ds": "Market directly through established global forwarder networks (such as FIATA or WCA) promoting quoting execution efficiency.",
+            "nm": "Association Network Outreach",
+            "id": "g2"
+          },
+          {
+            "nm": "TMS Vendor Partnership",
+            "ds": "Embed our optimized decision engine directly inside mid-tier TMS platforms as a premium native feature plug-in.",
+            "id": "g3"
+          },
+          {
+            "ds": "Offer risk-free trial contracts where software fees scale strictly against a small percentage of recovered margin leakage.",
+            "nm": "Value-Share Monetization",
+            "id": "g4"
+          }
+        ],
+        "proofs": [
+          {
+            "id": "p1",
+            "nm": "Multi-Source API Console",
+            "ds": "Visually demonstrates real-time connections to external pricing indexes and active localized vendor contracts."
+          },
+          {
+            "nm": "Markup Policy Configurator",
+            "ds": "Displays the user control panel where compliance rules, hard margin boundaries, and approval tiers are customized.",
+            "id": "p2"
+          },
+          {
+            "nm": "Automated Approval Stream",
+            "ds": "Shows real-time alerts for pricing exceptions, ensuring managers can instantly authorize outlier lane bids.",
+            "id": "p3"
+          },
+          {
+            "id": "p4",
+            "nm": "Yield Analytics Panel",
+            "ds": "Provides long-term visibility into captured margins, saved revenue leakage, and overall bidding throughput performance."
+          }
+        ],
+        "solutionFlow": [
+          {
+            "n": "1",
+            "d": "The operational team inputs active RFPs, customer-specific target lanes, and origin-destination variables into the centralized rating console.",
+            "t": "Centralized Quote Input",
+            "id": "sf1"
+          },
+          {
+            "id": "sf2",
+            "n": "2",
+            "t": "Multi-Source Discovery",
+            "d": "The engine automatically queries active contract databases, vendor schedules, and external live spot APIs simultaneously to establish cost bases."
+          },
+          {
+            "id": "sf3",
+            "n": "3",
+            "d": "System applies dynamic margin rules, validating the proposed bid against automated regional floors to prevent negative yields.",
+            "t": "Automated Margin Application"
+          },
+          {
+            "n": "4",
+            "d": "The approved rate instantly publishes to the CRM, customer portal, or directly to partner logistics networks with detailed metadata.",
+            "t": "ERP Automated Write-back",
+            "id": "sf4"
+          }
+        ],
+        "stat1Val": "30%",
+        "impactTiles": [
+          {
+            "k": "QUOTE ACCURACY RATE",
+            "value": "99.8%",
+            "s": "Eliminates manual input error by standardizing all spot-rate bids through direct, centralized API validation rules.",
+            "id": "tile1"
+          },
+          {
+            "value": "-14%",
+            "s": "Halts unauthorized underpricing on difficult freight corridors by enforcing algorithmic margin floor safeguards.",
+            "id": "tile2",
+            "k": "MARGIN LEAKAGE REDUCTION"
+          },
+          {
+            "s": "Reduces normal 24-hour manual verification loops down to automated microsecond calculation workflows.",
+            "value": "< 2 Mins",
+            "id": "tile3",
+            "k": "QUOTE TURNAROUND TIME"
+          },
+          {
+            "value": "+4.2%",
+            "id": "tile4",
+            "s": "Optimizes every individual spot-market quote to dynamically align with current lane capacity spikes.",
+            "k": "AVERAGE OPERATING MARGIN"
+          }
+        ]
+      },
+      "assets": {
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1777709970236_VID-20260415-WA0021.mp4?alt=media&token=e18dc9b0-d55e-4b7a-8a45-801663bf287a",
+        "videoDuration": "02:30",
+        "deckUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778838335337_Open-Source-Logistics-Pricing-Engine.pdf?alt=media&token=0a21a4d5-35d4-4a71-a283-a21e7c121496",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778839668168_Pricing%20engine%20automates%20safe%20quotes%20and%20flags%20risk%20for%20approval.png?alt=media&token=21340c5b-8970-42d7-a5aa-029d4f7be6c1",
+        "deckText": "Open-Source Logistics Pricing Engine  Built for 2PL, 3PL, 4PL, 5PL, couriers, factories and distributors — a common pricing intelligence layer any operator can plug into. Use past orders, capacity, market and contracts to set the right rate Transparent reasons, guardrails and approvals to protect margin Learns from actual shipment performance to improve over time\nWho Can Use It  2PL / Transporter  Own fleet pricing, lane profitability, utilization and empty-return control.  3PL Company  Contract, PTL/FTL and warehouse-linked pricing with SLA awareness.  4PL Control Tower  Multi-partner comparison, best vendor selection and network pricing.  5PL / Platforms  AI-led, instant pricing across partners and lanes with forecast signals.  Courier Company  Zone, pincode, weight-slab, branch/hub and route-based pricing.  Factory / Distributor  Dispatch cost prediction, negotiation support and reverse logistics. Core message: an open pricing brain operators can trust to recommend the best commercial price.\nSignals That Shape the Price  Past order history  Lane performance, actuals and variances.  Operational capacity  Fleet, partner and hub load constraints.  Buying rate  Live vendor/transporter quotes and trends.  Customer contracts  Rules, expiries, commitments and penalties.  Market movement  Spot rate shifts, fuel and seasonality.  Forecast  Lane demand, shortage and surge risk.  Margin rules  Floors, leakage risk and approvals.\nHow Any Business Can Give Input  Tech and non-tech friendly  Systems: TMS, ERP, WMS, CRM, fleet, vendor, APIs/webhooks No systems: Excel/CSV, web form, WhatsApp, email parser, mobile app  Common fields  Customer, movement type, pickup/delivery Weight/volume/vehicle, SLA, expected volume Vendor buying and customer expected rate Past invoices/trips, risks (detention, returns, fragile, remote)\nBackend Brain: From Input to Price  Orchestrator  Market & History  Validation  Inputs  The orchestrator fuses validated data, history, live market and forecast signals to recommend a rate, seek approvals, and learn from outcomes.\nBrains Inside the Engine  Cost Brain  Minimum safe price and cost-to-serve.  Market Brain  Current buying rate and spot trend.  Capacity Brain  Own fleet, partner and hub load.  Customer Brain  Quality, risk, discount eligibility.  Contract Brain  Rate cards, expiries, commitments.  Forecast Brain  Demand, fuel, seasonality, shortage.  Partner Brain  Best vendor by price, SLA, reliability.  Margin & Approval  Floors, leakage and approvals logic.  Conversation  Suggested customer/vendor messages.  Formula output: Recommended, minimum safe, aggressive and block prices with confidence and reasons.\nOne Pricing Screen for Users  Pricing Co - Pilot Output  Recommended:   ₹ 35,000/trip; Minimum safe:   ₹ 33,500 Customer asked:   ₹ 32,000; Market buying:   ₹ 30,000 Expected margin: 12%; Confidence: 84%; Validity: 6h Reason: vehicle shortage, fuel, high lane demand Next action: ask to lock volume or accept rate  Actions  Accept, edit with reason, request approval Compare vendors, generate quotes, lock booking Send via email/WhatsApp/API  1  Role-based access  Sales, Ops, Finance, Pricing Manager, Procurement, Leadership, Customer.\nHow It Fits 2PL–5PL Models  3PL  Contract, PTL/FTL, warehouse pricing  5PL  AI network for auto-pricing  2PL  Own truck price, utilization, empty return  4PL  Partner compare to find best mix  Example use cases  2PL: Check route, diesel, toll, return load   →   trip price + margin  3PL: Past volume, SLA, handling, partner cost   →   contract rate  4PL: Compare cost, SLA, reliability, claims   →   best partner + price  5PL: API in   →   auto-price with market, partners, demand, forecast\nOpen-Source Architecture & APIs  Modules  Pricing API Gateway, Data Upload, Rule Engine AI Orchestrator, Forecast Service, Vendor Rate Module Approval Workflow, Quote Generator, RBAC Feedback Loop for costs, margins, SLA learning  OSS-friendly stack  Frontend: React/Next.js; Backend: Node/NestJS or FastAPI PostgreSQL, ClickHouse, Redis, Temporal/n8n LangGraph/CrewAI, OPA/JSON rules, pgvector/Qdrant Metabase/Superset; WhatsApp/email/webhooks; Docker/K8s  {  \"customer_id\" :   \"CUST001\" ,  \"movement_type\" :   \"FTL\" ,  \"pickup\" :   \"Bhiwandi\" ,  \"delivery\" :   \"Delhi\" ,  \"vehicle_type\" :   \"14ft\" ,  \"weight_kg\" :   5000 ,  \"sla\" :   \"standard\" ,  \"expected_volume\" :   20 ,  \"customer_asked_rate\" :   32000  }\nFeedback Loop and Final Positioning  Predicted Position  Margin 12%, SLA 2 days, reliable vendor, promised volume  Actual Position  Margin 8%, SLA 3 days, delay, volume short  Captures actual buying/delivery costs, margins, SLA, delays, weight variances and claims to refine floors, risks and vendor scores.  What it enables  Works with or without TMS across 2PL35PL and couriers Explains rates with reasons; protects margin Strengthens sales and procurement negotiations Leadership visibility and leakage control Becomes a shared pricing intelligence layer One open pricing brain for every logistics operator 4 from small transporter to large 5PL control tower.\n",
+        "deckSize": "",
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778843197784_ChatGPT%20Image%20May%2015%2C%202026%2C%2004_35_42%20PM.png?alt=media&token=ccae6f3e-ecbb-4f41-8aef-d2a6dcf41758"
+      },
+      "date": "2026 March",
+      "id": "node-1777722095998",
+      "description": "Pricing is scattered across Excel, contracts, vendor rates, market rates and manual approvals, causing wrong quotes and margin loss.",
+      "title": "Fragmented Pricing, Margin Leakage"
+    },
+    {
+      "id": "node-1778079793470",
+      "date": "2026-05",
+      "content": {
+        "stat2Lbl": "VISIBILITY",
+        "systemFlowContent": "Supplier/Farm → Processing Hub → Warehouse → Dark Store → Dispatch Rider → Customer Delivery\n\nRaw material starts from farm with quality and quantity checks, then moves to processing for intake, packing, and freshness validation.\nWarehouse manages secure storage and stock movement, while dark store maps live inventory against demand.\nDispatch rider is assigned based on location, availability, priority, and SLA, with final delivery tracked against promised window.\nThe Control Tower monitors all stages and triggers alerts for delay, stockout, cold-chain breach, rider shortage, and SLA risk.",
+        "targetAudience": "Agri-businesses, cold-chain logistics providers, and grocery retailers",
+        "problem": "Agricultural supply chains lack a single real-time view from farm pickup to consumer delivery.\nDisconnected data, temperature gaps, and poor traceability increase spoilage, routing delays, and compliance risk.",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "sectionKpi": "[KPIs]",
+        "impact": "Drastically reduces food waste and transit delays while ensuring guaranteed product freshness and end-to-end regulatory compliance.",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "buckets": [
+          {
+            "id": "b1",
+            "primary": true,
+            "label": "IoT Cold Chain Tracking"
+          },
+          {
+            "id": "b2",
+            "primary": false,
+            "label": "Predictive Spoilage AI"
+          },
+          {
+            "id": "b3",
+            "primary": false,
+            "label": "TMS Middleware Integration"
+          }
+        ],
+        "figName": "FIG_01: SYSTEM_OVERVIEW_V1.0",
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "audiences": [
+          {
+            "need": "Needs real-time operational oversight on high-perishability products to safeguard margin and prevent contract penalties.",
+            "who": "Director of Fresh Supply Chain",
+            "pri": "Primary",
+            "id": "aud1"
+          },
+          {
+            "need": "Wants prompt, actionable anomaly alerts with built-in routing options to manage exceptions on the road.",
+            "id": "aud2",
+            "who": "Reefer Fleet Dispatcher",
+            "pri": "Secondary"
+          },
+          {
+            "pri": "Tertiary",
+            "who": "Director of Food Quality Assurance",
+            "id": "aud3",
+            "need": "Requires complete, tamper-proof temperature records and chains of custody to streamline compliance reporting."
+          }
+        ],
+        "solutionTitle": "Unified Farm Control Tower",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "section1": "[01_PROBLEM]",
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "solutionCode": "\n1. Connect farm pickup, warehouse, transporter, ERP, and delivery partner data into one system.\n2. Capture live shipment status using GPS, IoT temperature sensors, humidity sensors, and scan events.\n3. Create one unique batch ID from farm source to customer delivery.\n4. Track every movement: farm pickup → sorting → processing → warehouse → dark store → rider → customer.\n5. Monitor temperature breach, route delay, vehicle stoppage, and hub dwell time in real time.\n6. Use predictive logic to flag spoilage risk before the shipment fails.\n7. Auto-alert ops team, warehouse team, transporter, and delivery team when risk is detected.\n8. Suggest rerouting, priority unloading, faster dispatch, or alternate delivery node.\n9. Maintain digital chain-of-custody for quality, compliance, and customer trust.\n10. Show control tower dashboard with SLA, freshness score, spoilage risk, and delivery status.\n",
+        "headerId": "Supply_ARCHITECT_V1.0",
+        "solutions": "A centralized operations layer that connects farm sourcing, IoT sensors, ERP, logistics partners, and delivery APIs into one live dashboard.\nIt predicts spoilage risks, monitors temperature and transit conditions, triggers alerts, and gives end-to-end traceability from farm to consumer.",
+        "section2": "[02_SOLUTION]",
+        "assetsProve": "The dashboard screenshots and architectural diagrams prove the system's capacity to seamlessly aggregate disparate telemetry, such as IoT temperature metrics and multimodal transit events. This validates our ability to maintain strict cold chain integrity and provide absolute provenance across complex agricultural networks.",
+        "productBucket": "Control Tower",
+        "section3": "[03_IMPACT]",
+        "status": "DEPLOYED",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "section4": "[04_TARGET_AUDIENCE]",
+        "stat1Lbl": "SPOILAGE",
+        "useGtm": "This feature will serve as the centerpiece for our 'Farm-to-Fork Transparency' marketing campaign, targeting enterprise grocers and large-scale agricultural distributors. By highlighting real-time traceability and cold-chain compliance, sales teams can leverage these assets during executive briefings to demonstrate immediate ROI and operational resilience.",
+        "role": "PRODUCT_OPS_LEAD",
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "systemFlow": [
+          {
+            "layer": "Telemetry Ingestion Layer",
+            "what": "Collects live ambient and internal temperature data from active container-level hardware tags.",
+            "id": "sys1",
+            "name": "MQTT Ingestion Broker"
+          },
+          {
+            "layer": "Predictive Analytics Layer",
+            "name": "Kinetic Spoilage Processor",
+            "id": "sys2",
+            "what": "Calculates immediate degradation rates based on temperature exposure curves to forecast residual product shelf-life."
+          },
+          {
+            "id": "sys3",
+            "what": "Dispatches routing payloads directly into SAP and Descartes to update transport legs and dispatch instructions.",
+            "name": "TMS Webhook Gateway",
+            "layer": "Integration & Write-back Layer"
+          }
+        ],
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "gtms": [
+          {
+            "id": "g1",
+            "nm": "Harvest-Season Pilot Program",
+            "ds": "Target major berry and leafy green producers during peak season to showcase immediate reduction in shrinkage."
+          },
+          {
+            "ds": "Package our visibility platform with pre-provisioned, disposable multi-sensor tracking tags for rapid testing.",
+            "nm": "Hardware-Inclusive Starter Kits",
+            "id": "g2"
+          },
+          {
+            "ds": "Embed the software directly with cold-chain 3PLs as a value-added service to secure exclusive freight lanes.",
+            "nm": "Strategic Carrier Network Partnerships",
+            "id": "g3"
+          },
+          {
+            "ds": "Offer quick diagnostics of current supply chains to identify compliance gaps, positioning our platform as the automated solution.",
+            "nm": "FSMA Compliance Assessment Program",
+            "id": "g4"
+          }
+        ],
+        "stat2Val": "100%",
+        "scope": "Food , Farm , wastage",
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "solutionFlow": [
+          {
+            "n": "1",
+            "t": "Ingest Multi-Sensor Telemetry",
+            "d": "The operations manager views live geographic coordinates, cold-room temps, and shock-detection logs directly streamed from Bluetooth and cellular IoT loggers.",
+            "id": "sf1"
+          },
+          {
+            "n": "2",
+            "t": "Analyze Predictive Shelf-Life Risks",
+            "d": "The system flags a shipment of strawberries with a critical 12-hour shelf-life degradation warning due to a reefer compressor failure.",
+            "id": "sf2"
+          },
+          {
+            "n": "3",
+            "t": "Initiate Dynamic Re-Routing",
+            "d": "The manager selects an alternative distribution center with pre-approved capacity and initiates a one-click re-routing command.",
+            "id": "sf3"
+          },
+          {
+            "id": "sf4",
+            "t": "Auto-Sync ERP and Billing Ledgers",
+            "d": "The system updates the freight bill of lading in the ERP, notifies the carrier of the modification, and issues a preventative claim ticket.",
+            "n": "4"
+          }
+        ],
+        "proofs": [
+          {
+            "id": "p1",
+            "nm": "Geospatial Heatmap Display",
+            "ds": "Shows real-time location overlays with color-coded temperature alerts indicating active transit risks across North American shipping lanes."
+          },
+          {
+            "id": "p2",
+            "ds": "Illustrates the point-and-click interface where operators can immediately redirect an endangered shipment to a secondary buyer.",
+            "nm": "Automated Re-routing Trigger Panel"
+          },
+          {
+            "id": "p3",
+            "ds": "Generates an exportable, cryptographic compliance record verifying that the cold chain remained unbroken throughout transit.",
+            "nm": "Immutable Temperature Audit Trail"
+          },
+          {
+            "ds": "Displays real-time API feedback showing successful inventory state changes on SAP and NetSuite dashboards.",
+            "nm": "Integrated ERP Status Feed",
+            "id": "p4"
+          }
+        ],
+        "impactTiles": [
+          {
+            "value": "-42%",
+            "id": "tile1",
+            "s": "By dynamically re-routing cargo experiencing temperature spikes, organizations salvage inventory before it reaches degradation thresholds.",
+            "k": "SPOILAGE-RELATED LOSSES"
+          },
+          {
+            "k": "COLD-CHAIN COMPLIANCE",
+            "value": "99.8%",
+            "s": "Provides automated, immutable audit logs of temperature adherence for FSMA and global regulatory frameworks.",
+            "id": "tile2"
+          },
+          {
+            "k": "OPERATIONAL ASSET UTILIZATION",
+            "s": "Reduces idle dwell times at distribution centers through real-time geofenced arrival planning.",
+            "value": "+18%",
+            "id": "tile3"
+          },
+          {
+            "id": "tile4",
+            "s": "Automated workflows instantly alert dispatchers and carriers, replacing manual phone calls and spreadsheet tracking.",
+            "value": "< 3 min",
+            "k": "INCIDENT RESPONSE TIME"
+          }
+        ],
+        "stat1Val": "-35%"
+      },
+      "assets": {
+        "videoDuration": "",
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778080011586_Farm-To-Fork%20Supply%20Chain%20Dashboard%20Walkthrough.mp4?alt=media&token=0e651d23-e67a-4687-bc9d-68293e44af08",
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778080736382_ChatGPT%20Image%20May%206%2C%202026%2C%2008_48_05%20PM.png?alt=media&token=4977e141-fb5e-4005-8d80-0d795fb49b36",
+        "deckSize": "",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778080176030_Seamless%20orchestration%20from%20farm%20to%20doorstep.png?alt=media&token=b76bfeee-a6c6-4305-82bb-3fe0208f3a88",
+        "deckText": "",
+        "deckUrl": ""
+      },
+      "title": "Fragmented Farm Supply Visibility",
+      "description": "Agricultural supply chains lack a single real-time view from farm pickup to consumer delivery.\nDisconnected data, temperature gaps, and poor traceability increase spoilage, routing delays, and compliance risk."
+    },
+    {
+      "id": "node-1778154459530",
+      "date": "2026-05",
+      "assets": {
+        "deckUrl": "",
+        "systemFlowUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778154974146_Control%20Tower%20logic%20prioritizes%20proactive%20intervention%20over%20reactive%20recovery.png?alt=media&token=a3c16b50-5dfa-43cf-8fa7-68212aef44c5",
+        "deckText": "",
+        "bgImageUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778155123083_ChatGPT%20Image%20May%207%2C%202026%2C%2005_28_36%20PM.png?alt=media&token=8a33659d-618d-4c4d-9876-dd735aa5b8aa",
+        "deckSize": "",
+        "videoUrl": "https://firebasestorage.googleapis.com/v0/b/gen-lang-client-0568439716.firebasestorage.app/o/uploads%2F1778155013449_EV%20Fleet%20Breakdown%20and%20Visibility%20Dashboard.mp4?alt=media&token=83c0c438-a91e-4d50-8f6f-de083db52a3f",
+        "videoDuration": ""
+      },
+      "content": {
+        "gtms": [
+          {
+            "nm": "Fleet PoC Trial Campaign",
+            "ds": "Pitch risk-free 30-day monitoring trials to large last-mile logistics networks using mixed internal and EV assets.",
+            "id": "g1"
+          },
+          {
+            "id": "g2",
+            "ds": "Establish commercial partnerships with medium-duty EV truck manufacturers to offer our diagnostics software out of the box.",
+            "nm": "OEM Factory Pre-Integration"
+          },
+          {
+            "id": "g3",
+            "ds": "Collaborate with fleet insurance brokers to secure lower premium rates for fleet clients utilizing our proactive breakdown system.",
+            "nm": "Green Insurance Risk Partnership"
+          },
+          {
+            "id": "g4",
+            "nm": "Developer API Platform Launch",
+            "ds": "Provide extensive API documentation to help legacy TMS platform developers easily import our real-time health scores."
+          }
+        ],
+        "stat2Val": "96.5%",
+        "scope": "EV_Downtime",
+        "sectionSystemFlow": "[02.1_SYSTEM_FLOW]",
+        "impactSubtitle": "Dynamic Impact Metrics",
+        "audienceSubtitle": "Strategic Direct Stakeholders",
+        "impactTiles": [
+          {
+            "k": "UNPLANNED DOWNTIME REDUCTION",
+            "value": "-42%",
+            "id": "tile1",
+            "s": "Drastically slashes costly on-road tow-ins and emergency technician call-out rates by addressing battery cellular faults early."
+          },
+          {
+            "k": "SLA DELIVERY COMPLIANCE",
+            "id": "tile2",
+            "s": "Protects time-critical transport promises by swapping failing delivery vehicles before they break down during transit.",
+            "value": "99.8%"
+          },
+          {
+            "k": "BATTERY ASSET LIFESPAN",
+            "id": "tile3",
+            "value": "+18%",
+            "s": "Extends the financial depreciation window of expensive lithium pack assets by correcting bad fast-charging thermal behaviors."
+          },
+          {
+            "s": "Provides real-time alert updates to central hub operations within seconds of high-temperature CAN bus spikes.",
+            "value": "< 15s",
+            "id": "tile4",
+            "k": "CRITICAL RISK DETECTION LATENCY"
+          }
+        ],
+        "stat1Val": "-65%",
+        "solutionFlow": [
+          {
+            "t": "Monitor Real-time Vehicle State-of-Health",
+            "d": "The fleet operations manager views the active routing map populated with dynamic battery, drivetrain, and overall health scores for all live commercial EVs.",
+            "n": "1",
+            "id": "sf1"
+          },
+          {
+            "id": "sf2",
+            "t": "Receive Instantaneous Anomaly Alert",
+            "d": "An high-priority pop-up appears as soon as cell voltage delta limits or motor temperature thresholds are crossed on a specific vehicle.",
+            "n": "2"
+          },
+          {
+            "id": "sf3",
+            "n": "3",
+            "d": "The system displays calculated impacts on existing SLAs and offers a single-click button to redirect the driver to a nearby depot with a replacement vehicle.",
+            "t": "Evaluate Automated Reroute Solutions"
+          },
+          {
+            "id": "sf4",
+            "d": "The dispatcher confirms the swap, instantly updating the driver's native tablet route while simultaneously pushing a repair work order to the maintenance depot.",
+            "t": "Confirm Bypass and Generate Work Order",
+            "n": "4"
+          }
+        ],
+        "proofs": [
+          {
+            "nm": "Dynamic State-of-Health Graphing",
+            "ds": "Demonstrates the system's exact tracking of battery pack degradation trends over thousands of combined delivery operations.",
+            "id": "p1"
+          },
+          {
+            "nm": "Autonomous Redirection Portal",
+            "ds": "Shows active UI simulations of the dispatch re-route workflow triggered automatically when an EV reports over-temperature.",
+            "id": "p2"
+          },
+          {
+            "ds": "Proves the detection logic captures severe cell temperature spikes up to 45 minutes prior to hardware failures.",
+            "nm": "Thermal Runaway Pre-Alert Validation",
+            "id": "p3"
+          },
+          {
+            "nm": "Multi-Vendor Telematics Connector",
+            "ds": "Validates instant integration compatibility with standard commercial telematics adapters and proprietary vehicle APIs.",
+            "id": "p4"
+          }
+        ],
+        "stat1Lbl": "DOWNTIME",
+        "useGtm": "This asset serves as a core differentiator in our go-to-market strategy by demonstrating how we dramatically reduce EV fleet downtime and total cost of ownership. Sales teams will leverage this to target fleet operators transitioning to electric vehicles, emphasizing our paradigm shift from reactive maintenance to proactive interventions. It firmly positions our platform as an essential risk-mitigation engine for sustainable logistics scaling.",
+        "role": "PRODUCT_OPS_LEAD",
+        "status": "DEPLOYED",
+        "section3": "[03_IMPACT]",
+        "proveSubtitle": "Empirical Capabilities Verifier",
+        "section4": "[04_TARGET_AUDIENCE]",
+        "solutionFlowSubtitle": "Action Sequence Map",
+        "sectionGtm": "[07_USE_IN_GTM/LAUNCH]",
+        "systemFlow": [
+          {
+            "layer": "Data Telemetry Ingestion",
+            "id": "sys1",
+            "what": "Ingests millisecond-level CAN bus messages including battery temperature, state of charge, and current voltage variations directly from the vehicle gateway.",
+            "name": "MQTT Telemetry Bridge"
+          },
+          {
+            "layer": "AI Risk Processing Engine",
+            "id": "sys2",
+            "what": "Evaluates streaming metrics against trained thermal runaway models and battery degradation baselines to flag physical cells with predictive failure risks.",
+            "name": "Stream Processing Anomaly Detector"
+          },
+          {
+            "name": "TMS Routing Adjustment Webhook",
+            "id": "sys3",
+            "what": "Triggers dynamic detour path calculations and dispatches immediate notification events to active drivers' mobile endpoints.",
+            "layer": "Logistics Dispatch Core"
+          }
+        ],
+        "sectionSolutionFlow": "[02.2_SOLUTION_FLOW]",
+        "solutionCode": "1. Connect every EV with IoT/telematics devices to capture live vehicle health data.\n2. Track battery SOC, SOH, temperature, charging cycles, motor load, controller errors, and drivetrain signals.\n3. Send real-time data to a central fleet control tower.\n4. Build a health score for each vehicle based on battery risk, fault patterns, usage, and trip history.\n5. Detect early anomalies like fast battery drain, overheating, voltage drop, motor stress, or repeated error codes.\n6. Predict breakdown risk before the vehicle fails on-road.\n7. Auto-alert dispatcher, fleet manager, driver, and maintenance team.\n8. Recommend action: continue trip, reduce load, reroute to charger, assign backup vehicle, or send to service center.\n9. Reassign delivery trips from high-risk vehicles to healthy nearby vehicles.\n10. Track downtime, repair status, SLA risk, and vehicle availability from one dashboard.\n",
+        "systemFlowSubtitle": "Pypub and Node Route Topology",
+        "section1": "[01_PROBLEM]",
+        "assetsProve": "These assets prove the platform's ability to ingest real-time EV telemetry and translate it into actionable alerts before critical breakdowns occur. They validate the system's capacity to maintain operational continuity through predictive battery health monitoring and automated recovery workflows.",
+        "productBucket": "Control Tower",
+        "headerId": "Ev_Downtime_V1.0",
+        "section2": "[02_SOLUTION]",
+        "solutions": "A real-time EV telemetry control system that monitors battery, motor, drivetrain, charging, and vehicle health signals.\nIt predicts failure risk early, alerts dispatch teams, and redirects risky vehicles for maintenance before breakdowns happen.",
+        "problem": "EV fleet operators lack early visibility into battery degradation, drivetrain faults, and vehicle health anomalies.\nThis creates sudden breakdowns, stranded vehicles, delivery SLA failures, and high downtime cost.",
+        "bucketSubtitle": "Organizational Asset Mapping",
+        "stat2Lbl": "PREDICTIVE ACCURACY",
+        "systemFlowContent": "\nTelemetry Ingest → Pre-Flight Validation → Dynamic Matching → Live Ops Recovery → Intervention Paths\n\nEV data like SOC, SOH, GPS, and diagnostics is first captured through telemetry.\nBefore trip assignment, the system checks vehicle readiness, battery range, route requirement, and charger availability.\nThen it matches the vehicle with demand based on hub, zone, proximity, SLA risk, and breakdown probability.\nDuring live operations, the system monitors route deviation, battery drop, and SLA risk.\nIf a critical issue is detected, the control tower triggers intervention such as auto-charging reroute, backup vehicle assignment, or predictive service repair.\n",
+        "targetAudience": "Fleet Managers, Dispatchers, and Maintenance Operations Teams",
+        "sectionProve": "[06_WHAT_THIS_ASSETS_PROVE]",
+        "buckets": [
+          {
+            "label": "Predictive Maintenance",
+            "primary": true,
+            "id": "b1"
+          },
+          {
+            "label": "EV Telematics",
+            "primary": true,
+            "id": "b2"
+          },
+          {
+            "id": "b3",
+            "primary": false,
+            "label": "SLA Optimization"
+          },
+          {
+            "label": "IoT Ingestion",
+            "primary": false,
+            "id": "b4"
+          }
+        ],
+        "figName": "FIG_01: SYSTEM_OVERVIEW_V1.0",
+        "audiences": [
+          {
+            "who": "Fleet Operations Manager",
+            "id": "aud1",
+            "pri": "Primary",
+            "need": "Needs comprehensive live tracking of vehicle health alongside dynamic routes to maintain absolute delivery integrity."
+          },
+          {
+            "pri": "Secondary",
+            "who": "Depot Maintenance Supervisor",
+            "id": "aud2",
+            "need": "Wants pre-arrival diagnostic summaries to order matching replacement parts before the damaged vehicle physically reaches the yard."
+          },
+          {
+            "need": "Seeks to lower logistics TCO, extend physical battery asset investment life, and avoid heavy route breach penalties.",
+            "id": "aud3",
+            "who": "Chief Financial Officer (CFO)",
+            "pri": "Tertiary"
+          }
+        ],
+        "sectionBucket": "[05_CATEGORY/PRODUCT_BUCKET]",
+        "solutionTitle": "Predictive EV Fleet Control",
+        "sectionKpi": "[KPIs]",
+        "gtmSubtitle": "Go-To-Market and Launch Strategy",
+        "impact": "Drastically reduces unplanned vehicle downtime and towing costs by resolving mechanical and battery anomalies before on-road failures occur."
+      },
+      "title": "Unplanned EV Downtime Risk",
+      "description": "EV fleet operators lack early visibility into battery degradation, drivetrain faults, and vehicle health anomalies."
+    }
+  ],
+  "experiences": [
+    {
+      "subSections": [
+        {
+          "title": "Logistics Optimization",
+          "points": [
+            "Reduced delivery time by 15%"
+          ],
+          "id": "s1"
+        }
+      ],
+      "company": "SHREE MARUTI",
+      "title": "VP OF PRODUCT OPS",
+      "id": "e1",
+      "isPrimary": true,
+      "date": "2021—PRESENT",
+      "points": [
+        "Architected core logistics control tower, increasing routing efficiency by 45% across 12 hubs.",
+        "Implemented automated node-balancing protocols reducing manual intervention by 60%."
+      ]
+    },
+    {
+      "title": "DIR. SYSTEM ARCHITECTURE",
+      "company": "FINTECH NODE ALPHA",
+      "subSections": [],
+      "points": [
+        "Led migration from monolithic legacy systems to microservices architecture."
+      ],
+      "isPrimary": false,
+      "date": "2018—2021",
+      "id": "e2"
+    },
+    {
+      "title": "PRODUCT MANAGER",
+      "subSections": [],
+      "company": "DATA_CORP",
+      "points": [],
+      "date": "2015—2018",
+      "isPrimary": false,
+      "id": "e3"
+    }
+  ],
+  "dashboardLabels": {
+    "active_node": "ACTIVE_NODES"
+  },
+  "resumeUrl": "",
+  "hero": {
+    "terminal2": "> Initializing sequence... OK.",
+    "terminal1": "> Architecting scalable operational nodes and automated control towers.",
+    "name": "ANSHUL_MAHESHWARI",
+    "role": "PRODUCT_OPERATIONS",
+    "desc": "Architecting scalable operational nodes and automated control towers for high-growth tech environments."
+  },
+  "unansweredQuestions": [],
+  "resumeText": "",
+  "capabilities": [
+    {
+      "label": "PROCESS_AUTOMATION",
+      "id": "c1",
+      "value": 92
+    },
+    {
+      "value": 85,
+      "id": "c2",
+      "label": "DATA_MODELING"
+    },
+    {
+      "value": 78,
+      "id": "c3",
+      "label": "TEAM_TOPOLOGIES"
+    },
+    {
+      "label": "AGILE_FRAMEWORKS",
+      "value": 88,
+      "id": "c4"
+    }
+  ],
+  "apiKeys": {
+    "gemini": ""
+  },
+  "lastUpdated": "2026-05-28T17:17:07.007Z"
+}

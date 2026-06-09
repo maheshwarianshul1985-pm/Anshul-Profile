@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0D9488;
+  --color-surface: #F8FAFC;
+  --color-border: #E2E8F0;
+  --color-text-main: #0F172A;
+  --color-muted: #94A3B8;
+
+  --font-display: "Inter", sans-serif;
+  --font-mono: "Space Grotesk", "JetBrains Mono", monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-text-main font-display antialiased;
+  }
+  
+  /* Custom scrollbar for brutalist look */
+  ::-webkit-scrollbar { 
+    width: 6px; 
+    height: 6px; 
+  }
+  ::-webkit-scrollbar-track { 
+    @apply bg-surface; 
+  }
+  ::-webkit-scrollbar-thumb { 
+    @apply bg-primary; 
+  }
+
+  .brutal-border {
+    @apply border border-border;
+  }
+
+  .grid-pattern {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Blinking cursor effect */
+  .cursor-blink {
+    animation: blinker 1.5s linear infinite;
+  }
+  @keyframes blinker {
+    50% { opacity: 0.3; }
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+}
