@@ -15,18 +15,24 @@ const firebaseConfig = {
   firestoreDatabaseId: import.meta.env.VITE_FIREBASE_FIRESTORE_DATABASE_ID || "(default)",
 };
 
-// Check if config is missing and warn the user
-if (!firebaseConfig.apiKey) {
-  console.warn("[Firebase] API Key is missing. Please set VITE_FIREBASE_API_KEY in your environment variables.");
+// Check if config is missing and warn the user.
+// When config is absent we must NOT call initializeApp/getAuth with an empty
+// apiKey — getAuth() throws auth/invalid-api-key synchronously and crashes the
+// entire app (white screen). Instead we run in offline mode (backup + localStorage).
+export const firebaseEnabled = Boolean(firebaseConfig.apiKey);
+
+if (!firebaseEnabled) {
+  console.warn("[Firebase] API Key is missing. Running in offline mode (backup data + localStorage). Set VITE_FIREBASE_API_KEY to enable cloud sync, auth, and uploads.");
 }
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+const app = firebaseEnabled ? initializeApp(firebaseConfig) : null;
+export const db = app ? getFirestore(app, firebaseConfig.firestoreDatabaseId) : null;
 
 export function handleQuotaExceeded() {
   if (localStorage.getItem("firestore_quota_exceeded") !== "true") {
     localStorage.setItem("firestore_quota_exceeded", "true");
   }
+  if (!db) return;
   terminate(db)
     .then(() => {
       return clearIndexedDbPersistence(db);
@@ -39,7 +45,7 @@ export function handleQuotaExceeded() {
     });
 }
 
-if (localStorage.getItem("firestore_quota_exceeded") === "true") {
+if (db && localStorage.getItem("firestore_quota_exceeded") === "true") {
   // Clear persistence and disable network connection immediately to stop retry noise
   // We must terminate the active DB instance before we can successfully clear IndexedDB persistence
   terminate(db)
@@ -52,7 +58,7 @@ if (localStorage.getItem("firestore_quota_exceeded") === "true") {
     .catch((err) => {
       console.warn("[Firebase] Failed to terminate or clear offline persistence:", err);
     });
-} else {
+} else if (db) {
   enableMultiTabIndexedDbPersistence(db).catch((err) => {
     if (err.code == 'failed-precondition') {
       console.warn('Multiple tabs open, and multi-tab is unsupported in this browser.');
@@ -62,5 +68,5 @@ if (localStorage.getItem("firestore_quota_exceeded") === "true") {
   });
 }
 
-export const auth = getAuth();
-export const storage = getStorage(app);
+export const auth = app ? getAuth(app) : null;
+export const storage = app ? getStorage(app) : null;
