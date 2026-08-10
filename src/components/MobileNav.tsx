@@ -4,20 +4,25 @@ import { useApp } from "../contexts/AppContext";
 
 export function MobileNav() {
   const location = useLocation();
-  const { data } = useApp();
+  const { data, isAdmin } = useApp();
 
   const navItems = [
     { key: "dash", label: data.navLabels?.dash || "DASH", icon: LayoutDashboard, path: "/" },
-    { key: "log", label: data.navLabels?.log || "LOG", icon: ScrollText, path: "/resume" },
-    { key: "ping", label: data.navLabels?.ping || "PING", icon: Radio, path: "/contact" },
+    { key: "log", label: data.navLabels?.log || "RESUME / WORK EXP", icon: ScrollText, path: "/resume" },
+    ...(isAdmin ? [{ key: "ping", label: data.navLabels?.ping || "PING", icon: Radio, path: "/contact" }] : []),
     { key: "admin", label: data.navLabels?.admin || "ADMIN", icon: Settings, path: "/admin" },
-  ] as const;
+  ];
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md border-t border-border z-50 flex items-center justify-around px-2">
       {navItems.map((item) => {
         const isActive = location.pathname === item.path || (item.path !== "/" && location.pathname.startsWith(item.path));
         const Icon = item.icon;
+        
+        // Dynamically shorten long custom labels to fit mobile screens elegantly
+        const displayLabel = item.label.length > 12 
+          ? (item.key === "log" ? "RESUME" : item.label.split('/')[0].trim()) 
+          : item.label;
         
         return (
           <Link
@@ -28,7 +33,7 @@ export function MobileNav() {
             }`}
           >
             <Icon className="w-5 h-5" />
-            <span className="font-mono text-[9px] font-bold uppercase tracking-widest">{item.label}</span>
+            <span className="font-mono text-[9.5px] font-bold uppercase tracking-wider">{displayLabel}</span>
           </Link>
         )
       })}

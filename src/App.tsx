@@ -26,6 +26,7 @@ export default function App() {
             <Route path="resume" element={<Resume />} />
             <Route path="contact" element={<Contact />} />
             <Route path="admin" element={<Admin />} />
+            <Route path="*" element={<Dashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>

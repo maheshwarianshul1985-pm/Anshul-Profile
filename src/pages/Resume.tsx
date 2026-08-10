@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Terminal, Download, Cpu } from "lucide-react";
+import { ArrowLeft, Download } from "lucide-react";
 import { motion } from "motion/react";
 import { useApp } from "../contexts/AppContext";
 import { Editable } from "../components/Editable";
@@ -9,7 +9,6 @@ export default function Resume() {
   const navigate = useNavigate();
   const { data, updateData, isEditing } = useApp();
   const experiences = data.experiences as any[];
-  const capabilities = data.capabilities;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -41,24 +40,28 @@ export default function Resume() {
       </header>
 
       {/* Desktop Header */}
-      <header className="hidden md:flex items-center justify-between border-b border-border px-8 py-4 bg-text-main sticky top-0 z-10 text-white">
-        <div className="space-y-2">
+      <header className="hidden md:flex items-center justify-between border-b border-border px-8 py-4 bg-text-main sticky top-0 z-10 text-white shrink-0">
+        <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-none bg-primary cursor-blink"></span>
-            <p className="text-primary font-mono text-sm tracking-widest uppercase font-bold">System_Initialization: Profile_Load</p>
+            <p className="text-primary font-mono text-[10px] tracking-widest uppercase font-bold">System_Initialization: Profile_Load</p>
           </div>
-          <h2 className="text-white text-5xl font-black font-display tracking-tight uppercase">Executive_Terminal_v1.0</h2>
+          <h2 className="text-white font-black font-display tracking-tight uppercase leading-none" style={{ fontSize: "clamp(20px, 5vw, 36px)" }}>Executive_Terminal_v1.0</h2>
         </div>
         {isEditing ? (
           <div className="w-64">
             <FileUploader accept=".pdf" label="UPLOAD RESUME" onUploadComplete={(url) => updateData(prev => ({...prev, resumeUrl: url}))} onParsedText={(text) => updateData(prev => ({...prev, resumeText: text}))} />
           </div>
         ) : data.resumeUrl ? (
-          <button onClick={() => window.open(data.resumeUrl, '_blank')} className="brutal-border bg-white text-text-main font-mono text-[10px] font-bold py-3 px-6 flex items-center gap-2 hover:bg-primary hover:text-white hover:border-primary transition-all uppercase tracking-wider cursor-pointer">
+          <a 
+            href={`/api/download?url=${encodeURIComponent(data.resumeUrl)}`} 
+            download
+            className="brutal-border bg-white text-text-main font-mono text-[10px] font-bold py-2.5 px-5 flex items-center gap-2 hover:bg-primary hover:text-white hover:border-primary transition-all uppercase tracking-wider cursor-pointer"
+          >
             <Download className="w-4 h-4" /> DOWNLOAD_RESUME
-          </button>
+          </a>
         ) : (
-          <button disabled className="brutal-border bg-white/50 text-text-main/50 font-mono text-[10px] font-bold py-3 px-6 flex items-center gap-2 uppercase tracking-wider cursor-not-allowed">
+          <button disabled className="brutal-border bg-white/50 text-text-main/50 font-mono text-[10px] font-bold py-2.5 px-5 flex items-center gap-2 uppercase tracking-wider cursor-not-allowed">
             <Download className="w-4 h-4" /> NO_RESUME_FOUND
           </button>
         )}
@@ -66,37 +69,35 @@ export default function Resume() {
 
       <div className="flex-1 overflow-y-auto pb-24 md:pb-0">
         {/* Mobile Hero overlay */}
-        <section data-section="hero" className="md:hidden border-b border-border bg-text-main relative min-h-[200px] flex flex-col justify-end overflow-hidden p-6">
-          <div className="absolute inset-0 flex flex-col z-10 font-mono top-6 p-6">
-            <p className="text-primary text-[10px] font-bold uppercase tracking-widest mb-2 opacity-80">System.Initialize()</p>
-            <h1 className="text-white text-lg md:text-xl font-bold mb-4 tracking-tight uppercase">EXECUTING_PROFILE_LOAD</h1>
-            <div className="text-primary text-xs leading-relaxed border-l-2 border-primary pl-3 opacity-90 space-y-1 w-full overflow-hidden">
-              <p className="truncate">&gt; User: {data.hero?.role || "Product & Operations Leader"}</p>
-              <p className="truncate">&gt; Core: System Architecture</p>
-              <p className="truncate">&gt; Status: ONLINE. READY FOR DEPLOYMENT.</p>
+        <section data-section="hero" className="md:hidden border-b border-border bg-text-main relative min-h-[160px] flex flex-col justify-end overflow-hidden p-6">
+          <div className="absolute inset-0 flex flex-col z-10 font-mono top-4 p-5">
+            <p className="text-primary text-[9px] font-bold uppercase tracking-widest mb-1 shadow-sm">System.Initialize()</p>
+            <h1 className="text-white text-base font-bold mb-3 tracking-tight uppercase leading-none">EXECUTING_PROFILE_LOAD</h1>
+            <div className="text-primary text-[10px] md:text-xs leading-tight border-l-2 border-primary pl-3 opacity-90 space-y-1 w-full overflow-hidden">
+              <p className="whitespace-nowrap overflow-hidden text-ellipsis">&gt; Role: {data.hero?.role || "Problem Solver"}</p>
+              <p className="whitespace-nowrap overflow-hidden text-ellipsis">&gt; Core: Architecture</p>
+              <p className="whitespace-nowrap overflow-hidden text-ellipsis">&gt; Status: READY.</p>
             </div>
           </div>
           <div className="absolute inset-0 bg-cover bg-center opacity-20 z-0 bg-[url('https://placeholder.pics/svg/400x300/102220-102220/102220')]"></div>
-          <div className="relative z-10 mt-auto pt-6"><p className="text-white/50 tracking-wider text-[10px] font-bold font-mono">v2.4.1_BUILD_STABLE</p></div>
+          <div className="relative z-10 mt-auto pt-4"><p className="text-white/40 tracking-wider text-[9px] font-bold font-mono">v2.4.1_BUILD_STABLE</p></div>
         </section>
 
         {/* Mobile section title */}
-        <div className="md:hidden">
-          <h3 className="text-text-main text-sm font-bold leading-tight px-4 py-3 border-b border-border bg-white uppercase font-display tracking-wide">CAREER_CHANGELOG</h3>
-          <div className="h-4 bg-surface"></div>
+        <div className="md:hidden sticky top-[52px] z-40">
+          <h3 className="text-text-main text-xs font-bold leading-tight px-4 py-2.5 border-b border-border bg-white uppercase font-display tracking-wide shadow-sm">CAREER_CHANGELOG</h3>
         </div>
 
-        {/* Desktop Split & Mobile Stack Content */}
-        <div className="flex flex-col md:flex-row px-4 md:px-0 lg:max-w-7xl lg:mx-auto w-full md:h-full">
+        {/* Desktop & Mobile Career Timeline */}
+        <div className="px-4 md:px-8 py-8 max-w-4xl mx-auto w-full">
           
-          {/* Timeline (Left relative to Desktop) */}
-          <div className="flex-1 md:p-8 md:border-r border-border md:overflow-y-auto">
+          {/* Timeline Center Card */}
+          <div className="w-full">
             <div className="hidden md:flex mb-10 items-center justify-between">
               <h3 className="font-display text-xl md:text-2xl font-bold tracking-tight uppercase">CAREER_CHANGELOG</h3>
-              <span className="text-muted font-mono text-xs uppercase font-bold">Filter: All_Entries</span>
             </div>
 
-            <motion.section data-section="career-changelog" variants={containerVariants} initial="hidden" animate="show" className="relative pl-6 md:pl-8 py-4">
+            <motion.section data-section="career-changelog" variants={containerVariants} initial="hidden" animate="show" className="relative pl-6 md:pl-8 py-2">
               <div className="absolute top-4 bottom-0 left-[11px] md:left-[15px] w-[1px] bg-border z-0"></div>
               
               {experiences.map((exp, i) => (
@@ -252,79 +253,25 @@ export default function Resume() {
                 </motion.div>
               )}
             </motion.section>
-          </div>
 
-          {/* Capabilities (Right Desktop, Bottom Mobile) */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="md:w-80 lg:w-96 md:bg-surface md:p-8 shrink-0 md:overflow-y-auto"
-          >
-            <section data-section="system-capabilities" className="mt-8 md:mt-0 border-t border-border md:border-none pt-6 md:pt-0">
-              <h3 className="text-text-main text-lg md:text-xl font-bold leading-tight mb-6 uppercase flex items-center font-display tracking-tight">
-                <Cpu className="text-primary mr-2 w-5 h-5 md:w-6 md:h-6" />
-                SYSTEM_CAPABILITIES
-              </h3>
-              
-              <div className="bg-white md:bg-transparent brutal-border md:border-none p-4 md:p-0 space-y-5 md:space-y-6">
-                {capabilities.map((cap, i) => (
-                  <div key={cap.id} className="relative group/cap">
-                    <div className="flex justify-between items-center mb-2 font-mono text-[10px] md:text-xs font-bold uppercase tracking-wider">
-                      <span className="text-text-main">
-                        <Editable value={cap.label} onChange={(v) => updateData(prev => ({...prev, capabilities: prev.capabilities.map((c) => c.id === cap.id ? {...c, label: v} : c)}))} />
-                      </span>
-                      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 + (i * 0.1) }}>
-                        <Editable value={cap.value} onChange={(v) => updateData(prev => ({...prev, capabilities: prev.capabilities.map((c) => c.id === cap.id ? {...c, value: Number(v)} : c)}))} />%
-                      </motion.span>
-                    </div>
-                    {isEditing && (
-                      <button onClick={() => updateData(prev => ({...prev, capabilities: prev.capabilities.filter((c) => c.id !== cap.id)}))} className="absolute -left-6 top-0 text-red-500 font-bold hover:bg-red-50 p-1">✕</button>
-                    )}
-                    <div className="w-full bg-surface md:bg-white h-2 rounded-none brutal-border overflow-hidden">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: `${cap.value}%` }}
-                        transition={{ duration: 1, ease: "easeOut", delay: 0.5 + (i * 0.1) }}
-                        className={`h-full rounded-none border-r border-surface md:border-white ${i % 2 === 0 ? 'bg-primary' : 'bg-text-main opacity-80'}`} 
-                      ></motion.div>
-                    </div>
-                  </div>
-                ))}
-                
-                {isEditing && (
-                  <button 
-                    onClick={() => updateData(prev => ({
-                      ...prev, 
-                      capabilities: [...prev.capabilities, { 
-                        id: `cap-${Date.now()}`,
-                        label: "NEW CAPABILITY",
-                        value: 50
-                      }]
-                    }))}
-                    className="w-full h-10 bg-surface text-text-main font-mono text-[10px] font-bold uppercase hover:bg-white transition-colors brutal-border flex items-center justify-center gap-2 border-dashed border-2 mt-4"
-                  >
-                    + ADD_CAPABILITY
-                  </button>
-                )}
-              </div>
-
-              {/* Download Action Mobile */}
-              <div className="mt-8 flex justify-center md:hidden pb-8">
-                {isEditing ? (
+            {/* Mobile-only Download Action at the end of the timeline */}
+            <div className="mt-8 flex justify-center md:hidden pb-12">
+              {isEditing ? (
+                <div className="w-full">
                   <FileUploader accept=".pdf" label="UPLOAD RESUME" onUploadComplete={(url) => updateData(prev => ({...prev, resumeUrl: url}))} onParsedText={(text) => updateData(prev => ({...prev, resumeText: text}))} />
-                ) : data.resumeUrl ? (
-                  <button onClick={() => window.open(data.resumeUrl, '_blank')} className="flex items-center justify-center w-full bg-text-main text-white font-mono font-bold text-[10px] uppercase py-4 px-6 rounded-none hover:bg-primary transition-colors brutal-border tracking-wider cursor-pointer">
-                    <Download className="w-4 h-4 mr-2" /> DOWNLOAD_RESUME
-                  </button>
-                ) : (
-                  <button disabled className="flex items-center justify-center w-full bg-text-main/50 text-white/50 font-mono font-bold text-[10px] uppercase py-4 px-6 rounded-none brutal-border tracking-wider cursor-not-allowed">
-                    <Download className="w-4 h-4 mr-2" /> NO_RESUME_FOUND
-                  </button>
-                )}
-              </div>
-            </section>
-          </motion.div>
+                </div>
+              ) : data.resumeUrl ? (
+                <button onClick={() => window.open(data.resumeUrl, '_blank')} className="flex items-center justify-center w-full bg-text-main text-white font-mono font-bold text-xs uppercase py-4 px-6 rounded-none hover:bg-primary transition-colors brutal-border tracking-wider cursor-pointer">
+                  <Download className="w-4 h-4 mr-2" /> DOWNLOAD_RESUME
+                </button>
+              ) : (
+                <button disabled className="flex items-center justify-center w-full bg-text-main/50 text-white/50 font-mono font-bold text-xs uppercase py-4 px-6 rounded-none brutal-border tracking-wider cursor-not-allowed">
+                  <Download className="w-4 h-4 mr-2" /> NO_RESUME_FOUND
+                </button>
+              )}
+            </div>
+
+          </div>
         </div>
       </div>
     </motion.div>

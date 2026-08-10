@@ -120,6 +120,7 @@ YOU MUST RESPOND IN JSON FORMAT EXACTLY MATCHING THIS STRUCTURE:
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           messages: newMessages,
           apiKey: data.apiKeys?.gemini,
@@ -185,9 +186,10 @@ YOU MUST RESPOND IN JSON FORMAT EXACTLY MATCHING THIS STRUCTURE:
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 md:bottom-6 left-6 w-14 h-14 bg-text-main text-white flex items-center justify-center brutal-border z-[60] hover:bg-primary transition-colors shadow-[4px_4px_0_0_#1e1e1e] cursor-pointer"
+            className="fixed bottom-20 md:bottom-6 right-4 md:right-6 w-11 h-11 md:w-12 md:h-12 bg-[#1c3f63] text-white flex items-center justify-center rounded-full z-40 hover:bg-[#15304d] transition-all shadow-lg cursor-pointer active:scale-95 border border-white/20"
+            title="Open Predictive Assistant"
           >
-            <MessageSquare className="w-6 h-6" />
+            <MessageSquare className="w-5 h-5" />
           </motion.button>
         )}
       </AnimatePresence>
@@ -198,7 +200,7 @@ YOU MUST RESPOND IN JSON FORMAT EXACTLY MATCHING THIS STRUCTURE:
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 md:bottom-6 left-6 w-[90vw] md:w-[400px] h-[500px] max-h-[85vh] bg-surface brutal-border flex flex-col z-[60] shadow-[8px_8px_0_0_#1e1e1e] overflow-hidden"
+            className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 left-4 sm:left-auto w-[calc(100vw-2rem)] sm:w-[400px] h-[480px] max-h-[80vh] bg-surface rounded-xl border border-border flex flex-col z-[60] shadow-2xl overflow-hidden"
           >
              <div className="flex items-center justify-between p-4 border-b border-border bg-white outline-none">
               <div className="flex items-center gap-2">

@@ -3,12 +3,14 @@ import { db, handleQuotaExceeded } from '../firebase';
 import { doc, onSnapshot, setDoc, getDoc } from 'firebase/firestore';
 import BACKUP_PORTFOLIO_DATA from './backup_portfolio.json';
 
+export { BACKUP_PORTFOLIO_DATA };
+
 export const INITIAL_DATA = {
   hero: {
     desc: "Architecting high-scale logistics networks and automated control towers. I bridge the gap between heavy physical operations and intelligent digital layers.",
     terminal1: "> Building the systems that move India's largest logistics parcels.",
     role: "VP OF PRODUCT // OPERATIONS",
-    name: "ANSHUL_MAHESHWARI",
+    name: "ANSHUL MAHESHWARI",
     terminal2: "> 10+ years scaling PTL supply chains, Fintech ledgers, and AI-driven ops."
   },
   headlines: [
@@ -177,8 +179,7 @@ export const INITIAL_DATA = {
   resumeText: "",
   navLabels: {
     dash: "DASH",
-    log: "LOG",
-    media: "MEDIA",
+    log: "RESUME / WORK EXP",
     ping: "PING",
     admin: "ADMIN"
   },
@@ -196,6 +197,141 @@ export const INITIAL_DATA = {
   lastUpdated: new Date().toISOString()
 };
 
+export const ALLOWED_CATEGORIES = [
+  "Decision Intelligence & Agentic TMS",
+  "AI Finance Ops & Audits",
+  "Credit & Risk Engines",
+  "Retail & Inventory Intelligence",
+  "Pre-Sales Serviceability Engines",
+  "Geofence & Fleet Operations",
+  "AI Sales & Pricing Copilots",
+  "Predictive Delay & SLA Intelligence",
+  "Logistics Pricing Decision Engines",
+  "Control Tower & Fleet Telematics"
+];
+
+export function getNormalizedCategory(pb: string | undefined, title: string | undefined): string {
+  const t = (title || "").toLowerCase();
+  const cat = (pb || "").toLowerCase();
+
+  // 1. Decision Intelligence & Agentic TMS
+  if (t.includes("manual decision") || t.includes("manual indent") || cat.includes("tms automation") || cat.includes("agentic tms")) {
+    return "Decision Intelligence & Agentic TMS";
+  }
+  // 2. AI Finance Ops & Audits
+  if (t.includes("invoice-payment") || t.includes("leakage and mismatch") || cat.includes("finance ops") || cat.includes("payment audit")) {
+    return "AI Finance Ops & Audits";
+  }
+  // 3. Credit & Risk Engines
+  if (t.includes("credit bottleneck") || cat.includes("credit engine")) {
+    return "Credit & Risk Engines";
+  }
+  // 4. Retail & Inventory Intelligence
+  if (t.includes("fresh waste") || t.includes("store-level fresh") || cat.includes("retail inventory") || cat.includes("fresh waste")) {
+    return "Retail & Inventory Intelligence";
+  }
+  // 5. Pre-Sales Serviceability Engines
+  if (t.includes("darkstore sales") || t.includes("serviceability") || cat.includes("serviceability")) {
+    return "Pre-Sales Serviceability Engines";
+  }
+  // 6. Geofence & Fleet Operations
+  if (t.includes("fleet allocation") || cat.includes("geofence fleet")) {
+    return "Geofence & Fleet Operations";
+  }
+  // 7. AI Sales & Pricing Copilots
+  if (t.includes("weak negotiation") || cat.includes("sales pricing copilot")) {
+    return "AI Sales & Pricing Copilots";
+  }
+  // 8. Predictive Delay & SLA Intelligence
+  if (t.includes("reactive tracking") || t.includes("delay") || cat.includes("predictive delay") || cat.includes("sla intelligence")) {
+    return "Predictive Delay & SLA Intelligence";
+  }
+  // 9. Logistics Pricing Decision Engines
+  if (t.includes("fragmented pricing") || cat.includes("pricing decision engine")) {
+    return "Logistics Pricing Decision Engines";
+  }
+  // 10. Control Tower & Fleet Telematics
+  if (t.includes("farm supply") || t.includes("ev downtime") || cat.includes("control tower") || cat.includes("telematics")) {
+    return "Control Tower & Fleet Telematics";
+  }
+
+  // Fallback to closest or default
+  return "Decision Intelligence & Agentic TMS";
+}
+
+export function sanitizePortfolioData(d: any): any {
+  if (!d) return d;
+  const cleaned = { ...d };
+  if (cleaned.navLabels) {
+    cleaned.navLabels = { ...cleaned.navLabels };
+    if (cleaned.navLabels.log === "LOG" || cleaned.navLabels.log === "RESUME") {
+      cleaned.navLabels.log = "RESUME / WORK EXP";
+    }
+    if (cleaned.navLabels.media) {
+      delete cleaned.navLabels.media;
+    }
+  }
+
+  // Ensure nodes have normalized categories, complete 4-pillar fields, and updatedAt timestamps
+  if (cleaned.nodes && Array.isArray(cleaned.nodes)) {
+    cleaned.nodes = cleaned.nodes.map((node: any, idx: number) => {
+      const backupNode = (BACKUP_PORTFOLIO_DATA.nodes || [])[idx] || (BACKUP_PORTFOLIO_DATA.nodes || []).find((b: any) => b.id === node.id);
+
+      const title = node.title || backupNode?.title || "";
+      const currentPb = node.content?.productBucket || backupNode?.content?.productBucket || "";
+      const normalizedPb = getNormalizedCategory(currentPb, title);
+
+      const nodeWithCategory = {
+        ...backupNode,
+        ...node,
+        title,
+        content: {
+          ...(backupNode?.content || {}),
+          ...(node.content || {}),
+          productBucket: normalizedPb,
+          subtitle: node.content?.subtitle || backupNode?.content?.subtitle || "",
+          stat1Lbl: node.content?.stat1Lbl || backupNode?.content?.stat1Lbl || "SIGNAL",
+          stat1Val: node.content?.stat1Val || backupNode?.content?.stat1Val || "",
+          stat1Desc: node.content?.stat1Desc || backupNode?.content?.stat1Desc || "",
+          stat2Lbl: node.content?.stat2Lbl || backupNode?.content?.stat2Lbl || "COST",
+          stat2Val: node.content?.stat2Val || backupNode?.content?.stat2Val || "",
+          stat2Desc: node.content?.stat2Desc || backupNode?.content?.stat2Desc || "",
+          stat3Lbl: node.content?.stat3Lbl || backupNode?.content?.stat3Lbl || "FIX",
+          stat3Val: node.content?.stat3Val || backupNode?.content?.stat3Val || "",
+          stat3Desc: node.content?.stat3Desc || backupNode?.content?.stat3Desc || "",
+          stat4Lbl: node.content?.stat4Lbl || backupNode?.content?.stat4Lbl || "RETURN",
+          stat4Val: node.content?.stat4Val || backupNode?.content?.stat4Val || "",
+          stat4Desc: node.content?.stat4Desc || backupNode?.content?.stat4Desc || "",
+          railMetricVal: node.content?.railMetricVal || backupNode?.content?.railMetricVal || "",
+          railMetricLbl: node.content?.railMetricLbl || backupNode?.content?.railMetricLbl || "",
+        }
+      };
+
+      if (!nodeWithCategory.updatedAt) {
+        // Use explicitly scrambled (non-sequential) baseline timestamps
+        // index 0 (marut-ai) -> 4 days ago
+        // index 1 (fintech-ledger-2) -> 3 hours ago (Rank 1)
+        // index 2 (hyperlocal-pinified) -> 1.5 days ago (Rank 2)
+        let timeOffset = 1000 * 60 * 60 * 24 * 7; // Default 7 days ago
+        if (nodeWithCategory.id === "fintech-ledger-2") {
+          timeOffset = 1000 * 60 * 60 * 3; // 3 hours ago
+        } else if (nodeWithCategory.id === "hyperlocal-pinified") {
+          timeOffset = 1000 * 60 * 60 * 36; // 36 hours (1.5 days) ago
+        } else if (nodeWithCategory.id === "marut-ai") {
+          timeOffset = 1000 * 60 * 60 * 24 * 4; // 4 days ago
+        } else {
+          // Scramble for other nodes as well
+          timeOffset = 1000 * 60 * 60 * (12 + (idx * 17) % 120);
+        }
+        const defaultTime = new Date(Date.now() - timeOffset).toISOString();
+        return { ...nodeWithCategory, updatedAt: defaultTime };
+      }
+      return nodeWithCategory;
+    });
+  }
+  return cleaned;
+}
+
 type AppContextType = {
   isEditing: boolean;
   setIsEditing: (val: boolean) => void;
@@ -210,32 +346,55 @@ type AppContextType = {
   loading: boolean;
   hasUnsavedChanges: boolean;
   lastCloudSync: string | null;
+  cloudError: string | null;
 };
 
 export const AppContext = createContext<AppContextType | null>(null);
+
+function getSafeStorageItem(key: string): string | null {
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    return null;
+  }
+}
+
+function setSafeStorageItem(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {}
+}
+
+function removeSafeStorageItem(key: string): void {
+  try {
+    localStorage.removeItem(key);
+  } catch (e) {}
+}
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [lastCloudSync, setLastCloudSync] = useState<string | null>(null);
-  const [quotaExceeded, setQuotaExceeded] = useState<boolean>(() => localStorage.getItem("firestore_quota_exceeded") === "true");
+  const [cloudError, setCloudError] = useState<string | null>(null);
+  const [quotaExceeded, setQuotaExceeded] = useState<boolean>(() => getSafeStorageItem("firestore_quota_exceeded") === "true");
   const [isAdmin, setIsAdmin] = useState(() => {
-    return localStorage.getItem("is_admin") === "true";
+    return getSafeStorageItem("is_admin") === "true";
   });
   
   const [data, setData] = useState<any>(() => {
-    const cached = localStorage.getItem("portfolio_data");
+    const cached = getSafeStorageItem("portfolio_data");
     try {
-      return cached ? JSON.parse(cached) : BACKUP_PORTFOLIO_DATA;
+      return cached ? sanitizePortfolioData(JSON.parse(cached)) : sanitizePortfolioData(BACKUP_PORTFOLIO_DATA);
     } catch (e) {
-      return BACKUP_PORTFOLIO_DATA;
+      return sanitizePortfolioData(BACKUP_PORTFOLIO_DATA);
     }
   });
 
   // Keep refs up to date to prevent stale state closure loops in onSnapshot
   const dataRef = useRef<any>(data);
   const hasUnsavedChangesRef = useRef<boolean>(hasUnsavedChanges);
+  const isSyncingRef = useRef<boolean>(false);
   
   useEffect(() => {
     dataRef.current = data;
@@ -254,74 +413,104 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
 
     const docRef = doc(db, 'portfolio', 'main');
-    console.log("[AppContext] Establishing cloud listener (1 read per app session).");
-    
-    const unsubscribe = onSnapshot(docRef, 
-      (snapshot) => {
-        if (snapshot.exists()) {
-          const fbData = snapshot.data();
+    let active = true;
+
+    // Failsafe timer (3 seconds) to prevent infinite loading state in boxed iframe/WS blocks
+    const failsafeTimeout = setTimeout(() => {
+      if (active) {
+        console.warn("[AppContext] Failsafe timeout reached. Resolving loading spinner anyway.");
+        setLoading(false);
+      }
+    }, 3000);
+
+    const handleSnapshotData = (snapshot: any) => {
+      setCloudError(null);
+      if (snapshot.exists()) {
+        const fbData = snapshot.data();
+        
+        // CRITICAL: If we have unsaved local changes, we MUST NOT let the cloud snapshot overwrite our state.
+        if (hasUnsavedChangesRef.current) {
+          console.log("[AppContext] Local changes pending. Ignoring background cloud snapshot to prevent overwrite.");
+          setLoading(false);
+          return;
+        }
+        
+        const currentLocal = dataRef.current;
+        
+        // Timestamp validation check: Only ignore cloud if local is STRICTLY newer.
+        if (currentLocal && currentLocal.lastUpdated && fbData && fbData.lastUpdated) {
+          const currentLocalTime = new Date(currentLocal.lastUpdated).getTime();
+          const remoteTime = new Date(fbData.lastUpdated).getTime();
           
-          // CRITICAL: If we have unsaved local changes, we MUST NOT let the cloud snapshot overwrite our state.
-          // This is often why users see their changes "revert" or feel like they need to refresh twice.
-          if (hasUnsavedChangesRef.current) {
-            console.log("[AppContext] Local changes pending. Ignoring background cloud snapshot to prevent overwrite.");
+          if (currentLocalTime > remoteTime) {
             setLoading(false);
             return;
           }
-          
-          const currentLocal = dataRef.current;
-          
-          // Timestamp validation check: avoid redundant state updates & re-render spirals
-          if (currentLocal && currentLocal.lastUpdated && fbData && fbData.lastUpdated) {
-            const currentLocalTime = new Date(currentLocal.lastUpdated).getTime();
-            const remoteTime = new Date(fbData.lastUpdated).getTime();
-            
-            // If the local state is already newer or equal, skip the state update
-            if (currentLocalTime >= remoteTime) {
-              setLoading(false);
-              return;
-            }
-          }
-
-          const mergedNodes = fbData.nodes ? fbData.nodes.map((n: any) => ({
-            ...INITIAL_DATA.nodes[0], // fallback structure
-            ...n,
-            content: {
-              ...INITIAL_DATA.nodes[0].content,
-              ...(n.content || {})
-            }
-          })) : BACKUP_PORTFOLIO_DATA.nodes;
-
-          const mergedFbData = { 
-            ...BACKUP_PORTFOLIO_DATA, 
-            ...fbData,
-            nodes: mergedNodes
-          };
-
-          try {
-            localStorage.setItem("portfolio_data", JSON.stringify(mergedFbData));
-          } catch (e) {}
-
-          setData(mergedFbData);
-          setLastCloudSync(new Date().toISOString());
-        } else {
-          // If Firestore is empty, auto-initializing is skipped. We do NOT run setDoc here to avoid write noise.
-          // Fall back to safely using our hardcoded backup portfolio data.
-          setData(BACKUP_PORTFOLIO_DATA);
         }
-        setLoading(false);
+
+        const mergedFbData = sanitizePortfolioData({ 
+          ...BACKUP_PORTFOLIO_DATA, 
+          ...fbData
+        });
+
+        try {
+          localStorage.setItem("portfolio_data", JSON.stringify(mergedFbData));
+        } catch (e) {}
+
+        setData(mergedFbData);
+        setLastCloudSync(new Date().toISOString());
+      } else {
+        console.log("[AppContext] Cloud document not found. Keeping local/cached state.");
+      }
+      setLoading(false);
+    };
+
+    // 1. Fetch instantly via lightweight single-hop HTTPS (great fallback for sandboxed iframe socket blocks!)
+    console.log("[AppContext] Issuing initial fast getDoc pull.");
+    getDoc(docRef)
+      .then((snapshot) => {
+        if (active) {
+          console.log("[AppContext] Fast getDoc pull completed successfully.");
+          handleSnapshotData(snapshot);
+        }
+      })
+      .catch((err) => {
+        console.warn("[AppContext] Fast getDoc pull failed (falling back to local cache):", err);
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    // 2. Establish live listener for real-time admin sync
+    console.log("[AppContext] Establishing active real-time cloud listener.");
+    const unsubscribe = onSnapshot(docRef, 
+      (snapshot) => {
+        if (active) {
+          console.log("[AppContext] Real-time onSnapshot data received.");
+          handleSnapshotData(snapshot);
+        }
       },
       (error: any) => {
-        console.error("[AppContext] Firestore real-time error:", error);
-        if (error && (error.code === 'resource-exhausted' || error.message?.includes('resource-exhausted'))) {
-          setQuotaExceeded(true);
-          handleQuotaExceeded();
+        console.warn("[AppContext] Firestore real-time notice:", error);
+        if (active) {
+          const errMsg = String(error?.message || error);
+          if (error?.code === 'resource-exhausted' || errMsg.includes('resource-exhausted') || errMsg.includes('exhausted')) {
+            setQuotaExceeded(true);
+            handleQuotaExceeded();
+          } else if (errMsg.includes('Failed to fetch') || error?.code === 'unavailable') {
+            console.warn("[AppContext] Network/fetch constraint encountered. Operating seamlessly with local cache.");
+            setCloudError(null);
+          } else {
+            setCloudError(errMsg);
+          }
+          setLoading(false);
         }
-        setLoading(false);
       }
     );
 
     return () => {
+      active = false;
+      clearTimeout(failsafeTimeout);
       console.log("[AppContext] Successfully unsubscribing from Firestore real-time updates.");
       unsubscribe();
     };
@@ -330,35 +519,113 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const updateData = (updater: (prev: any) => any) => {
     setData((prev: any) => {
-      const newData = updater(prev);
-      newData.lastUpdated = new Date().toISOString(); 
-      setHasUnsavedChanges(true); // Flag local state as dirty
+      const nextData = updater(prev);
+      nextData.lastUpdated = new Date().toISOString(); 
+      
+      // Update specific node updatedAt timestamp if any node has been modified
+      if (prev && prev.nodes && nextData && nextData.nodes) {
+        const now = new Date().toISOString();
+        nextData.nodes = nextData.nodes.map((n: any) => {
+          const oldNode = prev.nodes.find((o: any) => o.id === n.id);
+          if (oldNode) {
+            // Ignore updatedAt when comparing contents to avoid matching changes in timestamp
+            const oldNoTime = { ...oldNode, updatedAt: undefined };
+            const newNoTime = { ...n, updatedAt: undefined };
+            if (JSON.stringify(oldNoTime) !== JSON.stringify(newNoTime)) {
+              return { ...n, updatedAt: now };
+            }
+          } else {
+            // This is a new node entirely
+            return { ...n, updatedAt: now };
+          }
+          return n;
+        });
+      }
+
       try {
-        localStorage.setItem("portfolio_data", JSON.stringify(newData));
+        localStorage.setItem("portfolio_data", JSON.stringify(nextData));
       } catch (e) {}
-      return newData;
+      return nextData;
     });
+
+    setHasUnsavedChanges(true);
   };
+
+  // Debounced auto-save to cloud
+  useEffect(() => {
+    if (!isAdmin || quotaExceeded || !hasUnsavedChanges) {
+      return;
+    }
+
+    console.log("[AppContext] Queueing debounced auto-sync (2s after editing stops).");
+    const timer = setTimeout(() => {
+      if (isSyncingRef.current) {
+        console.log("[AppContext] Previous sync still in flight. Skipping queueing.");
+        return;
+      }
+
+      const docRef = doc(db, 'portfolio', 'main');
+      const latestData = dataRef.current;
+      
+      console.log("[AppContext] Debounced auto-sync writing to cloud database...");
+      isSyncingRef.current = true;
+
+      setDoc(docRef, latestData)
+        .then(() => {
+          setHasUnsavedChanges(false);
+          setCloudError(null);
+          console.log("[AppContext] Debounced auto-synced changes successfully persisted to cloud.");
+        })
+        .catch(e => {
+          console.error("[AppContext] Debounced auto-sync failed:", e);
+          const errMsg = String(e?.message || e);
+          if (e?.code === 'resource-exhausted' || errMsg.includes('resource-exhausted') || errMsg.includes('exhausted')) {
+            setQuotaExceeded(true);
+            handleQuotaExceeded();
+          }
+          setHasUnsavedChanges(false);
+          setCloudError("Auto-sync paused. Saved locally.");
+        })
+        .finally(() => {
+          isSyncingRef.current = false;
+        });
+    }, 2000); // 2.0 seconds debounce
+
+    return () => clearTimeout(timer);
+  }, [data, isAdmin, quotaExceeded, hasUnsavedChanges]);
 
   const syncToCloud = async () => {
     if (quotaExceeded) throw new Error("Quota exceeded. Sync disabled.");
+    if (isSyncingRef.current) throw new Error("A sync operation is already in progress.");
+    
     const docRef = doc(db, 'portfolio', 'main');
     try {
-      // Explicitly write the current local state to cloud
-      await setDoc(docRef, data);
-      setHasUnsavedChanges(false); // Reset dirty flag after successful cloud sync
+      isSyncingRef.current = true;
+      // Direct pull from synchronous cache to avoid any React batching stale state
+      const cached = getSafeStorageItem("portfolio_data");
+      const latestData = cached ? JSON.parse(cached) : data;
+      latestData.lastUpdated = new Date().toISOString();
+      
+      await setDoc(docRef, latestData);
+      
+      setData(latestData);
+      setHasUnsavedChanges(false);
+      setCloudError(null);
       console.log("[AppContext] Successfully synced to cloud.");
     } catch (err: any) {
-      if (err?.code === 'resource-exhausted') {
+      const errMsg = String(err?.message || err);
+      if (err?.code === 'resource-exhausted' || errMsg.includes('resource-exhausted') || errMsg.includes('exhausted')) {
         setQuotaExceeded(true);
         handleQuotaExceeded();
       }
       throw err;
+    } finally {
+      isSyncingRef.current = false;
     }
   };
 
   const resetQuotaFlag = () => {
-    localStorage.removeItem("firestore_quota_exceeded");
+    removeSafeStorageItem("firestore_quota_exceeded");
     setQuotaExceeded(false);
     window.location.reload(); // Refresh to re-initialize SDK connection
   };
@@ -370,8 +637,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         return;
       }
       const docRef = doc(db, 'portfolio', 'main');
-      await setDoc(docRef, BACKUP_PORTFOLIO_DATA);
-      setData(BACKUP_PORTFOLIO_DATA);
+      const sanitized = sanitizePortfolioData(BACKUP_PORTFOLIO_DATA);
+      await setDoc(docRef, sanitized);
+      setData(sanitized);
       console.log("[AppContext] Successfully restored database back to safe snapshot.");
     } catch (err: any) {
       console.error("[AppContext] Failed to restore safe snapshot:", err);
@@ -382,7 +650,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const login = (id: string, pass: string) => {
     if (id === 'maheshwarianshul1985' && pass === 'pranali1985') {
       setIsAdmin(true);
-      localStorage.setItem("is_admin", "true");
+      setSafeStorageItem("is_admin", "true");
       return true;
     }
     return false;
@@ -391,11 +659,26 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setIsAdmin(false);
     setIsEditing(false);
-    localStorage.removeItem("is_admin");
+    removeSafeStorageItem("is_admin");
   };
 
   return (
-    <AppContext.Provider value={{ isEditing, setIsEditing, data, updateData, restoreFullBackup, syncToCloud, resetQuotaFlag, isAdmin, login, logout, loading, hasUnsavedChanges, lastCloudSync }}>
+    <AppContext.Provider value={{ 
+      isEditing, 
+      setIsEditing, 
+      data, 
+      updateData, 
+      restoreFullBackup, 
+      syncToCloud, 
+      resetQuotaFlag, 
+      isAdmin, 
+      login, 
+      logout, 
+      loading, 
+      hasUnsavedChanges, 
+      lastCloudSync,
+      cloudError
+    }}>
       {children}
     </AppContext.Provider>
   );

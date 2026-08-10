@@ -8,6 +8,7 @@ interface EditableProps {
   as?: any;
   className?: string;
   multiline?: boolean;
+  placeholder?: string;
 }
 
 export function Editable({ 
@@ -15,7 +16,8 @@ export function Editable({
   onChange, 
   as: Component = "span", 
   className,
-  multiline = false
+  multiline = false,
+  placeholder
 }: EditableProps) {
   const { isEditing } = useApp();
   const [localValue, setLocalValue] = useState(value !== undefined ? String(value) : "");
@@ -38,6 +40,7 @@ export function Editable({
        <textarea
          className={cn(inputClasses, "resize-y overflow-hidden")}
          value={localValue}
+         placeholder={placeholder}
          onChange={(e) => {
            setLocalValue(e.target.value);
            e.target.style.height = 'inherit';
@@ -54,6 +57,7 @@ export function Editable({
       type="text"
       className={inputClasses}
       value={localValue}
+      placeholder={placeholder}
       onChange={(e) => setLocalValue(e.target.value)}
       onBlur={() => onChange(localValue)}
     />

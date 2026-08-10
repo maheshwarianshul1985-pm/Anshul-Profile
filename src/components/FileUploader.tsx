@@ -1,12 +1,7 @@
 import React, { useState, useRef } from 'react';
+import { UploadCloud, Loader2 } from 'lucide-react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../firebase';
-import { UploadCloud, Loader2 } from 'lucide-react';
-import * as pdfjsLib from 'pdfjs-dist';
-import workerUrl from 'pdfjs-dist/build/pdf.worker.mjs?url';
-
-// Configure the worker explicitly for Vite
-pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
 
 interface FileUploaderProps {
   onUploadComplete: (url: string) => void;
@@ -25,7 +20,18 @@ export function FileUploader({ onUploadComplete, onParsedText, accept = "video/m
     if (!onParsedText) return;
     try {
       const arrayBuffer = await file.arrayBuffer();
-      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      // Dynamically load pdfjs-dist to prevent any bundler or loading-time exceptions
+      const pdfjsLib = await import('pdfjs-dist');
+      
+      try {
+        const workerUrl = new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url).href;
+        pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
+      } catch (workerErr) {
+        console.warn("Failed to dynamically configure PDF worker path, using default.", workerErr);
+      }
+
+      const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+      const pdf = await loadingTask.promise;
       let fullText = "";
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
@@ -33,46 +39,101 @@ export function FileUploader({ onUploadComplete, onParsedText, accept = "video/m
         const pageText = content.items.map((item: any) => item.str || '').join(' ');
         fullText += pageText + "\n";
       }
-      onParsedText(fullText.substring(0, 50000)); // Limit length to avoid massive strings
+      onParsedText(fullText.substring(0, 50000));
     } catch (e) {
-      console.error("PDF Parsing Error", e);
+      console.error("PDF Parsing Error (ignoring so upload can complete):", e);
     }
+  };
+
+  const uploadToLocalServer = (file: File) => {
+    const xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    const formData = new FormData();
+    formData.append('file', file);
+
+    xhr.upload.addEventListener('progress', (event) => {
+      if (event.lengthComputable) {
+        const p = (event.loaded / event.total) * 100;
+        setProgress(p);
+        setBytesInfo((event.loaded / (1024 * 1024)).toFixed(2) + " MB / " + (event.total / (1024 * 1024)).toFixed(2) + " MB");
+      }
+    });
+
+    xhr.addEventListener('load', () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          const res = JSON.parse(xhr.responseText);
+          onUploadComplete(res.url);
+        } catch (e) {
+          console.error("[Upload] Failed to parse response", e);
+          alert("Uploaded file processing success, but response parsing failed.");
+        }
+      } else {
+        console.error("[Upload] Server error:", xhr.status, xhr.responseText);
+        alert(`Upload failed: Server returned code ${xhr.status}`);
+      }
+      setIsUploading(false);
+    });
+
+    xhr.addEventListener('error', () => {
+      console.error("[Upload] Network connection/CORS error.");
+      alert("Network error occurred during the file upload. Please verify network connection.");
+      setIsUploading(false);
+    });
+
+    xhr.open('POST', '/api/upload');
+    xhr.send(formData);
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.type === "application/pdf") {
-      await extractPdfText(file);
+    // Run PDF text extraction in background without blocking the core file upload
+    if (file.type === "application/pdf" || file.name.toLowerCase().endsWith('.pdf')) {
+      if (onParsedText) {
+        extractPdfText(file).catch(err => {
+          console.error("Background PDF extraction failed", err);
+        });
+      }
     }
 
     setIsUploading(true);
     setProgress(0);
     setBytesInfo("0 MB / " + (file.size / (1024 * 1024)).toFixed(2) + " MB");
 
-    const storageRef = ref(storage, `uploads/${Date.now()}_${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    // Try uploading to Firebase Storage first for maximum accessibility inside sandbox iframes
+    try {
+      const uniqueFilename = `uploads/${Date.now()}_${Math.round(Math.random() * 1e9)}_${file.name}`;
+      const storageRef = ref(storage, uniqueFilename);
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        const p = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setProgress(p);
-        setBytesInfo((snapshot.bytesTransferred / (1024 * 1024)).toFixed(2) + " MB / " + (snapshot.totalBytes / (1024 * 1024)).toFixed(2) + " MB");
-      },
-      (error) => {
-        console.error("Upload failed", error);
-        alert(`Upload failed: ${error.message} - it might be due to security rules or network issue.`);
-        setIsUploading(false);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          onUploadComplete(downloadURL);
-          setIsUploading(false);
-        });
-      }
-    );
+      uploadTask.on('state_changed', 
+        (snapshot) => {
+          const p = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(p);
+          setBytesInfo((snapshot.bytesTransferred / (1024 * 1024)).toFixed(2) + " MB / " + (snapshot.totalBytes / (1024 * 1024)).toFixed(2) + " MB");
+        }, 
+        async (error) => {
+          console.warn("[Upload] Firebase Storage upload failed, falling back to local server upload:", error);
+          uploadToLocalServer(file);
+        }, 
+        async () => {
+          try {
+            const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+            console.log("[Upload] Firebase Storage upload succeeded:", downloadUrl);
+            onUploadComplete(downloadUrl);
+            setIsUploading(false);
+          } catch (urlErr) {
+            console.error("[Upload] Failed to get Firebase download URL, falling back:", urlErr);
+            uploadToLocalServer(file);
+          }
+        }
+      );
+    } catch (fbErr) {
+      console.warn("[Upload] Firebase Storage initialization error, falling back:", fbErr);
+      uploadToLocalServer(file);
+    }
   };
 
   return (

@@ -1,5 +1,8 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, setLogLevel } from 'firebase/app';
 import { getFirestore, enableMultiTabIndexedDbPersistence, clearIndexedDbPersistence, terminate } from 'firebase/firestore';
+
+// Silence benign internal SDK debug/warning messages (like millisecond clock skew logs)
+setLogLevel('error');
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 
@@ -12,27 +15,38 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "gen-lang-client-0568439716.firebasestorage.app",
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "701773395834",
   appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:701773395834:web:c627d4e5d9de0e79edc8c3",
-  firestoreDatabaseId: import.meta.env.VITE_FIREBASE_FIRESTORE_DATABASE_ID || "(default)",
+  firestoreDatabaseId: "ai-studio-15655e8c-18ff-4359-b057-60febe5dddfc",
 };
 
-// Check if config is missing and warn the user.
-// When config is absent we must NOT call initializeApp/getAuth with an empty
-// apiKey — getAuth() throws auth/invalid-api-key synchronously and crashes the
-// entire app (white screen). Instead we run in offline mode (backup + localStorage).
-export const firebaseEnabled = Boolean(firebaseConfig.apiKey);
-
-if (!firebaseEnabled) {
-  console.warn("[Firebase] API Key is missing. Running in offline mode (backup data + localStorage). Set VITE_FIREBASE_API_KEY to enable cloud sync, auth, and uploads.");
+// Check if config is missing and warn the user
+if (!firebaseConfig.apiKey) {
+  console.warn("[Firebase] API Key is missing. Please set VITE_FIREBASE_API_KEY in your environment variables.");
 }
 
-const app = firebaseEnabled ? initializeApp(firebaseConfig) : null;
-export const db = app ? getFirestore(app, firebaseConfig.firestoreDatabaseId) : null;
+const app = initializeApp(firebaseConfig);
+// Initialize Firestore with the specific database ID from environment or fallback
+const dbId = firebaseConfig.firestoreDatabaseId;
+console.log(`[Firebase] Initializing Firestore using Database ID: "${dbId || '(default)'}"`);
+export const db = getFirestore(app, dbId);
+
+function getSafeStorageItem(key: string): string | null {
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    return null;
+  }
+}
+
+function setSafeStorageItem(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {}
+}
 
 export function handleQuotaExceeded() {
-  if (localStorage.getItem("firestore_quota_exceeded") !== "true") {
-    localStorage.setItem("firestore_quota_exceeded", "true");
+  if (getSafeStorageItem("firestore_quota_exceeded") !== "true") {
+    setSafeStorageItem("firestore_quota_exceeded", "true");
   }
-  if (!db) return;
   terminate(db)
     .then(() => {
       return clearIndexedDbPersistence(db);
@@ -45,7 +59,7 @@ export function handleQuotaExceeded() {
     });
 }
 
-if (db && localStorage.getItem("firestore_quota_exceeded") === "true") {
+if (getSafeStorageItem("firestore_quota_exceeded") === "true") {
   // Clear persistence and disable network connection immediately to stop retry noise
   // We must terminate the active DB instance before we can successfully clear IndexedDB persistence
   terminate(db)
@@ -58,7 +72,7 @@ if (db && localStorage.getItem("firestore_quota_exceeded") === "true") {
     .catch((err) => {
       console.warn("[Firebase] Failed to terminate or clear offline persistence:", err);
     });
-} else if (db) {
+} else {
   enableMultiTabIndexedDbPersistence(db).catch((err) => {
     if (err.code == 'failed-precondition') {
       console.warn('Multiple tabs open, and multi-tab is unsupported in this browser.');
@@ -68,5 +82,20 @@ if (db && localStorage.getItem("firestore_quota_exceeded") === "true") {
   });
 }
 
-export const auth = app ? getAuth(app) : null;
-export const storage = app ? getStorage(app) : null;
+export const auth = getAuth();
+export const storage = getStorage(app);
+
+// Test connection on boot to verify configuration
+import { doc, getDocFromServer } from 'firebase/firestore';
+async function testConnection() {
+  try {
+    const testDoc = await getDocFromServer(doc(db, 'portfolio', 'main'));
+    console.log("[Firebase] Connection verified. Document exists:", testDoc.exists());
+  } catch (error: any) {
+    console.error("[Firebase] Connection test failed. This usually indicates an incorrect database ID or restricted rules:", error);
+    if (error?.message?.includes('database') || error?.message?.includes('not found')) {
+       console.warn("[Firebase] CRITICAL: The database ID might be incorrect. Ensure it matches your AI Studio project settings.");
+    }
+  }
+}
+testConnection();

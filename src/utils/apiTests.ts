@@ -6,6 +6,7 @@ export async function testGemini(apiKey: string): Promise<boolean> {
     const response = await fetch('/api/test-gemini', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({ apiKey })
     });
     const data = await response.json();

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../contexts/AppContext";
-import { Lock, ArrowRight, LogOut, MessageSquarePlus, Trash2, Download, Upload, Database, HardDriveDownload, Key, CheckCircle, XCircle, Loader2, ArrowUp, ArrowDown, AlignJustify, RotateCcw, ShieldAlert, Activity } from "lucide-react";
+import { Lock, ArrowRight, LogOut, MessageSquarePlus, Trash2, Download, Upload, Database, HardDriveDownload, Key, CheckCircle, XCircle, Loader2, ArrowUp, ArrowDown, AlignJustify, RotateCcw, ShieldAlert, Activity, FileText, Video, Eye, AlertCircle } from "lucide-react";
 import { motion } from "motion/react";
 import Papa from "papaparse";
 import { testGemini } from "../utils/apiTests";
+import { FileUploader } from "../components/FileUploader";
 
 function flattenNode(node: any) {
   return {
@@ -22,10 +23,20 @@ function flattenNode(node: any) {
     "content.problem": node.content?.problem || "",
     "content.solutions": node.content?.solutions || "",
     "content.impact": node.content?.impact || "",
+    "content.railMetricVal": node.content?.railMetricVal || "",
+    "content.railMetricLbl": node.content?.railMetricLbl || "",
     "content.stat1Val": node.content?.stat1Val || "",
     "content.stat1Lbl": node.content?.stat1Lbl || "",
+    "content.stat1Desc": node.content?.stat1Desc || "",
     "content.stat2Val": node.content?.stat2Val || "",
     "content.stat2Lbl": node.content?.stat2Lbl || "",
+    "content.stat2Desc": node.content?.stat2Desc || "",
+    "content.stat3Val": node.content?.stat3Val || "",
+    "content.stat3Lbl": node.content?.stat3Lbl || "",
+    "content.stat3Desc": node.content?.stat3Desc || "",
+    "content.stat4Val": node.content?.stat4Val || "",
+    "content.stat4Lbl": node.content?.stat4Lbl || "",
+    "content.stat4Desc": node.content?.stat4Desc || "",
     "content.role": node.content?.role || "",
     "content.scope": node.content?.scope || "",
     "content.status": node.content?.status || "",
@@ -55,6 +66,7 @@ function flattenNode(node: any) {
     "content.buckets": node.content?.buckets ? JSON.stringify(node.content.buckets) : "",
     "content.proofs": node.content?.proofs ? JSON.stringify(node.content.proofs) : "",
     "content.gtms": node.content?.gtms ? JSON.stringify(node.content.gtms) : "",
+    "content.deletedSections": node.content?.deletedSections ? JSON.stringify(node.content.deletedSections) : "",
     "content.sectionSolutionFlow": node.content?.sectionSolutionFlow || "",
     "content.solutionFlowSubtitle": node.content?.solutionFlowSubtitle || "",
     "content.systemFlowSubtitle": node.content?.systemFlowSubtitle || "",
@@ -62,7 +74,8 @@ function flattenNode(node: any) {
     "content.audienceSubtitle": node.content?.audienceSubtitle || "",
     "content.bucketSubtitle": node.content?.bucketSubtitle || "",
     "content.proveSubtitle": node.content?.proveSubtitle || "",
-    "content.gtmSubtitle": node.content?.gtmSubtitle || ""
+    "content.gtmSubtitle": node.content?.gtmSubtitle || "",
+    "content.customHtml": node.content?.customHtml || ""
   };
 }
 
@@ -93,10 +106,20 @@ function unflattenNode(flat: any) {
       problem: flat["content.problem"] || "",
       solutions: flat["content.solutions"] || "",
       impact: flat["content.impact"] || "",
+      railMetricVal: flat["content.railMetricVal"] || "",
+      railMetricLbl: flat["content.railMetricLbl"] || "",
       stat1Val: flat["content.stat1Val"] || "",
       stat1Lbl: flat["content.stat1Lbl"] || "",
+      stat1Desc: flat["content.stat1Desc"] || "",
       stat2Val: flat["content.stat2Val"] || "",
       stat2Lbl: flat["content.stat2Lbl"] || "",
+      stat2Desc: flat["content.stat2Desc"] || "",
+      stat3Val: flat["content.stat3Val"] || "",
+      stat3Lbl: flat["content.stat3Lbl"] || "",
+      stat3Desc: flat["content.stat3Desc"] || "",
+      stat4Val: flat["content.stat4Val"] || "",
+      stat4Lbl: flat["content.stat4Lbl"] || "",
+      stat4Desc: flat["content.stat4Desc"] || "",
       role: flat["content.role"] || "",
       scope: flat["content.scope"] || "",
       status: flat["content.status"] || "",
@@ -126,6 +149,7 @@ function unflattenNode(flat: any) {
       buckets: parseJSONSafe(flat["content.buckets"], []),
       proofs: parseJSONSafe(flat["content.proofs"], []),
       gtms: parseJSONSafe(flat["content.gtms"], []),
+      deletedSections: parseJSONSafe(flat["content.deletedSections"], []),
       sectionSolutionFlow: flat["content.sectionSolutionFlow"] || "",
       solutionFlowSubtitle: flat["content.solutionFlowSubtitle"] || "",
       systemFlowSubtitle: flat["content.systemFlowSubtitle"] || "",
@@ -133,7 +157,8 @@ function unflattenNode(flat: any) {
       audienceSubtitle: flat["content.audienceSubtitle"] || "",
       bucketSubtitle: flat["content.bucketSubtitle"] || "",
       proveSubtitle: flat["content.proveSubtitle"] || "",
-      gtmSubtitle: flat["content.gtmSubtitle"] || ""
+      gtmSubtitle: flat["content.gtmSubtitle"] || "",
+      customHtml: flat["content.customHtml"] || ""
     }
   };
 }
@@ -638,7 +663,32 @@ export default function Admin() {
           </div>
 
           <div className="brutal-border bg-white p-8 max-w-4xl w-full mt-8 space-y-6">
-            {localStorage.getItem("firestore_quota_exceeded") === "true" && (
+            <h2 className="font-display text-xl font-bold uppercase tracking-tight flex items-center gap-2">
+              <Database className="w-6 h-6 text-primary" />
+              Firestore Configuration Verification
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+               <div className="bg-surface p-4 brutal-border">
+                  <div className="text-[10px] font-mono text-muted uppercase font-bold tracking-widest mb-1">Target Database ID</div>
+                  <div className="font-mono text-sm font-bold text-primary break-all">
+                    {import.meta.env.VITE_FIREBASE_FIRESTORE_DATABASE_ID || "ai-studio-15655e8c-18ff-4359-b057-60febe5dddfc"}
+                  </div>
+               </div>
+               <div className="bg-surface p-4 brutal-border">
+                  <div className="text-[10px] font-mono text-muted uppercase font-bold tracking-widest mb-1">Project ID</div>
+                  <div className="font-mono text-sm font-bold text-text-main break-all">
+                    {import.meta.env.VITE_FIREBASE_PROJECT_ID || "gen-lang-client-0568439716"}
+                  </div>
+               </div>
+            </div>
+            <p className="font-mono text-[10px] text-muted leading-relaxed">
+              * Note: If the Database ID above does not match your AI Studio "Firestore Database ID" precisely, 
+              writes will fail and data will appear lost on refresh.
+            </p>
+          </div>
+
+          <div className="brutal-border bg-white p-8 max-w-4xl w-full mt-8 space-y-6">
+            {(() => { try { return localStorage.getItem("firestore_quota_exceeded") === "true"; } catch (e) { return false; } })() && (
               <div className="brutal-border bg-red-50 p-6 border-red-500 max-w-4xl w-full mb-4 space-y-4">
                 <div className="flex items-center gap-3">
                   <ShieldAlert className="w-8 h-8 text-red-600" />
@@ -928,6 +978,161 @@ export default function Admin() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* FIREBASE STORAGE ASSET AUDIT & UPLOAD CENTER */}
+          <div className="brutal-border bg-white p-8 max-w-4xl w-full mt-8 space-y-6">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-border pb-6">
+              <div>
+                <h2 className="font-display text-xl font-bold uppercase tracking-tight flex items-center gap-2">
+                  <FileText className="w-6 h-6 text-primary" />
+                  Firebase Cloud Storage Asset Audit & Upload Center
+                </h2>
+                <p className="font-mono text-xs text-muted mt-2">
+                  Audit attached Cover Images, PDFs (Decks), and Videos for all nodes. Uploading a file directly attaches it to Firebase Storage and updates local cache instantly.
+                </p>
+              </div>
+              <div className="bg-amber-50 border border-amber-300 p-3 text-[10px] font-mono text-amber-800 flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 text-amber-600" />
+                <span>Uploaded files save directly to Firebase Storage bucket and sync via Firestore.</span>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              {data.nodes.map((node, index) => {
+                const hasCover = Boolean(node.assets?.bgImageUrl);
+                const hasDeck = Boolean(node.assets?.deckUrl);
+                const hasVideo = Boolean(node.assets?.videoUrl);
+                const isTargetNode = [11, 12].includes(index + 1);
+
+                return (
+                  <div 
+                    key={node.id} 
+                    className={`p-4 brutal-border bg-surface flex flex-col gap-3 transition-colors ${
+                      isTargetNode && (!hasDeck || !hasVideo || !hasCover) ? 'border-amber-400 bg-amber-50/40' : ''
+                    }`}
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/60 pb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-xs font-bold px-2 py-0.5 bg-text-main text-white">
+                          #{index + 1}
+                        </span>
+                        <span className="font-mono font-bold text-sm tracking-tight">{node.title}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[10px] font-mono flex-wrap">
+                        <span className={`px-2 py-0.5 font-bold ${hasCover ? 'bg-green-100 text-green-700 border border-green-300' : 'bg-red-100 text-red-700 border border-red-300'}`}>
+                          {hasCover ? '✓ COVER' : '❌ NO COVER'}
+                        </span>
+                        <span className={`px-2 py-0.5 font-bold ${hasDeck ? 'bg-green-100 text-green-700 border border-green-300' : 'bg-red-100 text-red-700 border border-red-300'}`}>
+                          {hasDeck ? '✓ DECK (PDF)' : '❌ NO DECK'}
+                        </span>
+                        <span className={`px-2 py-0.5 font-bold ${hasVideo ? 'bg-green-100 text-green-700 border border-green-300' : 'bg-red-100 text-red-700 border border-red-300'}`}>
+                          {hasVideo ? '✓ VIDEO' : '❌ NO VIDEO'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+                      {/* COVER IMAGE UPLOADER */}
+                      <div className="bg-white p-3 brutal-border flex flex-col justify-between gap-2">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[10px] font-bold text-muted uppercase flex items-center gap-1">
+                            <Eye className="w-3.5 h-3.5 text-primary" /> Cover Image
+                          </span>
+                          {hasCover && (
+                            <a 
+                              href={node.assets.bgImageUrl} 
+                              target="_blank" 
+                              rel="noreferrer"
+                              className="text-[9px] font-mono text-primary font-bold hover:underline flex items-center gap-1"
+                            >
+                              <Eye className="w-3 h-3" /> View Image
+                            </a>
+                          )}
+                        </div>
+                        <FileUploader 
+                          accept="image/*"
+                          label={hasCover ? "RE-UPLOAD COVER" : "UPLOAD COVER IMAGE"}
+                          onUploadComplete={(newUrl) => {
+                            updateData(prev => ({
+                              ...prev,
+                              nodes: prev.nodes.map(n => n.id === node.id ? {
+                                ...n,
+                                assets: { ...(n.assets || {}), bgImageUrl: newUrl }
+                              } : n)
+                            }));
+                          }}
+                        />
+                      </div>
+
+                      {/* PDF / DECK UPLOADER */}
+                      <div className="bg-white p-3 brutal-border flex flex-col justify-between gap-2">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[10px] font-bold text-muted uppercase flex items-center gap-1">
+                            <FileText className="w-3.5 h-3.5 text-primary" /> PDF / Presentation
+                          </span>
+                          {hasDeck && (
+                            <a 
+                              href={node.assets.deckUrl} 
+                              target="_blank" 
+                              rel="noreferrer"
+                              className="text-[9px] font-mono text-primary font-bold hover:underline flex items-center gap-1"
+                            >
+                              <Eye className="w-3 h-3" /> View Deck
+                            </a>
+                          )}
+                        </div>
+                        <FileUploader 
+                          accept="application/pdf"
+                          label={hasDeck ? "RE-UPLOAD PDF" : "UPLOAD PDF PRESENTATION"}
+                          onUploadComplete={(newUrl) => {
+                            updateData(prev => ({
+                              ...prev,
+                              nodes: prev.nodes.map(n => n.id === node.id ? {
+                                ...n,
+                                assets: { ...(n.assets || {}), deckUrl: newUrl }
+                              } : n)
+                            }));
+                          }}
+                        />
+                      </div>
+
+                      {/* VIDEO UPLOADER */}
+                      <div className="bg-white p-3 brutal-border flex flex-col justify-between gap-2">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-[10px] font-bold text-muted uppercase flex items-center gap-1">
+                            <Video className="w-3.5 h-3.5 text-primary" /> MP4 Video
+                          </span>
+                          {hasVideo && (
+                            <a 
+                              href={node.assets.videoUrl} 
+                              target="_blank" 
+                              rel="noreferrer"
+                              className="text-[9px] font-mono text-primary font-bold hover:underline flex items-center gap-1"
+                            >
+                              <Eye className="w-3 h-3" /> View Video
+                            </a>
+                          )}
+                        </div>
+                        <FileUploader 
+                          accept="video/mp4"
+                          label={hasVideo ? "RE-UPLOAD VIDEO" : "UPLOAD MP4 VIDEO"}
+                          onUploadComplete={(newUrl) => {
+                            updateData(prev => ({
+                              ...prev,
+                              nodes: prev.nodes.map(n => n.id === node.id ? {
+                                ...n,
+                                assets: { ...(n.assets || {}), videoUrl: newUrl }
+                              } : n)
+                            }));
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

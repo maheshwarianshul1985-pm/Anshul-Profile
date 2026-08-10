@@ -7,15 +7,14 @@ import { Editable } from "../components/Editable";
 
 export function DesktopSidebar() {
   const location = useLocation();
-  const { data, updateData } = useApp();
+  const { data, updateData, isAdmin } = useApp();
 
   const navItems = [
     { key: "dash", label: data.navLabels?.dash || "DASH", icon: LayoutDashboard, path: "/" },
-    { key: "log", label: data.navLabels?.log || "LOG", icon: ScrollText, path: "/resume" },
-    { key: "media", label: data.navLabels?.media || "MEDIA", icon: ImageIcon, path: "#" },
-    { key: "ping", label: data.navLabels?.ping || "PING", icon: Radio, path: "/contact" },
+    { key: "log", label: data.navLabels?.log || "RESUME / WORK EXP", icon: ScrollText, path: "/resume" },
+    ...(isAdmin ? [{ key: "ping", label: data.navLabels?.ping || "PING", icon: Radio, path: "/contact" }] : []),
     { key: "admin", label: data.navLabels?.admin || "ADMIN", icon: Settings, path: "/admin" },
-  ] as const;
+  ];
 
   return (
     <motion.aside 
@@ -31,8 +30,8 @@ export function DesktopSidebar() {
             style={{ backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuABmU3C_Zl9W4oHNFkb_cWdtPDliaAXjVGDidzRSQUBuIy863Y1A8BlMdrvaLU5VymOzYhFqNgYrwIxdzjpGmf1M5a4enmDQJEV5Tv3Q6_CcgMMTpIxJ01zNMsANWuAqR9Ult8QGtdr0E-sXLSpfKBOXqa3KGa6hfGtzktZs2_z_-pGnhK6SFOkuoOzSvwOAFggR5TkUzvRiMF4SGY4E3ETJnl7DVKIExUAKSnxzp436_NCzuCEryGYO1Aqz-qxOQuLbhqIfztqthN_')` }}
           />
           <div className="flex flex-col">
-            <h1 className="text-text-main text-sm font-bold leading-tight uppercase font-display">AM</h1>
-            <p className="text-primary text-xs font-medium leading-tight">Product & Ops</p>
+            <h1 className="text-text-main text-xs font-extrabold leading-tight uppercase font-display tracking-tight">Anshul Maheshwari</h1>
+            <p className="text-primary text-[11px] font-medium leading-tight mt-0.5">Product & Ops</p>
           </div>
         </div>
 
@@ -64,7 +63,7 @@ export function DesktopSidebar() {
                     value={item.label} 
                     onChange={(v) => updateData(prev => ({ 
                       ...prev, 
-                      navLabels: { ...(prev.navLabels || {dash:'DASH',log:'LOG',media:'MEDIA',ping:'PING',admin:'ADMIN'}), [item.key]: v } 
+                    navLabels: { ...(prev.navLabels || {dash:'DASH',log:'RESUME / WORK EXP',ping:'PING',admin:'ADMIN'}), [item.key]: v } 
                     }))} 
                   />
                 </span>

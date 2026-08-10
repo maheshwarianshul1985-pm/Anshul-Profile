@@ -43,22 +43,8 @@ export default defineConfig(({mode}) => {
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modify—file watching is disabled to prevent flickering during agent edits.
+      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
     },
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-            'firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage'],
-            'charts': ['recharts', 'd3-geo', 'topojson-client', 'react-simple-maps'],
-            'pdf': ['pdfjs-dist'],
-            'ui': ['lucide-react', 'motion', 'clsx', 'tailwind-merge']
-          }
-        }
-      },
-      chunkSizeWarningLimit: 1000
-    }
   };
 });
